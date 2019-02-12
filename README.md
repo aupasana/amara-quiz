@@ -8,7 +8,13 @@ amara kosha quiz application
 
 ## Running locally via docker
 
-- docker pull aupasana/amara-quiz                         // Or clone this repo
+- docker pull aupasana/amara-quiz
+- docker run -p 8888:5000 [aupasana/amara-quiz]           // Replace [] as appropriate
+- browse to http://localhost:8888
+
+## Building locally
+
+- Clone this repo
 - docker build -t [aupasana/amara-quiz] .                 // Replace [] as appropriate
 - docker run -p 8888:5000 [aupasana/amara-quiz]           // Replace [] as appropriate
 - browse to http://localhost:8888
