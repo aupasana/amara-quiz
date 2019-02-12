@@ -1,0 +1,60 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background: beige;
+        color: black;
+      }
+      div.container {
+        max-width: 500px;
+        margin: 100px auto;
+        border: 20px solid brown;
+        padding: 10px;
+        text-align: center;
+      }
+      .varga {
+        padding-top: 10px;
+      }
+      .question {
+        font-size: x-large;
+        padding-bottom: 50px;
+      }
+      .answer {
+        padding-top: 10px;
+        display: none;
+      }
+      .sloka-number {
+        display: none;
+      }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $(".toggle").click(function(){
+        $(".answer").toggle();
+      });
+    });
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <button onclick=location=URL>Refresh</button>
+
+      <div class="varga">
+        ({{varga}})
+      </div>
+      <div class="question">
+        प्रश्नः -- {{question}}
+      </div>
+
+      <button class="toggle">Show / hide answer</button>
+
+      <div class="answer">
+        {{answer}} <a href="amara_mulam.html#{{sloka_number}}" target="amara-answer">{{sloka_index}} </a>
+        <p/>
+        {{context | safe}}
+      </div>
+
+    </div>
+  </body>
+</html>
