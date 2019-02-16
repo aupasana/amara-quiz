@@ -1,6 +1,4 @@
 from flask import Flask, render_template, request
-from werkzeug.utils import secure_filename
-from bs4 import BeautifulSoup
 import random
 
 app = Flask(__name__, static_url_path='', static_folder='static')
@@ -15,7 +13,7 @@ def index():
 def quiz():
 
     filter = request.args.get('varga')
-    filename = 'amara/tokens_' + filter + '.utf8'
+    filename = 'amara/tokens/tokens_' + filter + '.utf8'
     # filename = secure_filename(filename)
     lines = open(filename).read().splitlines()
 
@@ -31,12 +29,11 @@ def quiz():
     answer = question_line_parts[4]
     answer = answer.replace("_", " ")
 
-    mulam_html = open('static/amara_mulam.html')
-    soup = BeautifulSoup(mulam_html, 'html.parser')
+    context_filename = 'amara/slokas/Sloka_' + sloka_number + '.utf8'
+    context = open(context_filename).read().splitlines()
+    context_html = "<br/>".join(context)
 
-    context = soup.findAll('div', attrs={'id' : sloka_number})[0]
-
-    return render_template('quiz.html', question=question, varga=varga, answer=answer, sloka_index=sloka_index, sloka_number=sloka_number, context=context, filter=filter)
+    return render_template('quiz.html', question=question, varga=varga, answer=answer, sloka_index=sloka_index, sloka_number=sloka_number, context=context_html, filter=filter)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
