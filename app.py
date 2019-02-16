@@ -25,12 +25,16 @@ def quiz():
     varga = question_line_parts[3]
     sloka_index_parts = sloka_index.split(".")
     sloka_index_relevant_parts = sloka_index_parts[0:3]
+    sloka_index_line = sloka_index_parts[3]
     sloka_number = ".".join(sloka_index_relevant_parts)
     answer = question_line_parts[4]
     answer = answer.replace("_", " ")
 
     context_filename = 'amara/slokas/Sloka_' + sloka_number + '.utf8'
     context = open(context_filename).read().splitlines()
+
+    context_index = int(sloka_index_line)-1
+    context[context_index] = '<span class="highlight">' + context[context_index] + '</span>'
     context_html = "<br/>".join(context)
 
     return render_template('quiz.html', question=question, varga=varga, answer=answer, sloka_index=sloka_index, sloka_number=sloka_number, context=context_html, filter=filter)

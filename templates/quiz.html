@@ -26,26 +26,17 @@
       .sloka-number {
         display: none;
       }
+      .highlight {
+        background-color: yellow;
+      }
     </style>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.min.js"></script>
     <script>
     $(document).ready(function(){
       $(".toggle").click(function(){
         $(".answer").toggle();
         $(".toggle").hide();
       });
-
-      var markTrimOptions = {
-          "noMatch": function(range){
-            var question = "{{question}}";
-            var questionTrimmed = question.substr(1, question.length - 2);
-
-            $(".amara-context").mark(questionTrimmed, markTrimOptions);
-          },
-      };
-
-      $(".amara-context").mark("{{question}}", markTrimOptions);
     });
     </script>
   </head>
