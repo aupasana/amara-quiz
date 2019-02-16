@@ -9,9 +9,14 @@
         max-width: 500px;
         margin: 100px auto;
         border: 20px solid brown;
-        padding: 10px;
+        padding: 20px;
         text-align: center;
         font-size: x-large;
+      }
+      .varga-select, .quiz-button {
+        -webkit-appearance: none;
+        font-size: x-large;
+        padding: 10pt;
       }
     </style>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -26,13 +31,17 @@
   <body>
     <div class="container">
 
-      <select id="all_vargas" name= all_vargas method="GET" action="/">
+      <h3>अमरकोष-शब्दसम्पत्-वर्धिनी</h3>
+
+      <select class="varga-select" id="all_vargas" name= all_vargas method="GET" action="/">
+        <optgroup class="varga-select">
           {% for varga in all_vargas %}
-          <option value= "{{varga}}" >{{varga}}</option>
+          <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
           {% endfor %}
+        </optgroup>
       </select>
 
-      <button id="quizButton">start quiz</button>
+      <button class="quiz-button" id="quizButton">start quiz</button>
 
     </div>
   </body>
