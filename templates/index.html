@@ -11,49 +11,28 @@
         border: 20px solid brown;
         padding: 10px;
         text-align: center;
-      }
-      .varga {
-        padding-top: 10px;
-      }
-      .question {
         font-size: x-large;
-        padding-bottom: 50px;
-      }
-      .answer {
-        padding-top: 10px;
-        display: none;
-      }
-      .sloka-number {
-        display: none;
       }
     </style>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
     $(document).ready(function(){
-      $(".toggle").click(function(){
-        $(".answer").toggle();
+      $('#quizButton').click(function() {
+        window.location = "/quiz?varga=" + $('#all_vargas').val();
       });
     });
     </script>
   </head>
   <body>
     <div class="container">
-      <button onclick=location=URL>Refresh</button>
 
-      <div class="varga">
-        ({{varga}})
-      </div>
-      <div class="question">
-        प्रश्नः -- {{question}}
-      </div>
+      <select id="all_vargas" name= all_vargas method="GET" action="/">
+          {% for varga in all_vargas %}
+          <option value= "{{varga}}" >{{varga}}</option>
+          {% endfor %}
+      </select>
 
-      <button class="toggle">Show / hide answer</button>
-
-      <div class="answer">
-        {{answer}} <a href="amara_mulam.html#{{sloka_number}}" target="amara-answer">{{sloka_index}} </a>
-        <p/>
-        {{context | safe}}
-      </div>
+      <button id="quizButton">start quiz</button>
 
     </div>
   </body>
