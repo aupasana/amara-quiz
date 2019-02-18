@@ -23,6 +23,9 @@
         padding-top: 10px;
         display: none;
       }
+      .amara-context {
+        padding-top: 10px;
+      }
       .sloka-number {
         display: none;
       }
@@ -56,14 +59,18 @@
       <button class="toggle">show answer</button>
 
       <div class="answer">
-        {{question}} == {{answer}}
+        {{question}}, {{linga}} == {{answer}}
 
-        <p/><a href="https://dsalsrv04.uchicago.edu/cgi-bin/app/apte_query.py?qs={{question}}" target="amara-apte">search apte dictionary for {{question}}</a>
-        <p/>अमरे <a href="amara_mulam.html#{{sloka_number}}" target="amara-answer">{{sloka_index}}</a> श्लोकमात्रम् --
+        <div class="synonyms">[ {{synonyms}} ]</div>
 
         <div class="amara-context">
+          <a href="amara_mulam.html#{{sloka_number}}" target="amara-answer">{{sloka_index}}</a>
+          <br/>
             {{context | safe}}
         </div>
+
+        <p/><a href="https://dsalsrv04.uchicago.edu/cgi-bin/app/apte_query.py?qs={{question}}" target="amara-apte">search apte dictionary for {{question}}</a>
+
       </div>
 
     </div>
