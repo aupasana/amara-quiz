@@ -5,6 +5,8 @@ amara kosha quiz application
 - The underlying data is mastered at https://github.com/sanskrit-coders/uohyd/tree/master/scl-master/amarakosha
   - amara_mulam.utf8 is forked from amara.utf8
   - amara_tokens*.utf8 is forked from all_kANdas
+  
+ Note: this is a quick and dirty implementation.
 
 ## Running locally via docker
 
