@@ -1,7 +1,7 @@
-file=static/amara_mulam.html
+file=docker/static/amara_mulam.html
 
 # line breaks at । and ॥
-cp amara/amara_mulam.utf8 $file
+cp scripts/amara_mulam.utf8 $file
 gsed -i -e 's/।/।<br\/>/g' $file
 gsed -i -e 's/॥/॥<br\/>/g' $file
 
@@ -15,4 +15,4 @@ gsed -i -e 's/<\/doc>/<\/body><\/html>/g' $file
 
 sed -i -e "1r scripts/mulam_head.txt" $file
 
-rm static/amara_mulam.html-e
+rm docker/static/amara_mulam.html-e
