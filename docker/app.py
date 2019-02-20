@@ -20,6 +20,22 @@ def index():
     # finally:
     #     con.close()
 
+@app.route('/search')
+def search():
+
+    term = request.args.get('term')
+
+    try:
+        with sql.connect('amara.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada = '%s' limit 25;" % term)
+            rows = cur.fetchall();
+
+            return render_template('search.html', rows=rows, term=term)
+    finally:
+        con.close()
+
 @app.route('/quiz')
 def quiz():
 

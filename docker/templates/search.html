@@ -1,0 +1,55 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background: beige;
+        color: black;
+      }
+      div.container {
+        max-width: 600px;
+        margin: 100px auto;
+        border: 20px solid brown;
+        padding: 10px;
+        text-align: center;
+      }
+      .term {
+        style: bold;
+        font-size: x-large;
+        padding-bottom: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content-outer" class="container">
+
+      <div class="term">Search term: {{term}}</div>
+
+      <table>
+        <thead>
+          <th>पदम्</th>
+          <th>वर्गः</th>
+          <th>लिङ्गम्</th>
+          <th>अर्थः</th>
+          <th>अमरे</th>
+          <th>श्लोकः</th>
+        </thead>
+        <tbody>
+          {% for row in rows %}
+            <tr>
+              <td>{{row["pada"]}}</td>
+              <td>{{row["varga"]}}</td>
+              <td>{{row["linga"]}}</td>
+              <td>{{row["artha"]}}</td>
+              <td><a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a></td>
+              <td>{{row["sloka_text"] | replace("।","।<br/>") | replace("॥","॥<br/>") | safe }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+
+        <a href="https://dsalsrv04.uchicago.edu/cgi-bin/app/apte_query.py?qs={{term}}" target="amara-apte">search apte dictionary for {{term}}</a>
+
+    </div>
+
+  </body>
+</html>
