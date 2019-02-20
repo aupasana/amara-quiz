@@ -27,8 +27,17 @@ def index():
 @app.route('/search')
 def search():
 
+    limit = 10
+    offset = 0
+
     user_term = request.args.get('term')
+    page = request.args.get('page')
     term = user_term
+
+    if not page:
+        page = 1
+
+    offset = limit*(int(page) - 1)
 
     transliterate_regex = re.compile('.*[a-zA-Z].*')
     if (transliterate_regex.match(term)):
@@ -40,10 +49,10 @@ def search():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada like '%s' or artha like '%s' order by id limit 75;" % (term, term))
+            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada like '%s' or artha like '%s' order by id limit %d offset %d;" % (term, term, limit, offset))
             rows = cur.fetchall();
 
-            return render_template('search.html', rows=rows, user_term=user_term, term=term)
+            return render_template('search.html', rows=rows, user_term=user_term, term=term, page=page)
     finally:
         con.close()
 
