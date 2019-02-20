@@ -67,7 +67,7 @@
             <tbody>
               {% for row in rows %}
                 <tr>
-                  <td>{{loop.index}}</td>
+                  <td>{{((page | int) - 1) * 10 + loop.index}}</td>
                   <td>{{row["pada"]}}</td>
                   <td>{{row["varga"]}}</td>
                   <td>{{row["linga"]}}</td>
