@@ -1,6 +1,10 @@
 from flask import Flask, render_template, request, current_app, g
+from indic_transliteration import sanscript
+from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
+
 import random
 import sqlite3 as sql
+import re
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
@@ -23,17 +27,23 @@ def index():
 @app.route('/search')
 def search():
 
-    term = request.args.get('term')
-    like_term = '%' + term + '%'
+    user_term = request.args.get('term')
+    term = user_term
+
+    transliterate_regex = re.compile('.*[a-zA-Z].*')
+    if (transliterate_regex.match(term)):
+        term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
+
+    term = term.replace("*", "%")
 
     try:
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada like '%s' or artha like '%s' order by id limit 75;" % (like_term, like_term))
+            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada like '%s' or artha like '%s' order by id limit 75;" % (term, term))
             rows = cur.fetchall();
 
-            return render_template('search.html', rows=rows, term=term)
+            return render_template('search.html', rows=rows, term=user_term)
     finally:
         con.close()
 

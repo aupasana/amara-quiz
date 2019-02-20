@@ -1,1 +1,2 @@
 Flask==0.12.3
+indic_transliteration==1.7.8
