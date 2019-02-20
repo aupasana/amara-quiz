@@ -13,6 +13,6 @@ gsed -i -e 's/<\/Sloka_.*>/<\/div>/g' $file
 gsed -i -e $'s/<doc>/<html>\\\n<body>/g' $file
 gsed -i -e 's/<\/doc>/<\/body><\/html>/g' $file
 
-sed -i -e "1r scripts/mulam_head.txt" $file
+sed -i -e "1r database/mulam_head.txt" $file
 
 rm docker/static/amara_mulam.html-e
