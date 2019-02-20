@@ -1,6 +1,6 @@
 # amara-quiz
 
-This amara kosha applications does the following:
+This amara kosha application has the following capabilities
 
 - generates quiz words for practice and provides the meaning and relevant quotes from the amara
 - allows basic search (with wildcards) of amara kosha words
