@@ -1,7 +1,7 @@
 file=docker/static/amara_mulam.html
 
 # line breaks at । and ॥
-cp scripts/amara_mulam.utf8 $file
+cp database/amara_mulam.utf8 $file
 gsed -i -e 's/।/।<br\/>/g' $file
 gsed -i -e 's/॥/॥<br\/>/g' $file
 

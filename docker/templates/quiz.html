@@ -76,7 +76,7 @@
               <div class="amara-context">
                 <a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a>
                 <br/>
-                  {{row["sloka_text"] | safe}}
+                  {{context_html | safe}}
               </div>
 
               <p/><a href="https://dsalsrv04.uchicago.edu/cgi-bin/app/apte_query.py?qs={{row['pada']}}" target="amara-apte">search apte dictionary for {{row["pada"]}}</a>
