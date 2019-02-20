@@ -30,6 +30,9 @@
         font-size: medium;
         text-align: left;
       }
+      .searchHint {
+        font-size: medium;
+      }
     </style>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
     <script>
@@ -47,7 +50,7 @@
   <body>
     <div class="container">
 
-      <h3>अमरकोष-शब्दसम्पत्-वर्धिनी</h3>
+      <h3>अमरकोषसम्पद्वर्धिनी</h3>
 
       <select class="varga-select" id="all_vargas" name= all_vargas method="GET" action="/">
         <optgroup class="varga-select">
@@ -64,11 +67,14 @@
       <input type="text" class="search-term" id="searchTerm" placeholder="पदम् / padam*"></input>
       <button class="search-button" id="searchButton">search</button>
 
+      <br/>
+      <span class="searchHint">
+        Enter search text as unicode देवनागरी or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a> text.
+      </span>
+
       <div class="description">
-        This application is a training aid for those who are memorizing the अमरकोष.
-        For each question, it quotes the appropriate lines from the amarakosha, and
-        lists synonyms. Basic search of the amarakosha (unicode devanagari / itrans)
-        is also supported. 
+        This application is a training aid for those who are memorizing the amarakosha.
+        It supports simple quizzes as well as basic search of the text.
         The sources are on <a href="https://github.com/aupasana/amara-quiz">github</a>.
       </div>
 

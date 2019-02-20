@@ -43,7 +43,7 @@ def search():
             cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada like '%s' or artha like '%s' order by id limit 75;" % (term, term))
             rows = cur.fetchall();
 
-            return render_template('search.html', rows=rows, term=user_term)
+            return render_template('search.html', rows=rows, user_term=user_term, term=term)
     finally:
         con.close()
 
