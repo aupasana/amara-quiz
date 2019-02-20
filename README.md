@@ -1,12 +1,16 @@
 # amara-quiz
-amara kosha quiz application
 
-- Code is based on docker-curriculum
-- The underlying data is mastered at https://github.com/sanskrit-coders/uohyd/tree/master/scl-master/amarakosha
+This amara kosha application has the following capabilities
+
+- generates quiz words for practice and provides the meaning and relevant quotes from the amara
+- allows basic search (with wildcards) of amara kosha words
+
+## notes
+
+- code is based on docker-curriculum
+- the underlying data is mastered at https://github.com/sanskrit-coders/uohyd/tree/master/scl-master/amarakosha
   - amara_mulam.utf8 is forked from amara.utf8
   - amara_tokens*.utf8 is forked from all_kANdas
-  
- Note: this is a quick and dirty implementation.
 
 ## Running locally via docker
 
@@ -17,6 +21,7 @@ amara kosha quiz application
 ## Building locally
 
 - Clone this repo
+- database/init_db.sh                                     // Requires various dependencies including sqlite3, xmlstarlet, gsed
 - docker build -t [aupasana/amara-quiz] .                 // Replace [] as appropriate
 - docker run -p 8888:5000 [aupasana/amara-quiz]           // Replace [] as appropriate
 - browse to http://localhost:8888
