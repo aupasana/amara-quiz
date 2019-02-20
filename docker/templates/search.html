@@ -30,15 +30,21 @@
     <script>
       $(document).ready(function(){
           window.page = 1;
+          $("#button-previous").prop('disabled',true);
 
           $("#button-previous").click(function() {
             window.page = window.page-1;
             $('#content-inner').load('/search?term={{user_term}}&page=' + window.page + ' #content-inner');
+
+            if (window.page === 1) {
+              $("#button-previous").prop('disabled',true);              
+            }
           });
 
           $("#button-next").click(function() {
             window.page = window.page+1;
             $('#content-inner').load('/search?term={{user_term}}&page=' + window.page + ' #content-inner');
+            $("#button-previous").prop('disabled',false);
           });
 
       });
