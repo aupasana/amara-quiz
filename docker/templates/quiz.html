@@ -53,31 +53,36 @@
       <button onclick=location="/">home</button>
       <button id="refresh">new question</button>
 
-      <div class="varga">
-        ({{varga}})
-      </div>
-
       <div id="content-inner">
-        <div class="question">
-          प्रश्नः -- {{question}}
-        </div>
+        {% for row in rows %}
 
-        <button id="show-answer" class="toggle">show answer</button>
+            <div class="varga">
+              ({{row["varga"]}})
+            </div>
 
-        <div id="answer" class="answer">
-          {{question}}, {{linga}} == {{answer}}
+            <div class="question">
+              प्रश्नः -- {{row["pada"]}}
+            </div>
 
-          <div class="synonyms">[ {{synonyms}} ]</div>
+            <button id="show-answer" class="toggle">show answer</button>
 
-          <div class="amara-context">
-            <a href="amara_mulam.html#{{sloka_number}}" target="amara-answer">{{sloka_index}}</a>
-            <br/>
-              {{context | safe}}
-          </div>
+            <div id="answer" class="answer">
+              {{row["pada"]}}, {{row["linga"]}} == {{row["artha"]}}
 
-          <p/><a href="https://dsalsrv04.uchicago.edu/cgi-bin/app/apte_query.py?qs={{question}}" target="amara-apte">search apte dictionary for {{question}}</a>
+              <div class="synonyms">
+                [ {% for p in paryaya %}{{p["pada"]}} {% endfor %} ]
+              </div>
 
-        </div>
+              <div class="amara-context">
+                <a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a>
+                <br/>
+                  {{row["sloka_text"] | safe}}
+              </div>
+
+              <p/><a href="https://dsalsrv04.uchicago.edu/cgi-bin/app/apte_query.py?qs={{row['pada']}}" target="amara-apte">search apte dictionary for {{row["pada"]}}</a>
+
+            </div>
+        {% endfor %}
       </div>
 
     </div>
