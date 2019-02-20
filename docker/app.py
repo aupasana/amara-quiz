@@ -24,12 +24,13 @@ def index():
 def search():
 
     term = request.args.get('term')
+    like_term = '%' + term + '%'
 
     try:
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada = '%s' limit 25;" % term)
+            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada like '%s' or artha like '%s' order by id limit 75;" % (like_term, like_term))
             rows = cur.fetchall();
 
             return render_template('search.html', rows=rows, term=term)

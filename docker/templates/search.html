@@ -6,8 +6,7 @@
         color: black;
       }
       div.container {
-        max-width: 600px;
-        margin: 100px auto;
+        max-width: 800px;
         border: 20px solid brown;
         padding: 10px;
         text-align: center;
@@ -16,6 +15,15 @@
         style: bold;
         font-size: x-large;
         padding-bottom: 10px;
+      }
+      table {
+        border: 1px solid black;
+        width: 100%;
+        text-align: center;
+      }
+      th, td {
+        border: 1px dotted grey;
+        text-align: center;
       }
     </style>
   </head>
@@ -26,6 +34,7 @@
 
       <table>
         <thead>
+          <th>&nbsp;</th>
           <th>पदम्</th>
           <th>वर्गः</th>
           <th>लिङ्गम्</th>
@@ -36,6 +45,7 @@
         <tbody>
           {% for row in rows %}
             <tr>
+              <td>{{loop.index}}</td>
               <td>{{row["pada"]}}</td>
               <td>{{row["varga"]}}</td>
               <td>{{row["linga"]}}</td>
