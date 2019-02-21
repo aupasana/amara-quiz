@@ -56,6 +56,29 @@ def search():
     finally:
         con.close()
 
+@app.route('/sloka')
+def sloka():
+
+    sloka_number = request.args.get('sloka_number')
+
+    sloka_number_parts = sloka_number.split('.')
+
+    sloka_number_previous = "%s.%s.%d" % (sloka_number_parts[0], sloka_number_parts[1], int(sloka_number_parts[2])-1)
+    sloka_number_next = "%s.%s.%d" % (sloka_number_parts[0], sloka_number_parts[1], int(sloka_number_parts[2])+1)
+
+    try:
+        with sql.connect('amara.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada.sloka_number = '%s' order by id;" % sloka_number)
+            rows = cur.fetchall();
+
+
+
+            return render_template('sloka.html', rows=rows, sloka_number=sloka_number, varga=rows[0]["varga"], sloka_text=rows[0]["sloka_text"], sloka_number_previous=sloka_number_previous, sloka_number_next=sloka_number_next)
+    finally:
+        con.close()
+
 @app.route('/quiz')
 def quiz():
 

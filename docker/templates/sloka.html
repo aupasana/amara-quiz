@@ -1,0 +1,74 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background: beige;
+        color: black;
+      }
+      div.container {
+        max-width: 800px;
+        border: 20px solid brown;
+        padding: 10px;
+        text-align: center;
+      }
+      .sloka-number {
+        font-size: large;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+      .sloka {
+        style: bold;
+        font-size: x-large;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+      table {
+        border: 1px solid black;
+        width: 100%;
+        text-align: center;
+      }
+      th, td {
+        border: 1px dotted grey;
+        text-align: center;
+      }
+    </style>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+  </head>
+  <body>
+    <div id="content-outer" class="container">
+
+      <div id="content-inner">
+
+          <div class="sloka-number">
+              <button id="button-previous" onclick="window.location.href='/sloka?sloka_number={{sloka_number_previous}}'">previous</button>
+              {{varga}} {{sloka_number}}
+              <button id="button-next" onclick="window.location.href='/sloka?sloka_number={{sloka_number_next}}'">next</button>
+          </div>
+
+          <div class="sloka">{{sloka_text | replace("।","।<br/>") | replace("॥","॥<br/>") | safe }}</div>
+
+          <table id="results">
+            <thead>
+              <th>&nbsp;</th>
+              <th>पदम्</th>
+              <th>लिङ्गम्</th>
+              <th>अर्थः</th>
+            </thead>
+            <tbody>
+              {% for row in rows %}
+                <tr>
+                  <td>{{row["sloka_reference"]}}</td>
+                  <td>{{row["pada"]}}</td>
+                  <td>{{row["linga"]}}</td>
+                  <td>{{row["artha"]}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>

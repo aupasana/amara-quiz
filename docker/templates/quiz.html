@@ -74,7 +74,8 @@
               </div>
 
               <div class="amara-context">
-                <a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a>
+                <a href="/sloka?sloka_number={{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a>
+                <!-- <a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a> -->
                 <br/>
                   {{context_html | safe}}
               </div>
