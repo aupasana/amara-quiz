@@ -2,8 +2,9 @@
 
 rm docker/amara.db
 sqlite3 docker/amara.db < database/schema.sql
-database/init_all_slokas.sh
-database/init_pada_csv.pl
+database/create_sloka_csv.pl
+database/create_pada_csv.pl
+sqlite3 -separator ',' docker/amara.db ".import database/tmp_sloka_lines.csv mulam"
 sqlite3 -separator ',' docker/amara.db ".import database/tmp_tokens.csv pada"
+rm database/tmp_sloka_lines.csv
 rm database/tmp_tokens.csv
-database/gen_mulam_html.sh
