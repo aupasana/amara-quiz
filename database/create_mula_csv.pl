@@ -10,6 +10,7 @@ open(my $output, '>', "database/tmp_mula.csv") or die "Could not open output fil
 
 
 my @kanda_names = ("/doc/amara/kANda_1", "/doc/amara/kANda_2", "/doc/amara/kANda_3");
+my $uid=0;
 
 foreach my $kanda (@kanda_names) {
   foreach my $sloka ($dom->findnodes($kanda)) {
@@ -22,7 +23,7 @@ foreach my $kanda (@kanda_names) {
 
             my $line = 1;
             for (grep { /\S/ } split /^/, $text) {
-              printf $output ("%s,%s.%d,,%s", $1, $1, $line++, $_);
+              printf $output ("%d,%s,%s.%d,,%s", $uid++, $1, $1, $line++, $_);
             }
           }
         }

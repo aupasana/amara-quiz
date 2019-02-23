@@ -6,6 +6,7 @@ DROP TABLE IF EXISTS pada;
 GO
 
 CREATE TABLE mula (
+  id INTEGER UNIQUE,
   sloka_number TEXT NOT NULL,
   sloka_line TEXT UNIQUE PRIMARY KEY NOT NULL,
   varga TEXT,
