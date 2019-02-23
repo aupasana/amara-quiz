@@ -52,7 +52,7 @@ def search():
             cur = con.cursor()
 
             if len(term_words) == 1:
-                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada like '%s' or artha like '%s' order by id limit %d offset %d;" % (term, term, limit, offset))
+                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada like ? or artha like ? order by id limit ? offset ?;", [term, term, limit, offset])
                 rows = cur.fetchall();
             else:
                 query = "select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada in (%s) order by pada limit 100;" % ','.join('?' for i in term_words)
@@ -77,10 +77,10 @@ def sloka():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from mula where sloka_number = '%s' order by sloka_line;" % sloka_number)
+            cur.execute("select * from mula where sloka_number = ? order by sloka_line;", [sloka_number])
             mula = cur.fetchall();
 
-            cur.execute("select * from pada where sloka_number = '%s' order by id;" % sloka_number)
+            cur.execute("select * from pada where sloka_number = ? order by id;", [sloka_number])
             pada = cur.fetchall();
 
             varga = ""
@@ -102,11 +102,11 @@ def quiz():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = '%s' order by random() limit 1;" % varga)
+            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? order by random() limit 1;", [varga])
             rows = cur.fetchall();
 
             artha = rows[0]["artha"];
-            cur.execute("select pada from pada where varga = '%s' and artha = '%s' order by id" % (varga, artha));
+            cur.execute("select pada from pada where varga = ? and artha = ? order by id", [varga, artha]);
             paryaya = cur.fetchall();
 
             return render_template('quiz.html', rows=rows, paryaya=paryaya, varga=varga)
@@ -124,11 +124,13 @@ def varga():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from mula where varga = '%s';" % varga)
-            # cur.execute("select * from mula where sloka_number in (select distinct sloka_number from pada where varga='%s');" % varga)
+
+            if varga:
+                cur.execute("select * from mula where varga = ?;", [varga])
+                # cur.execute("select * from mula where sloka_number in (select distinct sloka_number from pada where varga='%s');" % varga)
+            else:
+                cur.execute("select * from mula")
             mula = cur.fetchall();
-
-
 
             return render_template('varga.html', mula=mula, varga=varga)
     finally:
