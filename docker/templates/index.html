@@ -13,25 +13,29 @@
         text-align: center;
         font-size: x-large;
       }
-      .varga-select, .quiz-button, .search-button {
-        -webkit-appearance: none;
-        font-size: x-large;
-        padding: 10px;
-        width: 175px;
-      }
-      .search-term {
+      .varga-select, .quiz-button, .search-button, .sloka-button {
         -webkit-appearance: none;
         font-size: x-large;
         padding: 10pt;
-        width: 175px;
+        width: 225px;
+      }
+      .search-term, .sloka-term {
+        -webkit-appearance: none;
+        font-size: x-large;
+        padding: 10pt;
+        width: 225px;
       }
       .description {
-        padding-top: 20px;
         font-size: medium;
         text-align: left;
       }
       .searchHint {
         font-size: medium;
+      }
+      .searchHintRectangle {
+        width: 350px;
+        padding-left: 75px;
+        text-align: left;
       }
     </style>
     <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
@@ -43,6 +47,10 @@
 
       $('#searchButton').click(function() {
         window.location = "/search?term=" + $('#searchTerm').val();
+      });
+
+      $('#slokaButton').click(function() {
+        window.location = "/sloka?sloka_number=" + $('#slokaTerm').val();
       });
     });
     </script>
@@ -63,20 +71,29 @@
       <button class="quiz-button" id="quizButton">start quiz</button>
 
       <p/>
+      <input type="text" class="sloka-term" id="slokaTerm" placeholder="1.1.1"></input>
+      <button class="sloka-button" id="slokaButton">show sloka</button>
+
+      <p/>
 
       <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
       <button class="search-button" id="searchButton">search</button>
 
-      <br/>
-      <span class="searchHint">
-        Enter search terms in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">unicode देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a> format.
-        <br/>Wildcards are supported eg. indra*, वि*वत्, *dra
-      </span>
+      <div class="searchHintRectangle">
+        <span class="searchHint">
+          Enter search text in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a> format.
+          Examples: "indra*", "वि*वत्", "*dra", "शिव शक्ति"
+        </span>
+      </div>
 
-      <div class="description">
-        This application is a training aid for those who are memorizing the amarakosha.
-        It supports simple quizzes as well as basic search of the text.
-        The sources are on <a href="https://github.com/aupasana/amara-quiz">github</a>.
+      <p/>
+
+      <div class="searchHintRectangle">
+        <span class="searchHint">
+          This application is a training aid for those who are memorizing the amarakosha.
+          It supports simple quizzes as well as basic search of the text.
+          The sources are on <a href="https://github.com/aupasana/amara-quiz">github</a>.
+        </div>
       </div>
 
     </div>
