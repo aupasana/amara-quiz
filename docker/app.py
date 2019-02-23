@@ -77,12 +77,17 @@ def sloka():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from slokas left join pada on pada.sloka_number = slokas.sloka_number where slokas.sloka_number = '%s' order by id;" % sloka_number)
-            rows = cur.fetchall();
+            cur.execute("select * from mula where sloka_number = '%s' order by sloka_line;" % sloka_number)
+            mula = cur.fetchall();
 
+            cur.execute("select * from pada where sloka_number = '%s' order by id;" % sloka_number)
+            pada = cur.fetchall();
 
+            varga = ""
+            if len(pada) > 0:
+                varga = pada[0]["varga"]
 
-            return render_template('sloka.html', rows=rows, sloka_number=sloka_number, varga=rows[0]["varga"], sloka_text=rows[0]["sloka_text"], sloka_number_previous=sloka_number_previous, sloka_number_next=sloka_number_next)
+            return render_template('sloka.html', mula=mula, pada=pada, varga=varga, sloka_number=sloka_number, sloka_number_previous=sloka_number_previous, sloka_number_next=sloka_number_next)
     finally:
         con.close()
 
@@ -107,11 +112,6 @@ def quiz():
             return render_template('quiz.html', rows=rows, paryaya=paryaya, varga=varga)
     finally:
         con.close()
-
-    # context_index = int(sloka_index_line)-1
-    # context[context_index] = '<span class="highlight">' + context[context_index] + '</span>'
-    # context_html = "<br/>".join(context)
-
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

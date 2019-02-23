@@ -45,7 +45,11 @@
               <button id="button-next" onclick="window.location.href='/sloka?sloka_number={{sloka_number_next}}'">next</button>
           </div>
 
-          <div class="sloka">{{sloka_text | replace("।","।<br/>") | replace("॥","॥<br/>") | safe }}</div>
+          <div class="sloka">
+            {% for row in mula %}
+              {{row["sloka_text"]}}<br/>
+            {% endfor %}
+          </div>
 
           <table id="results">
             <thead>
@@ -55,9 +59,9 @@
               <th>अर्थः</th>
             </thead>
             <tbody>
-              {% for row in rows %}
+              {% for row in pada %}
                 <tr>
-                  <td>{{row["sloka_reference"]}}</td>
+                  <td>{{row["sloka_word"]}}</td>
                   <td>{{row["pada"]}}</td>
                   <td>{{row["linga"]}}</td>
                   <td>{{row["artha"]}}</td>
