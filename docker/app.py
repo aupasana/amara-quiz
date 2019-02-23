@@ -113,5 +113,23 @@ def quiz():
     finally:
         con.close()
 
+@app.route('/varga')
+def varga():
+
+    varga = request.args.get('varga')
+
+    try:
+        rows =[]
+
+        with sql.connect('amara.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+            cur.execute("select * from mula where varga = '%s';" % varga)
+            mula = cur.fetchall();
+
+            return render_template('varga.html', mula=mula, varga=varga)
+    finally:
+        con.close()
+
 if __name__ == "__main__":
     app.run(host="0.0.0.0")

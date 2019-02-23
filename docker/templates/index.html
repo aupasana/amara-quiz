@@ -13,7 +13,7 @@
         text-align: center;
         font-size: x-large;
       }
-      .varga-select, .quiz-button, .search-button, .sloka-button {
+      .varga-select, .quiz-button, .search-button, .sloka-button, .varga-button {
         -webkit-appearance: none;
         font-size: x-large;
         padding: 10pt;
@@ -42,7 +42,11 @@
     <script>
     $(document).ready(function(){
       $('#quizButton').click(function() {
-        window.location = "/quiz?varga=" + $('#all_vargas').val();
+        window.location = "/quiz?varga=" + $('#all_vargas_quiz').val();
+      });
+
+      $('#vargaButton').click(function() {
+        window.location = "/varga?varga=" + $('#all_vargas_varga').val();
       });
 
       $('#searchButton').click(function() {
@@ -60,22 +64,30 @@
 
       <h3>अमरकोषसम्पद्</h3>
 
-      <select class="varga-select" id="all_vargas" name= all_vargas method="GET" action="/">
+      <select class="varga-select" id="all_vargas_quiz" name="all_vargas_quiz" method="GET" action="/">
         <optgroup class="varga-select">
           {% for varga in all_vargas %}
           <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
           {% endfor %}
         </optgroup>
       </select>
-
       <button class="quiz-button" id="quizButton">start quiz</button>
+
+      <p/>
+      <select class="varga-select" id="all_vargas_varga" name="all_vargas_varga" method="GET" action="/">
+        <optgroup class="varga-select">
+          {% for varga in all_vargas %}
+          <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
+          {% endfor %}
+        </optgroup>
+      </select>
+      <button class="varga-button" id="vargaButton">show varga</button>
 
       <p/>
       <input type="text" class="sloka-term" id="slokaTerm" placeholder="1.1.1"></input>
       <button class="sloka-button" id="slokaButton">show sloka</button>
 
       <p/>
-
       <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
       <button class="search-button" id="searchButton">search</button>
 
@@ -87,7 +99,6 @@
       </div>
 
       <p/>
-
       <div class="searchHintRectangle">
         <span class="searchHint">
           This application is a training aid for those who are memorizing the amarakosha.

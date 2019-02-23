@@ -1,0 +1,44 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background: beige;
+        color: black;
+      }
+      div.container {
+        max-width: 800px;
+        border: 20px solid brown;
+        padding: 10px;
+        text-align: center;
+      }
+      .varga {
+        style: bold;
+        font-size: x-large;
+        padding-bottom: 10px;
+        padding-top: 10px;
+      }
+      .sloka {
+        font-size: x-large;
+        text-align: left;
+      }
+      .sloka-number {
+        float: right;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content-outer" class="container">
+
+        <div class="varga">
+            {{varga}}
+        </div>
+
+        {% for row in mula %}
+            <div class="sloka">
+              {{row["sloka_text"]}} <span class="sloka-number"><a href="/sloka?sloka_number={{row['sloka_number']}}" target="amara-answer">{{row["sloka_line"]}}</a></span>
+            </div>
+        {% endfor %}
+
+    </div>
+  </body>
+</html>
