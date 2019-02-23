@@ -102,7 +102,7 @@ def quiz():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where varga = '%s' order by random() limit 1;" % varga)
+            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = '%s' order by random() limit 1;" % varga)
             rows = cur.fetchall();
 
             artha = rows[0]["artha"];
