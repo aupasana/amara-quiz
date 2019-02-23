@@ -77,7 +77,7 @@ def sloka():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where pada.sloka_number = '%s' order by id;" % sloka_number)
+            cur.execute("select * from slokas left join pada on pada.sloka_number = slokas.sloka_number where slokas.sloka_number = '%s' order by id;" % sloka_number)
             rows = cur.fetchall();
 
 
