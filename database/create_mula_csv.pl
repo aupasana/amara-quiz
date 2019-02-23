@@ -5,7 +5,7 @@ use open ':std', ':encoding(UTF-8)';
 
 use XML::LibXML;
 
-my $dom = XML::LibXML->load_xml(location => "database/amara_mulam.utf8");
+my $dom = XML::LibXML->load_xml(location => "database/amara_mula.utf8");
 open(my $output, '>', "database/tmp_mula.csv") or die "Could not open output file $1\n";
 
 
