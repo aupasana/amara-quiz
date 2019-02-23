@@ -8,6 +8,7 @@ GO
 CREATE TABLE mula (
   sloka_number TEXT NOT NULL,
   sloka_line TEXT UNIQUE PRIMARY KEY NOT NULL,
+  varga TEXT,
   sloka_text TEXT NOT NULL
 );
 GO

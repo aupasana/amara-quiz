@@ -3,7 +3,7 @@ use strict;
 use warnings;
 
 open(my $data, '<', "database/amara_tokens.utf8") or die "Could not open input file $!\n";
-open(my $output, '>', "database/tmp_tokens.csv") or die "Could not open output file $1\n";
+open(my $output, '>', "database/tmp_pada.csv") or die "Could not open output file $1\n";
 
 my $uid=0;
 while (my $line = <$data>) {

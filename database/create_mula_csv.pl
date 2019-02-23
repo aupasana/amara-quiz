@@ -6,7 +6,7 @@ use open ':std', ':encoding(UTF-8)';
 use XML::LibXML;
 
 my $dom = XML::LibXML->load_xml(location => "database/amara_mulam.utf8");
-open(my $output, '>', "database/tmp_sloka_lines.csv") or die "Could not open output file $1\n";
+open(my $output, '>', "database/tmp_mula.csv") or die "Could not open output file $1\n";
 
 
 my @kanda_names = ("/doc/amara/kANda_1", "/doc/amara/kANda_2", "/doc/amara/kANda_3");
@@ -22,7 +22,7 @@ foreach my $kanda (@kanda_names) {
 
             my $line = 1;
             for (grep { /\S/ } split /^/, $text) {
-              printf $output ("%s,%s.%d,%s", $1, $1, $line++, $_);
+              printf $output ("%s,%s.%d,,%s", $1, $1, $line++, $_);
             }
           }
         }
