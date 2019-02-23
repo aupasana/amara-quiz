@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS mulam;
 DROP TABLE IF EXISTS pada;
 GO
 
-CREATE TABLE mulam (
+CREATE TABLE mula (
   sloka_number TEXT NOT NULL,
   sloka_line TEXT UNIQUE PRIMARY KEY NOT NULL,
   sloka_text TEXT NOT NULL
@@ -26,7 +26,7 @@ CREATE TABLE pada (
 );
 GO
 
-CREATE INDEX ix_mulam_number ON mulam(sloka_number)
+CREATE INDEX ix_mulam_number ON mula(sloka_number)
 GO
 
 CREATE INDEX ix_pada_varga ON pada (varga);
