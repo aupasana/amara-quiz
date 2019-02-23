@@ -97,22 +97,14 @@ def quiz():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from pada inner join slokas on pada.sloka_number = slokas.sloka_number where varga = '%s' order by random() limit 1;" % varga)
+            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where varga = '%s' order by random() limit 1;" % varga)
             rows = cur.fetchall();
 
             artha = rows[0]["artha"];
             cur.execute("select pada from pada where varga = '%s' and artha = '%s' order by id" % (varga, artha));
             paryaya = cur.fetchall();
 
-            sloka_reference_parts = rows[0]["sloka_reference"].split('.')
-            context_index = int(sloka_reference_parts[3]) - 1
-
-            context_parts = rows[0]["sloka_text"].splitlines();
-            context_parts[context_index] = '<span class="highlight">' + context_parts[context_index] + '</span>'
-
-            context_html = "<br/>".join(context_parts)
-
-            return render_template('quiz.html', rows=rows, paryaya=paryaya, varga=varga, context_html=context_html)
+            return render_template('quiz.html', rows=rows, paryaya=paryaya, varga=varga)
     finally:
         con.close()
 
