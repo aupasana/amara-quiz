@@ -78,7 +78,7 @@
                   <td>{{row["varga"]}}</td>
                   <td>{{row["linga"]}}</td>
                   <td>{{row["artha"]}}</td>
-                  <td><a href="/sloka?sloka_number={{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a></td>
+                  <td><a href="/sloka?sloka_number={{row['sloka_number']}}" target="amara-answer">{{row["sloka_word"]}}</a></td>
                   <!-- <td><a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a></td> -->
                   <td>{{row["sloka_text"] | replace("।","।<br/>") | replace("॥","॥<br/>") | safe }}</td>
                 </tr>
