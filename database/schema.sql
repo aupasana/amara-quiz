@@ -17,6 +17,7 @@ GO
 
 CREATE TABLE pada (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  pada_number INTEGER NOT NULL,
   varga_number TEXT NOT NULL,
   sloka_number TEXT NOT NULL,
   sloka_line TEXT NOT NULL,
@@ -24,6 +25,7 @@ CREATE TABLE pada (
   pada TEXT NOT NULL,
   linga TEXT NOT NULL,
   varga TEXT NOT NULL,
+  artha_english TEXT,
   artha TEXT NOT NULL,
   FOREIGN KEY (sloka_number) REFERENCES mulam(sloka_number),
   FOREIGN KEY (sloka_line) REFERENCES mulam(sloka_line)

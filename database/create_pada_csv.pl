@@ -11,13 +11,19 @@ my %mula_artha = (
     # simpsons       => [ "homer", "marge", "bart" ],
 );
 
+my $uid=1;
+
 while (my $line = <$data>) {
   chomp $line;
 
   $line =~ s/_/ /g;
   my @fields = split "," , $line;
 
-  my $uid = $fields[0];
+  # The identifier in $fields[0] is a permanent unique id for coordinating
+  # translations etc. We will generate a new identifier based on the file order
+  # my $uid = $fields[0];
+
+  my $pada_uid = $fields[0];
   my $pada = $fields[1];
   my $varga_number = $fields[2] =~ s/^(.*\..*)\..*\..*\..*$/$1/r;
   my $sloka_number = $fields[2] =~ s/^(.*\..*\..*)\..*\..*$/$1/r;
@@ -33,7 +39,7 @@ while (my $line = <$data>) {
 
   push $mula_artha{$sloka_number}, $artha;
 
-  printf $output ("%d,%s,%s,%s,%s,%s,%s,%s,%s\n", $uid++, $varga_number, $sloka_number, $sloka_line, $sloka_word, $pada, $linga, $varga, $artha);
+  printf $output ("%d,%d,%s,%s,%s,%s,%s,%s,%s,,%s\n", $uid++, $pada_uid, $varga_number, $sloka_number, $sloka_line, $sloka_word, $pada, $linga, $varga, $artha);
 
   # printf $output ("%d,%s,%s,%s,%s,%s,%s\n", $uid++, $fields[0], $sloka_number, $fields[1], $fields[2], $fields[3], $fields[4]);
 }
