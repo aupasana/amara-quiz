@@ -17,7 +17,7 @@ GO
 
 CREATE TABLE pada (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  pada_number INTEGER NOT NULL,
+  pada_uid INTEGER NOT NULL,
   varga_number TEXT NOT NULL,
   sloka_number TEXT NOT NULL,
   sloka_line TEXT NOT NULL,
@@ -29,6 +29,12 @@ CREATE TABLE pada (
   artha TEXT NOT NULL,
   FOREIGN KEY (sloka_number) REFERENCES mulam(sloka_number),
   FOREIGN KEY (sloka_line) REFERENCES mulam(sloka_line)
+);
+GO
+
+CREATE TABLE staging_translation (
+  pada_uid INTEGER PRIMARY KEY,
+  translation TEXT
 );
 GO
 
