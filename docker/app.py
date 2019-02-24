@@ -128,17 +128,20 @@ def varga():
             cur.execute("select * from mula where varga = ?;", [varga])
             mula = cur.fetchall();
 
-            cur.execute("select sloka_line, artha, count(artha) artha_count from pada where varga = ? group by sloka_line, artha order by id;", [varga])
+            cur.execute("select sloka_line, artha, count(artha) artha_count, artha_english from pada where varga = ? group by sloka_line, artha, artha_english order by id;", [varga])
             artha_rows = cur.fetchall();
 
             artha_summary = {}
 
             for row in artha_rows:
                 sloka_line = row["sloka_line"]
-                if sloka_line in artha_summary:
-                    artha_summary[sloka_line] += ", %s (%d)" % ( row["artha"], row["artha_count"] )
-                else:
-                    artha_summary[sloka_line] = "%s (%d)" % ( row["artha"], row["artha_count"] )
+
+                if sloka_line not in artha_summary:
+                    artha_summary[sloka_line] = ""
+
+                if row["artha_english"]:
+                    artha_summary[sloka_line] += " %s" % ( row["artha_english"] )
+                artha_summary[sloka_line] += " %s (%d)." % ( row["artha"], row["artha_count"] )
 
             return render_template('varga.html', mula=mula, varga=varga, artha_summary=artha_summary)
     finally:
