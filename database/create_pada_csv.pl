@@ -19,6 +19,7 @@ while (my $line = <$data>) {
 
   my $uid = $fields[0];
   my $pada = $fields[1];
+  my $varga_number = $fields[2] =~ s/^(.*\..*)\..*\..*\..*$/$1/r;
   my $sloka_number = $fields[2] =~ s/^(.*\..*\..*)\..*\..*$/$1/r;
   my $sloka_line = $fields[2] =~ s/^(.*\..*\..*\..*)\..*$/$1/r;
   my $sloka_word = $fields[2];
@@ -32,7 +33,7 @@ while (my $line = <$data>) {
 
   push $mula_artha{$sloka_number}, $artha;
 
-  printf $output ("%d,%s,%s,%s,%s,%s,%s,%s\n", $uid++, $sloka_number, $sloka_line, $sloka_word, $pada, $linga, $varga, $artha);
+  printf $output ("%d,%s,%s,%s,%s,%s,%s,%s,%s\n", $uid++, $varga_number, $sloka_number, $sloka_line, $sloka_word, $pada, $linga, $varga, $artha);
 
   # printf $output ("%d,%s,%s,%s,%s,%s,%s\n", $uid++, $fields[0], $sloka_number, $fields[1], $fields[2], $fields[3], $fields[4]);
 }

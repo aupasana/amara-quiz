@@ -21,9 +21,14 @@ foreach my $kanda (@kanda_names) {
 
           if ( $child->nodeName() =~ /Sloka_(.*)/ ) {
 
+            my $sloka_number = $1;
+
+            $sloka_number =~ /^([0-9]*\.[0-9]*)/;
+            my $varga_number = $1;
+
             my $line = 1;
             for (grep { /\S/ } split /^/, $text) {
-              printf $output ("%d,%s,%s.%d,,%s", $uid++, $1, $1, $line++, $_);
+              printf $output ("%d,%s,%s,%s.%d,,%s", $uid++, $varga_number, $sloka_number, $sloka_number, $line++, $_);
             }
           }
         }

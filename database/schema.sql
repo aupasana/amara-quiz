@@ -7,6 +7,7 @@ GO
 
 CREATE TABLE mula (
   id INTEGER UNIQUE,
+  varga_number TEXT NOT NULL,
   sloka_number TEXT NOT NULL,
   sloka_line TEXT UNIQUE PRIMARY KEY NOT NULL,
   varga TEXT,
@@ -16,6 +17,7 @@ GO
 
 CREATE TABLE pada (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  varga_number TEXT NOT NULL,
   sloka_number TEXT NOT NULL,
   sloka_line TEXT NOT NULL,
   sloka_word TEXT NOT NULL,
