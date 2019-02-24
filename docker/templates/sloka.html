@@ -57,6 +57,7 @@
               <th>पदम्</th>
               <th>लिङ्गम्</th>
               <th>अर्थः</th>
+              <th>meaning</th>
             </thead>
             <tbody>
               {% for row in pada %}
@@ -65,6 +66,7 @@
                   <td>{{row["pada"]}}</td>
                   <td>{{row["linga"]}}</td>
                   <td>{{row["artha"]}}</td>
+                  <td>{{row["artha_english"]}}</td>
                 </tr>
               {% endfor %}
             </tbody>
