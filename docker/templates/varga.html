@@ -21,6 +21,11 @@
         font-size: x-large;
         text-align: left;
       }
+      .artha {
+        padding-top: 5px;
+        font-size: smaller;
+        text-align: left;
+      }
       .sloka-number {
         float: right;
       }
@@ -34,6 +39,9 @@
         </div>
 
         {% for row in mula %}
+            <div class="artha">
+              {{artha_summary[row["sloka_line"]]}}
+            </div>
             <div class="sloka">
               {{row["sloka_text"]}} <span class="sloka-number"><a href="/sloka?sloka_number={{row['sloka_number']}}" target="amara-answer">{{row["sloka_line"]}}</a></span>
             </div>

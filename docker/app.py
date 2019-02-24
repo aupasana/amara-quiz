@@ -125,14 +125,22 @@ def varga():
             con.row_factory = sql.Row
             cur = con.cursor()
 
-            if varga:
-                cur.execute("select * from mula where varga = ?;", [varga])
-                # cur.execute("select * from mula where sloka_number in (select distinct sloka_number from pada where varga='%s');" % varga)
-            else:
-                cur.execute("select * from mula")
+            cur.execute("select * from mula where varga = ?;", [varga])
             mula = cur.fetchall();
 
-            return render_template('varga.html', mula=mula, varga=varga)
+            cur.execute("select sloka_line, artha, count(artha) artha_count from pada where varga = ? group by sloka_line, artha;", [varga])
+            artha_rows = cur.fetchall();
+
+            artha_summary = {}
+
+            for row in artha_rows:
+                sloka_line = row["sloka_line"]
+                if sloka_line in artha_summary:
+                    artha_summary[sloka_line] += ", %s (%d)" % ( row["artha"], row["artha_count"] )
+                else:
+                    artha_summary[sloka_line] = "%s (%d)" % ( row["artha"], row["artha_count"] )
+
+            return render_template('varga.html', mula=mula, varga=varga, artha_summary=artha_summary)
     finally:
         con.close()
 
