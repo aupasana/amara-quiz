@@ -128,7 +128,7 @@ def varga():
             cur.execute("select * from mula where varga = ?;", [varga])
             mula = cur.fetchall();
 
-            cur.execute("select sloka_line, artha, count(artha) artha_count from pada where varga = ? group by sloka_line, artha;", [varga])
+            cur.execute("select sloka_line, artha, count(artha) artha_count from pada where varga = ? group by sloka_line, artha order by id;", [varga])
             artha_rows = cur.fetchall();
 
             artha_summary = {}
