@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, current_app, g
+from flask import Flask, redirect, render_template, request, current_app, g
 from indic_transliteration import sanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 
@@ -111,8 +111,8 @@ def sloka():
             pada = cur.fetchall();
 
             varga = ""
-            if len(pada) > 0:
-                varga = pada[0]["varga"]
+            if len(mula) > 0:
+                varga = mula[0]["varga"]
 
             return render_template('sloka.html', mula=mula, pada=pada, varga=varga, sloka_number=sloka_number, sloka_number_previous=sloka_number_previous, sloka_number_next=sloka_number_next)
     finally:
@@ -144,6 +144,21 @@ def quiz():
 def varga():
 
     varga = request.args.get('varga')
+    sloka_number = request.args.get('sloka_number')
+
+    if (not varga) and sloka:
+        try:
+            with sql.connect('amara.db') as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+
+                cur.execute("select varga from mula where sloka_number = ? limit 1;", [sloka_number])
+                mula = cur.fetchall();
+
+                return redirect("/varga?varga=%s#%s" % (mula[0]["varga"], sloka_number))
+        finally:
+            con.close()
+
 
     try:
         rows =[]
