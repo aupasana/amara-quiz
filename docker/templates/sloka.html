@@ -41,7 +41,7 @@
 
           <div class="sloka-number">
               <button id="button-previous" onclick="window.location.href='/sloka?sloka_number={{sloka_number_previous}}'">previous</button>
-              {{varga}} {{sloka_number}}
+              {{varga}} <a href="/varga?varga={{varga}}#{{sloka_number}}">{{sloka_number}}</a>
               <button id="button-next" onclick="window.location.href='/sloka?sloka_number={{sloka_number_next}}'">next</button>
           </div>
 
