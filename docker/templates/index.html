@@ -13,13 +13,13 @@
         text-align: center;
         font-size: x-large;
       }
-      .varga-select, .quiz-button, .search-button, .sloka-button, .varga-button {
+      .varga-select, .quiz-button, .search-button, .searchjnu-button, .sloka-button, .varga-button {
         -webkit-appearance: none;
         font-size: x-large;
         padding: 10pt;
         width: 225px;
       }
-      .search-term, .sloka-term {
+      .search-term, .searchjnu-term, .sloka-term {
         -webkit-appearance: none;
         font-size: x-large;
         padding: 10pt;
@@ -51,6 +51,10 @@
 
       $('#searchButton').click(function() {
         window.location = "/search?term=" + $('#searchTerm').val();
+      });
+
+      $('#searchjnuButton').click(function() {
+        window.location = "/searchjnu?term=" + $('#searchjnuTerm').val();
       });
 
       $('#slokaButton').click(function() {
@@ -89,7 +93,11 @@
 
       <p/>
       <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
-      <button class="search-button" id="searchButton">search</button>
+      <button class="search-button" id="searchButton">search UOHD</button>
+
+      <p/>
+      <input type="text" class="searchjnu-term" id="searchjnuTerm" placeholder="सम्पद् sampad"></input>
+      <button class="searchjnu-button" id="searchjnuButton">search JNU</button>
 
       <div class="searchHintRectangle">
         <span class="searchHint">

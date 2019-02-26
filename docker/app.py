@@ -64,6 +64,32 @@ def search():
         con.close()
 
 
+@app.route('/searchjnu')
+def searchjnu():
+
+    limit = 100
+    user_term = request.args.get('term')
+    term = user_term
+    transliterate_regex = re.compile('.*[a-zA-Z].*')
+    if (transliterate_regex.match(term)):
+        term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
+
+    term = term.replace("*", "%")
+    user_term = user_term.replace("*", "%")
+
+    try:
+        with sql.connect('amara.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+
+            cur.execute("select * from jnu where pada like ? or artha_english like ? order by id limit ? ;", [term, user_term, limit])
+            rows = cur.fetchall();
+
+            return render_template('searchjnu.html', rows=rows, user_term=user_term, term=term)
+    finally:
+        con.close()
+
+
 @app.route('/sloka')
 def sloka():
 

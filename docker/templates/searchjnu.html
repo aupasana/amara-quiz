@@ -1,0 +1,75 @@
+<html>
+  <head>
+    <style type="text/css">
+      body {
+        background: beige;
+        color: black;
+      }
+      div.container {
+        max-width: 800px;
+        border: 20px solid brown;
+        padding: 10px;
+        text-align: center;
+      }
+      .term {
+        style: bold;
+        font-size: x-large;
+        padding-bottom: 10px;
+      }
+      table {
+        border: 1px solid black;
+        width: 100%;
+        text-align: center;
+      }
+      th, td {
+        border: 1px dotted grey;
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="content-outer" class="container">
+
+      <div id="content-inner">
+
+          <div class="term">Search: {{term}} ({{user_term}}). Page {{page}}</div>
+
+          <table id="results">
+            <thead>
+              <th>&nbsp;</th>
+              <th>अमरे</th>
+              <th>पदम्</th>
+              <th>english</th>
+              <th>hindi</th>
+              <th>kannada</th>
+              <th>bangla</th>
+              <th>oriya</th>
+              <th>punjabi</th>
+              <th>assamese</th>
+              <th>maithili</th>
+            </thead>
+            <tbody>
+              {% for row in rows %}
+                <tr>
+                  <td>{{loop.index}}</td>
+                  <td>{{row["sloka_number"]}}</td>
+                  <td>{{row["pada"]}}</td>
+                  <td>{{row["artha_english"]}}</td>
+                  <td>{{row["artha_hindi"]}}</td>
+                  <td>{{row["artha_kannada"]}}</td>
+                  <td>{{row["artha_bangla"]}}</td>
+                  <td>{{row["artha_oriya"]}}</td>
+                  <td>{{row["artha_punjabi"]}}</td>
+                  <td>{{row["artha_assamese"]}}</td>
+                  <td>{{row["artha_maithili"]}}</td>
+                </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+
+      </div>
+
+    </div>
+
+  </body>
+</html>
