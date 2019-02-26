@@ -40,7 +40,7 @@
         </div>
 
         {% for row in mula %}
-            <div class="artha">
+            <div class="artha" id="{{row['sloka_number']}}">
               {{artha_summary[row["sloka_line"]]}}
             </div>
             <div class="sloka">
