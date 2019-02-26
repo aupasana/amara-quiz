@@ -1,4 +1,4 @@
-# amara-quiz
+# amara kosha
 
 This amara kosha application has the following capabilities
 
