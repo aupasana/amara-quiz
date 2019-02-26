@@ -44,6 +44,7 @@ def search():
         term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
 
     term = term.replace("*", "%")
+    user_term = user_term.replace("*", "%")
     term_words = term.split()
 
     try:
@@ -52,7 +53,7 @@ def search():
             cur = con.cursor()
 
             if len(term_words) == 1:
-                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada like ? or artha like ? order by id limit ? offset ?;", [term, term, limit, offset])
+                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada like ? or artha like ? or artha_english like ? order by id limit ? offset ?;", [term, term, user_term, limit, offset])
                 rows = cur.fetchall();
             else:
                 query = "select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada in (%s) order by pada limit 100;" % ','.join('?' for i in term_words)
