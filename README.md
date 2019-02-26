@@ -1,4 +1,4 @@
-# amara-quiz
+# amara kosha
 
 This amara kosha application has the following capabilities
 
@@ -12,6 +12,8 @@ This amara kosha application has the following capabilities
 - the underlying data is mastered at https://github.com/sanskrit-coders/uohyd/tree/master/scl-master/amarakosha
   - database/amara_mulam.utf8 is forked from amara.utf8
   - database/amara_pada.utf8 is forked from all_kANdas
+- the data has been modified to fix errors / typos
+- translations have been added to the data
 
 ## Running locally via docker
 
