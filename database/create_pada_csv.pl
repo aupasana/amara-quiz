@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 use strict;
 use warnings;
+use open ':std', ':encoding(UTF-8)';
 
 open(my $data, '<', "database/amara_pada.utf8") or die "Could not open input file $!\n";
 open(my $output, '>', "database/tmp_pada.csv") or die "Could not open output file $1\n";
