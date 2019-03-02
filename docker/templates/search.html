@@ -1,19 +1,8 @@
-{% extends "bootstrap/base.html" %}
-
-{% block head %}
-{{super()}}
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-{% endblock %}
+{% extends "amara_base.html" %}
 
 {% block styles %}
 {{super()}}
 <style type="text/css">
-  html {
-    font-size: 100%;
-  }
-  .top-matter {
-    text-align: center;
-  }
   .result-number {
     display: inline-block;
     width: 4rem;
@@ -61,8 +50,6 @@
 <div class="container top-matter">
   <div class="card bg-light mb-3" style="max-width: 25rem;">
     <div class="card-body">
-      <h3><a href="/">अमरकोषसम्पद्</a></h3>
-
       <button id="button-previous" class="btn btn-secondary" style="width:10rem">previous</button>
       <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
     </div>
@@ -89,12 +76,6 @@
                   अर्थः - {{row["artha"]}} <a href="/search?term={{row['artha']}}"><img class="search-image" src="/icons/search.svg"/></a>
                   {% if row["artha_english"] | length %}<br/>{{row["artha_english"]}}{% endif %}
               </p>
-              <!-- <p class="card-text">
-                  <a href="/search?term={{row['pada']}}"><img src="/icons/search.svg"/></a>
-                  <a href="/search?term={{row['artha']}}"><img src="/icons/search.svg"/></a>
-                  <a href="/sloka?sloka_number={{row['sloka_number']}}"><img src="/icons/search.svg"/></a>
-                  <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img src="/icons/varga.svg"/></a>
-              </p> -->
             </div>
           </div>
           <br/>
