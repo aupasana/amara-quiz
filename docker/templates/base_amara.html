@@ -1,0 +1,42 @@
+{% extends "base_bootstrap.html" %}
+
+{% block head %}
+{{super()}}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+{% endblock %}
+
+{% block styles %}
+{{super()}}
+<style type="text/css">
+  html {
+    font-size: 100%;
+  }
+  .top-matter {
+    text-align: center;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{{super()}}
+<div class="container top-matter">
+  <div class="card bg-light mb-3" style="max-width: 25rem;">
+    <div class="card-body">
+      <h3><a href="/">अमरकोषसम्पद्</a></h3>
+    </div>
+  </div>
+</div>
+<p/>
+{% endblock %}
+
+{% block footer %}
+{{super()}}
+<!-- <div class="container top-matter">
+  <div class="card bg-light mb-3" style="max-width: 25rem;">
+    <div class="card-body">
+        <a href="https://github.com/aupasana/amara-quiz">sources</a>
+    </div>
+  </div>
+</div>
+<p/> -->
+{% endblock %}

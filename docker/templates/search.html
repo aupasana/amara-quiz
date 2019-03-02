@@ -1,4 +1,4 @@
-{% extends "amara_base.html" %}
+{% extends "base_amara.html" %}
 
 {% block styles %}
 {{super()}}
@@ -58,8 +58,13 @@
 
 <div id="content-inner">
 
-  <div class="term top-matter">Search: {{term}} ({{user_term}}). Page {{page}}</div>
-  <br/>
+  <div class="container">
+      <div class="card bg-light mb-3" style="max-width: 25rem;">
+        <div class="card-body">
+          <h5 class="card-title top-matter">Search: {{term}} ({{user_term}}). Page {{page}}</h5>
+        </div>
+      </div>
+  </div>
 
     {% for row in rows %}
 
