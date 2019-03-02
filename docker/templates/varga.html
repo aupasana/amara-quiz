@@ -1,55 +1,53 @@
-<html>
-  <head>
-    <style type="text/css">
-      body {
-        background: beige;
-        color: black;
-      }
-      div.container {
-        max-width: 800px;
-        border: 20px solid brown;
-        padding: 10px;
-        text-align: center;
-      }
-      .varga {
-        style: bold;
-        font-size: x-large;
-        padding-bottom: 10px;
-        padding-top: 10px;
-      }
-      .sloka {
-        font-size: x-large;
-        text-align: left;
-        padding-left: 50px;
-      }
-      .artha {
-        padding-top: 5px;
-        font-size: smaller;
-        text-align: left;
-      }
-      .sloka-number {
-        float: right;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="content-outer" class="container">
+{% extends "base_amara.html" %}
 
-      <h3><a href="/">अमरकोषसम्पद्</a></h3>
+{% block styles %}
+{{super()}}
+<style type="text/css">
+  .sloka-image {
+    height: 1rem;
+    width: 1rem;
+    float: right;
+  }
+  .varga {
+    padding-left: 50px;
+    font-size: 1.5rem;
+  }
+  .content {
+    padding-left: 50px;
+    padding-right: 50px;
+    font-size: 1.5rem;
+  }
+  .sloka {
+    padding-left: 50px;
+  }
+  .artha {
+    padding-top: 5px;
+    font-size: .9rem;
+    text-align: left;
+  }
+  .sloka-number {
+    float: right;
+    font-size: 0.8rem;
+  }
+</style>
+{% endblock %}
 
-        <div class="varga">
-            {{varga}}
-        </div>
+{% block content %}
+{{super()}}
 
-        {% for row in mula %}
-            <div class="artha" id="{{row['sloka_number']}}">
-              {{artha_summary[row["sloka_line"]]}}
-            </div>
-            <div class="sloka">
-              {{row["sloka_text"]}} <span class="sloka-number"><a href="/sloka?sloka_number={{row['sloka_number']}}" target="amara-answer">{{row["sloka_line"]}}</a></span>
-            </div>
-        {% endfor %}
+<div class="varga">
+    {{varga}}
+</div>
 
-    </div>
-  </body>
-</html>
+<div class="content">
+  {% for row in mula %}
+      <div class="artha" id="{{row['sloka_number']}}">
+        {{artha_summary[row["sloka_line"]]}}
+      </div>
+      <div class="sloka">
+        {{row["sloka_text"]}} <span class="sloka-number">&nbsp;{{row['sloka_line']}}</span><a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="sloka-image" src="/icons/sloka.svg"/></a>
+      </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

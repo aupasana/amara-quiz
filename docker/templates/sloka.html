@@ -21,6 +21,9 @@
     height: 1rem;
     width: 1rem;
   }
+  .lighten {
+    opacity: 0.5;
+  }
   .sloka {
     font-size: 1.5rem;
   }
@@ -60,8 +63,8 @@
               <tr>
                 <td>{{row["sloka_word"]}}</td>
                 <td>{{row["linga"]}}</td>
-                <td><a href="/search?term={{row['pada']}}"><img class="search-image" src="/icons/search.svg"/>&nbsp;</a>{{row["pada"]}}</td>
-                <td><a href="/search?term={{row['artha']}}"><img class="search-image" src="/icons/search.svg"/>&nbsp;</a>{{row["artha"]}}</td>
+                <td><a href="/search?term={{row['pada']}}"><img class="search-image lighten" src="/icons/search.svg"/>&nbsp;</a>{{row["pada"]}}</td>
+                <td><a href="/search?term={{row['artha']}}"><img class="search-image lighten" src="/icons/search.svg"/>&nbsp;</a>{{row["artha"]}}</td>
                 <td>{{row["artha_english"]}}</td>
               </tr>
             {% endfor %}
