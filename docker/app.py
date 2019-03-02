@@ -1,4 +1,5 @@
 from flask import Flask, redirect, render_template, request, current_app, g
+from flask_bootstrap import Bootstrap
 from indic_transliteration import sanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 
@@ -7,7 +8,7 @@ import sqlite3 as sql
 import re
 
 app = Flask(__name__, static_url_path='', static_folder='static')
-
+Bootstrap(app)
 @app.route('/')
 
 def index():

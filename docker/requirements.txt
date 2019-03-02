@@ -1,2 +1,2 @@
-Flask==0.12.3
+Flask-Bootstrap==3.3.7.1
 indic_transliteration==1.7.8
