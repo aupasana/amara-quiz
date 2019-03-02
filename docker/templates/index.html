@@ -9,15 +9,16 @@
 }
 .varga-select, .quiz-button, .search-button, .searchjnu-button, .sloka-button, .varga-button {
   -webkit-appearance: none;
-  font-size: x-large;
+  font-size: large;
   padding: 10pt;
-  width: 225px;
+  width: 175px;
+  text-align: left;
 }
 .search-term, .searchjnu-term, .sloka-term {
   -webkit-appearance: none;
-  font-size: x-large;
+  font-size: large;
   padding: 10pt;
-  width: 225px;
+  width: 175px;
 }
 .description {
   font-size: medium;
@@ -30,6 +31,11 @@
   width: 350px;
   padding-left: 75px;
   text-align: left;
+}
+.search-image {
+  height: 2rem;
+  width: 2em;
+  padding-right: 10pt;
 }
 </style>
 {% endblock %}
@@ -79,7 +85,7 @@ $(document).ready(function(){
     {% endfor %}
   </optgroup>
 </select>
-<button class="quiz-button" id="quizButton">start quiz</button>
+<button class="quiz-button" id="quizButton"><img class="search-image" src="icons/quiz.svg"/>quiz</button>
 
 <p/>
 <select class="varga-select" id="all_vargas_varga" name="all_vargas_varga" method="GET" action="/">
@@ -89,15 +95,16 @@ $(document).ready(function(){
     {% endfor %}
   </optgroup>
 </select>
-<button class="varga-button" id="vargaButton">show varga</button>
+<button class="varga-button" id="vargaButton"><img class="search-image" src="icons/varga.svg"/>show varga</button>
+
 
 <p/>
 <input type="text" class="sloka-term" id="slokaTerm" placeholder="1.1.1"></input>
-<button class="sloka-button" id="slokaButton">show sloka</button>
+<button class="sloka-button" id="slokaButton"><img class="search-image" src="icons/sloka.svg"/>show sloka</button>
 
 <p/>
 <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
-<button class="search-button" id="searchButton">search</button>
+<button class="search-button" id="searchButton"><img class="search-image" src="icons/search.svg"/>search</button>
 
 <div class="searchHintRectangle">
   <span class="searchHint">
