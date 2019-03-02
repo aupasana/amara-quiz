@@ -5,6 +5,9 @@
         background: beige;
         color: black;
       }
+      a {
+        text-decoration: none;
+      }
       div.container {
         max-width: 800px;
         border: 20px solid brown;
@@ -66,11 +69,15 @@
             <thead>
               <th>&nbsp;</th>
               <th>पदम्</th>
+              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
               <th>वर्गः</th>
               <th>लिङ्गम्</th>
               <th>अर्थः</th>
-              <th>translation</th>
+              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+              <th>eng</th>
               <th>अमरे</th>
+              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
               <th>श्लोकः</th>
             </thead>
             <tbody>
@@ -78,11 +85,15 @@
                 <tr>
                   <td>{{((page | int) - 1) * 10 + loop.index}}</td>
                   <td>{{row["pada"]}}</td>
+                  <td><a href="/search?term={{row['pada']}}"><img src="/icons/search.svg"/></a></td>
                   <td>{{row["varga"]}}</td>
                   <td>{{row["linga"]}}</td>
                   <td>{{row["artha"]}}</td>
+                  <td><a href="/search?term={{row['artha']}}"><img src="/icons/search.svg"/></a></td>
                   <td>{{row["artha_english"]}}</td>
-                  <td><a href="/sloka?sloka_number={{row['sloka_number']}}" target="amara-answer">{{row["sloka_word"]}}</a></td>
+                  <td>{{row["sloka_word"]}}</td>
+                  <td><a href="/sloka?sloka_number={{row['sloka_number']}}"><img src="/icons/search.svg"/></a></td>
+                  <td><a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img src="/icons/varga.svg"/></a></td>
                   <!-- <td><a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a></td> -->
                   <td>{{row["sloka_text"] | replace("।","।<br/>") | replace("॥","॥<br/>") | safe }}</td>
                 </tr>
