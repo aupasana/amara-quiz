@@ -1,40 +1,36 @@
 {% extends "bootstrap/base.html" %}
 
+{% block head %}
+{{super()}}
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+{% endblock %}
+
 {% block styles %}
 {{super()}}
-    <style type="text/css">
-      body {
-        background: beige;
-        color: black;
-      }
-      a {
-        text-decoration: none;
-      }
-      div.container {
-        max-width: 800px;
-        border: 20px solid brown;
-        padding: 10px;
-        text-align: center;
-      }
-      .term {
-        style: bold;
-        font-size: x-large;
-        padding-bottom: 10px;
-      }
-      table {
-        border: 1px solid black;
-        width: 100%;
-        text-align: center;
-      }
-      th, td {
-        border: 1px dotted grey;
-        text-align: center;
-      }
-    </style>
+<style type="text/css">
+  html {
+    font-size: 100%;
+  }
+  .top-matter {
+    text-align: center;
+  }
+  .result-number {
+    display: inline-block;
+    width: 4rem;
+  }
+  .amara-quote {
+    font-size: 1.2rem;
+  }
+  .search-image {
+    height: 1rem;
+    width: 1rem;
+    float: right;
+  }
+</style>
 {% endblock %}
 
 {% block scripts %}
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+{{super()}}
     <script>
       $(document).ready(function(){
           window.page = 1;
@@ -60,54 +56,51 @@
 {% endblock %}
 
 {% block content %}
-    <div id="content-outer" class="container">
+{{super()}}
 
+<div class="container top-matter">
+  <div class="card bg-light mb-3" style="max-width: 25rem;">
+    <div class="card-body">
       <h3><a href="/">अमरकोषसम्पद्</a></h3>
 
-      <button id="button-previous">previous</button>
-      <button id="button-next">next</button>
+      <button id="button-previous" class="btn btn-secondary" style="width:10rem">previous</button>
+      <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
+    </div>
+  </div>
+</div>
 
-      <div id="content-inner">
+<div id="content-inner">
 
-          <div class="term">Search: {{term}} ({{user_term}}). Page {{page}}</div>
+  <div class="term top-matter">Search: {{term}} ({{user_term}}). Page {{page}}</div>
+  <br/>
 
-          <table id="results">
-            <thead>
-              <th>&nbsp;</th>
-              <th>पदम्</th>
-              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-              <th>वर्गः</th>
-              <th>लिङ्गम्</th>
-              <th>अर्थः</th>
-              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-              <th>eng</th>
-              <th>अमरे</th>
-              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-              <th>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
-              <th>श्लोकः</th>
-            </thead>
-            <tbody>
-              {% for row in rows %}
-                <tr>
-                  <td>{{((page | int) - 1) * 10 + loop.index}}</td>
-                  <td>{{row["pada"]}}</td>
-                  <td><a href="/search?term={{row['pada']}}"><img src="/icons/search.svg"/></a></td>
-                  <td>{{row["varga"]}}</td>
-                  <td>{{row["linga"]}}</td>
-                  <td>{{row["artha"]}}</td>
-                  <td><a href="/search?term={{row['artha']}}"><img src="/icons/search.svg"/></a></td>
-                  <td>{{row["artha_english"]}}</td>
-                  <td>{{row["sloka_word"]}}</td>
-                  <td><a href="/sloka?sloka_number={{row['sloka_number']}}"><img src="/icons/search.svg"/></a></td>
-                  <td><a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img src="/icons/varga.svg"/></a></td>
-                  <!-- <td><a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a></td> -->
-                  <td>{{row["sloka_text"] | replace("।","।<br/>") | replace("॥","॥<br/>") | safe }}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+    {% for row in rows %}
 
+      <div class="container">
+          <div class="card bg-light mb-3" style="max-width: 25rem;">
+            <div class="card-body">
+              <h5 class="card-title">
+                <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>
+                {{row["pada"]}} ({{row["linga"]}}) <a href="/search?term={{row['pada']}}"><img class="search-image" src="/icons/search.svg"/></a>
+              </h5>
+              <p class="card-text">
+                  <span class="amara-quote">{{row["sloka_text"]}}</span> <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a><br/>
+                  {{row["varga"]}} {{row["sloka_word"]}} <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a><br/>
+                  अर्थः - {{row["artha"]}} <a href="/search?term={{row['artha']}}"><img class="search-image" src="/icons/search.svg"/></a>
+                  {% if row["artha_english"] | length %}<br/>{{row["artha_english"]}}{% endif %}
+              </p>
+              <!-- <p class="card-text">
+                  <a href="/search?term={{row['pada']}}"><img src="/icons/search.svg"/></a>
+                  <a href="/search?term={{row['artha']}}"><img src="/icons/search.svg"/></a>
+                  <a href="/sloka?sloka_number={{row['sloka_number']}}"><img src="/icons/search.svg"/></a>
+                  <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img src="/icons/varga.svg"/></a>
+              </p> -->
+            </div>
+          </div>
+          <br/>
       </div>
 
-    </div>
+    {% endfor %}
+
+</div>
 {% endblock %}
