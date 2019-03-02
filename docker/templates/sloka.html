@@ -1,82 +1,76 @@
-<html>
-  <head>
-    <style type="text/css">
-      body {
-        background: beige;
-        color: black;
-      }
-      div.container {
-        max-width: 800px;
-        border: 20px solid brown;
-        padding: 10px;
-        text-align: center;
-      }
-      .sloka-number {
-        font-size: large;
-        padding-bottom: 10px;
-        padding-top: 10px;
-      }
-      .sloka {
-        style: bold;
-        font-size: x-large;
-        padding-bottom: 10px;
-        padding-top: 10px;
-      }
-      table {
-        border: 1px solid black;
-        width: 100%;
-        text-align: center;
-      }
-      th, td {
-        border: 1px dotted grey;
-        text-align: center;
-      }
-    </style>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-  </head>
-  <body>
-    <div id="content-outer" class="container">
+{% extends "base_amara.html" %}
 
-      <h3><a href="/">अमरकोषसम्पद्</a></h3>
+{% block styles %}
+{{super()}}
+<style type="text/css">
+  table {
+      /* border: 1px dotted grey; */
+      width: 100%;
+      text-align: center;
+    }
+  th, td {
+    /* border: 1px dotted grey; */
+    text-align: left;
+  }
+  .sloka-image {
+    height: 1rem;
+    width: 1rem;
+    float: right;
+  }
+  .search-image {
+    height: 1rem;
+    width: 1rem;
+  }
+  .sloka {
+    font-size: 1.5rem;
+  }
+</style>
+{% endblock %}
 
-      <div id="content-inner">
+{% block content %}
+{{super()}}
 
-          <div class="sloka-number">
-              <button id="button-previous" onclick="window.location.href='/sloka?sloka_number={{sloka_number_previous}}'">previous</button>
-              {{varga}} <a href="/varga?varga={{varga}}#{{sloka_number}}">{{sloka_number}}</a>
-              <button id="button-next" onclick="window.location.href='/sloka?sloka_number={{sloka_number_next}}'">next</button>
-          </div>
 
-          <div class="sloka">
-            {% for row in mula %}
-              {{row["sloka_text"]}}<br/>
-            {% endfor %}
-          </div>
+<div class="container">
+    <div class="card bg-light mb-3" style="max-width: 35rem;">
+      <div class="card-body">
 
-          <table id="results">
-            <thead>
-              <th>&nbsp;</th>
-              <th>पदम्</th>
-              <th>लिङ्गम्</th>
-              <th>अर्थः</th>
-              <th>meaning</th>
-            </thead>
-            <tbody>
-              {% for row in pada %}
-                <tr>
-                  <td>{{row["sloka_word"]}}</td>
-                  <td>{{row["pada"]}}</td>
-                  <td>{{row["linga"]}}</td>
-                  <td>{{row["artha"]}}</td>
-                  <td>{{row["artha_english"]}}</td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
+        <h5 class="card-title">
+          <button id="button-previous" class="btn btn-secondary" style="width:10rem" onclick="window.location.href='/sloka?sloka_number={{sloka_number_previous}}'">previous</button>
+          <button id="button-next" class="btn btn-secondary" style="width:10rem" onclick="window.location.href='/sloka?sloka_number={{sloka_number_next}}'">next</button>
+          <p/><p/>
 
+          {{varga}} {{sloka_number}}
+        <a href="/varga?varga={{varga}}#{{sloka_number}}"><img class="sloka-image" src="/icons/varga.svg"/></a></h5>
+        <p class="card-text sloka">
+          {% for row in mula %}
+            {{row["sloka_text"]}}<br/>
+          {% endfor %}
+        </p>
       </div>
-
     </div>
+</div>
 
-  </body>
-</html>
+<div class="container">
+    <div class="card bg-light mb-3" style="max-width: 35rem;">
+      <div class="card-body">
+        <p class="card-text">
+          <table>
+            {% for row in pada %}
+              <tr>
+                <td>{{row["sloka_word"]}}</td>
+                <td>{{row["linga"]}}</td>
+                <td><a href="/search?term={{row['pada']}}"><img class="search-image" src="/icons/search.svg"/>&nbsp;</a>{{row["pada"]}}</td>
+                <td><a href="/search?term={{row['artha']}}"><img class="search-image" src="/icons/search.svg"/>&nbsp;</a>{{row["artha"]}}</td>
+                <td>{{row["artha_english"]}}</td>
+              </tr>
+            {% endfor %}
+          </table>
+        </p>
+      </div>
+    </div>
+    <br/>
+</div>
+
+
+{% endblock %}
