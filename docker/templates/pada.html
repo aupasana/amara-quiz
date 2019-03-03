@@ -10,6 +10,27 @@
 </style>
 {% endblock %}
 
+{% block scripts %}
+{{super()}}
+<script>
+function copyToClipboard() {
+  var $temp = $("<input>");
+  $("body").append($temp);
+  var sloka = $("#copy-link").attr("clipboard");
+  var clipValue = sloka + "  " + window.location.href;
+  $temp.val(clipValue).select();
+  document.execCommand("copy");
+  $temp.remove();
+}
+$(document).ready(function(){
+  $("#copy-link").click(function() {
+    copyToClipboard();
+  });
+});
+</script>
+{% endblock %}
+
+
 {% block content %}
 {{super()}}
 
@@ -24,6 +45,7 @@
                 {{row["sloka_text"]}}&nbsp;
                 <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
                 <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
+                <img class="search-image" id="copy-link" src="/icons/link.svg"/ clipboard="{{row['sloka_text']}}">
                 <br/>
                 <div class="amara-context">
                   {{row["varga"]}}&nbsp;{{row["sloka_word"]}}
