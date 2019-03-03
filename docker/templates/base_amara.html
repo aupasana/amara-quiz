@@ -14,13 +14,17 @@
   .top-matter {
     text-align: center;
   }
+  .footer-image {
+    height: 1rem;
+    width: 1rem;
+  }
 </style>
 {% endblock %}
 
 {% block content %}
 {{super()}}
 <div class="container top-matter">
-  <div class="card bg-light mb-3" style="max-width: 25rem;">
+  <div class="card bg-light mb-3" style="max-width: 100%;">
     <div class="card-body">
       <h3><a href="/">अमरकोषसम्पद्</a></h3>
     </div>
@@ -31,6 +35,12 @@
 
 {% block footer %}
 {{super()}}
+<div class="container">
+  <img class="footer-image" src="/icons/pada.svg"/> - Show pada<br/>
+  <img class="footer-image" src="/icons/sloka.svg"/> - Show sloka<br/>
+  <img class="footer-image" src="/icons/varga.svg"/> - Show varga<br/>
+  <img class="footer-image" src="/icons/search.svg"/> - Search<br/>
+</div>
 <!-- <div class="container top-matter">
   <div class="card bg-light mb-3" style="max-width: 25rem;">
     <div class="card-body">
