@@ -38,53 +38,41 @@
 {% block content %}
 {{super()}}
 
-<div id="content-outer" class="container">
+<div class="container">
+  <h5>{{varga}}
+    <button id="refresh" class="btn btn-secondary" style="width:10rem">new question</button>
+  </h5>
 
-  <div class="container">
-      <div class="card bg-light mb-3" style="max-width: 35rem;">
-        <div class="card-body">
-            <h5 class="card-title">{{varga}}</h5>
-            <button id="refresh" class="btn btn-secondary" style="width:10rem">new question</button>
-        </div>
-      </div>
-  </div>
+  <br/>
 
   <div id="content-inner">
     {% for row in rows %}
 
-        <div class="container">
-            <div class="card bg-light mb-3" style="max-width: 35rem;">
-              <div class="card-body">
-                  <h5 class="card-title">प्रश्नः -- {{row["pada"]}}</h5>
-                  <button id="show-answer" class="btn btn-secondary toggle" style="width:10rem">show answer</button>
-              </div>
-            </div>
+      <h5>प्रश्नः -- {{row["pada"]}}
+        <button id="show-answer" class="btn btn-secondary toggle" style="width:10rem">show answer</button>
+      </h5>
+
+      <div class="card bg-light mb-3" style="max-width: 35rem;">
+        <div class="card-body answer" id="answer">
+          <h5 class="card-title">{{row["pada"]}}, {{row["linga"]}} == {{row["artha"]}}</h5>
+
+          <div><span class="highlight">{{row["sloka_text"]}}</span></div>
+
+          <div class="synonyms">
+            [ {% for p in paryaya %}{{p["pada"]}} {% endfor %} ]
+          </div>
+
+          <div class="amara-context">
+            {{row["sloka_word"]}}&nbsp;
+            <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>
+            <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
+            <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
+          </div>
+
         </div>
-
-        <div class="container">
-            <div class="card bg-light mb-3" style="max-width: 35rem;">
-              <div class="card-body answer" id="answer">
-                  <h5 class="card-title">{{row["pada"]}}, {{row["linga"]}} == {{row["artha"]}}</h5>
-
-                  <div><span class="highlight">{{row["sloka_text"]}}</span></div>
-
-                  <div class="synonyms">
-                    [ {% for p in paryaya %}{{p["pada"]}} {% endfor %} ]
-                  </div>
-
-                  <div class="amara-context">
-                    {{row["sloka_word"]}}&nbsp;
-                    <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>
-                    <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
-                    <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
-                  </div>
-
-              </div>
-            </div>
-        </div>
+      </div>
 
     {% endfor %}
   </div>
 </div>
-
 {% endblock %}
