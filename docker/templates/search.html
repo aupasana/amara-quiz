@@ -47,46 +47,38 @@
 {% block content %}
 {{super()}}
 
-<div class="container top-matter">
-  <div class="card bg-light mb-3" style="max-width: 25rem;">
-    <div class="card-body">
-      <button id="button-previous" class="btn btn-secondary" style="width:10rem">previous</button>
-      <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
-    </div>
-  </div>
-</div>
+<div class="container">
 
-<div id="content-inner">
+  <button id="button-previous" class="btn btn-secondary" style="width:10rem">previous</button>
+  <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
 
-  <div class="container">
-      <div class="card bg-light mb-3" style="max-width: 25rem;">
-        <div class="card-body">
-          <h5 class="card-title top-matter">Search: {{term}} ({{user_term}}). Page {{page}}</h5>
-        </div>
-      </div>
-  </div>
+  <div id="content-inner">
 
-    {% for row in rows %}
+    <br/>
+    <h5> Search: {{term}} ({{user_term}}). Page {{page}}</h5>
+    <br/>
 
-      <div class="container">
-          <div class="card bg-light mb-3" style="max-width: 25rem;">
-            <div class="card-body">
-              <h5 class="card-title">
-                <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>
-                {{row["pada"]}} ({{row["linga"]}}) <a href="/search?term={{row['pada']}}"><img class="search-image" src="/icons/search.svg"/></a>
-              </h5>
-              <p class="card-text">
-                  <span class="amara-quote">{{row["sloka_text"]}}</span> <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a><br/>
-                  {{row["varga"]}} {{row["sloka_word"]}} <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a><br/>
-                  अर्थः - {{row["artha"]}} <a href="/search?term={{row['artha']}}"><img class="search-image" src="/icons/search.svg"/></a>
-                  {% if row["artha_english"] | length %}<br/>{{row["artha_english"]}}{% endif %}
-              </p>
-            </div>
+      {% for row in rows %}
+
+        <div class="card bg-light mb-3" style="max-width: 25rem;">
+          <div class="card-body">
+            <h5 class="card-title">
+              <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>
+              {{row["pada"]}} ({{row["linga"]}}) <a href="/search?term={{row['pada']}}"><img class="search-image" src="/icons/search.svg"/></a>
+            </h5>
+            <p class="card-text">
+                <span class="amara-quote">{{row["sloka_text"]}}</span> <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a><br/>
+                {{row["varga"]}} {{row["sloka_word"]}} <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a><br/>
+                अर्थः - {{row["artha"]}} <a href="/search?term={{row['artha']}}"><img class="search-image" src="/icons/search.svg"/></a>
+                {% if row["artha_english"] | length %}<br/>{{row["artha_english"]}}{% endif %}
+            </p>
           </div>
-          <br/>
-      </div>
+        </div>
+        <br/>
 
-    {% endfor %}
+      {% endfor %}
+
+  </div>
 
 </div>
 {% endblock %}
