@@ -123,6 +123,8 @@ def sloka():
 def quiz():
 
     varga = request.args.get('varga')
+    start = request.args.get('start')
+    end = request.args.get('end')
 
     try:
         rows =[]
@@ -130,12 +132,27 @@ def quiz():
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
-            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? order by random() limit 1;", [varga])
-            rows = cur.fetchall();
+
+            if start and end:
+                cur.execute("select id from pada where sloka_number = ? order by id limit 1;", [start])
+                id_start = cur.fetchone()[0]
+
+                cur.execute("select id from pada where sloka_number = ? order by id desc limit 1;", [end])
+                id_end = cur.fetchone()[0]
+
+                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.id >= ? and pada.id <= ? order by random() limit 1;", [id_start, id_end])
+                rows = cur.fetchall();
+            else:
+                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? order by random() limit 1;", [varga])
+                rows = cur.fetchall();
 
             artha = rows[0]["artha"];
+            varga = rows[0]["varga"];
             cur.execute("select pada from pada where varga = ? and artha = ? order by id", [varga, artha]);
             paryaya = cur.fetchall();
+
+            if start and end:
+                varga = "%s - %s" % (start, end)
 
             return render_template('quiz.html', rows=rows, paryaya=paryaya, varga=varga)
     finally:

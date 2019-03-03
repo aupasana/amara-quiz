@@ -29,7 +29,7 @@
 
     $(document).ready(function(){
       $("#refresh").click(function() {
-        $('#content-inner').load('/quiz?varga={{varga}} #content-inner');
+        $('#content-inner').load(window.location.href + ' #content-inner');
       });
     });
   </script>
