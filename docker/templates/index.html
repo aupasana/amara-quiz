@@ -3,18 +3,24 @@
 {% block styles %}
 {{super()}}
 <style type="text/css">
-.varga-select, .quiz-button, .search-button, .searchjnu-button, .sloka-button, .varga-button {
+.varga-select, .quiz-button, .search-button, .varga-button {
   -webkit-appearance: none;
   font-size: large;
   padding: 10pt;
   width: 125px;
   text-align: left;
 }
-.search-term, .searchjnu-term, .sloka-term {
+.varga-select, .search-button {
+  width: 250px;
+}
+.search-term {
   -webkit-appearance: none;
   font-size: large;
   padding: 10pt;
-  width: 125px;
+  width: 250px;
+}
+.button {
+  margin-top: 5px;
 }
 .description {
   font-size: medium;
@@ -22,11 +28,6 @@
 }
 .searchHint {
   font-size: medium;
-}
-.searchHintRectangle {
-  width: 350px;
-  padding-left: 0px;
-  text-align: left;
 }
 .search-image {
   height: 2rem;
@@ -41,23 +42,15 @@
 <script>
 $(document).ready(function(){
   $('#quizButton').click(function() {
-    window.location = "/quiz?varga=" + $('#all_vargas_quiz').val();
+    window.location = "/quiz?varga=" + $('#all_vargas').val();
   });
 
   $('#vargaButton').click(function() {
-    window.location = "/varga?varga=" + $('#all_vargas_varga').val();
+    window.location = "/varga?varga=" + $('#all_vargas').val();
   });
 
   $('#searchButton').click(function() {
     window.location = "/search?term=" + $('#searchTerm').val();
-  });
-
-  $('#searchjnuButton').click(function() {
-    window.location = "/searchjnu?term=" + $('#searchjnuTerm').val();
-  });
-
-  $('#slokaButton').click(function() {
-    window.location = "/sloka?sloka_number=" + $('#slokaTerm').val();
   });
 });
 </script>
@@ -68,39 +61,33 @@ $(document).ready(function(){
 
 <div class="container">
 
-  <select class="varga-select" id="all_vargas_quiz" name="all_vargas_quiz" method="GET" action="/">
+  <select class="varga-select" id="all_vargas" name="all_vargas" method="GET" action="/">
     <optgroup class="varga-select">
       {% for varga in all_vargas %}
       <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
       {% endfor %}
     </optgroup>
   </select>
-  <button class="quiz-button" id="quizButton"><img class="search-image" src="icons/quiz.svg"/>quiz</button>
 
-  <p/>
-  <select class="varga-select" id="all_vargas_varga" name="all_vargas_varga" method="GET" action="/">
-    <optgroup class="varga-select">
-      {% for varga in all_vargas %}
-      <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
-      {% endfor %}
-    </optgroup>
-  </select>
-  <button class="varga-button" id="vargaButton"><img class="search-image" src="icons/varga.svg"/>view</button>
+  <br/>
+  <button class="varga-button button" id="vargaButton"><img class="search-image" src="icons/varga.svg"/>view</button>
+  <button class="quiz-button button" id="quizButton"><img class="search-image" src="icons/quiz.svg"/>quiz</button>
+
+  <br/><br/>
 
   <p/>
   <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
-  <button class="search-button" id="searchButton"><img class="search-image" src="icons/search.svg"/>search</button>
+  <br/>
+  <button class="search-button button" id="searchButton"><img class="search-image" src="icons/search.svg"/>search</button>
 
-  <div class="searchHintRectangle">
-    <span class="searchHint">
-      Enter search text in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a> format.
-      Examples: "indra*", "वि*वत्", "*dra", "शिव शक्ति"
-    </span>
+  <div>
+    Search in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a>.
+    <br/>"indra*", "वि*वत्", "*dra", "शिव शक्ति"
   </div>
 
   <p/>
   <div>
-    Click <a href="/about">here for more information</a> about this site.
+    <a href="/about">About</a> about this site.
   </div>
 
 </div>
@@ -109,29 +96,3 @@ $(document).ready(function(){
 
 {% block footer %}
 {% endblock %}
-
-  <!-- No scenario for directly entering sloka numbers -->
-  <!-- <p/>
-  <input type="text" class="sloka-term" id="slokaTerm" placeholder="1.1.1"></input>
-  <button class="sloka-button" id="slokaButton"><img class="search-image" src="icons/sloka.svg"/>sloka</button> -->
-
-    <!-- <hr/>
-
-    <p/>
-    <input type="text" class="searchjnu-term" id="searchjnuTerm" placeholder="सम्पद् sampad"></input>
-    <button class="searchjnu-button" id="searchjnuButton">search JNU</button>
-
-    <div class="searchHintRectangle">
-      <span class="searchHint">
-        Note: the sloka numbers in the <a href="http://sanskrit.jnu.ac.in/elearning/amarkosh/alphabets/amarakosha.htm">JNU dataset</a> will not match the main dataset exactly.
-      </span>
-    </div>
-
-    <p/>
-    <div class="searchHintRectangle">
-      <span class="searchHint">
-        This application is a training aid for those who are memorizing the amarakosha.
-        It supports simple quizzes as well as basic search of the text.
-        The sources are on <a href="https://github.com/aupasana/amara-quiz">github</a>.
-      </span>
-    </div> -->
