@@ -3,9 +3,6 @@
 {% block styles %}
 {{super()}}
 <style type="text/css">
-    .synonyms {
-      padding-top: 0.5rem;
-    }
     .search-image {
       height: 1rem;
       width: 1rem;
@@ -28,16 +25,29 @@
                 <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
                 <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
                 <br/>
-                <div class="synonyms">
-                  [ {% for p in paryaya %}{{p["pada"]}} {% endfor %} ]
-                </div>
-                <br/>
                 <div class="amara-context">
                   {{row["varga"]}}&nbsp;{{row["sloka_word"]}}
                 </div>
 
               </div>
             </div>
+
+            <br/>
+
+            <div class="card bg-light mb-3" style="max-width: 35rem;">
+              <div class="card-body">
+                <h5 class="card-title">पर्यायपदानि</h5>
+
+                {% for p in paryaya %}
+                  <a href="/pada?pada_number={{p['sloka_word']}}&pada={{p['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>
+                  <a href="/sloka?sloka_number={{p['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
+                  <a href="/varga?varga={{p['varga']}}#{{p['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
+                  &nbsp;{{p["pada"]}} <br/>
+                {% endfor %}
+
+              </div>
+            </div>
+
         </div>
 
     {% endfor %}
