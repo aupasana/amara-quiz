@@ -1,0 +1,28 @@
+{% extends "base_amara.html" %}
+
+{% block styles %}
+{{super()}}
+<style type="text/css">
+    .content {
+      padding-left: 10px;
+      padding-right: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+{{super()}}
+
+<div class="content">
+    <div>The functionality in this site was built using the
+    <a href="http://sanskrit.uohyd.ac.in/scl/amarakosha/frame.html">University of Hyderabad amara kosha dataset</a>.
+    </div>
+
+    <br/>
+
+    <div>Icons made by <a href="https://www.flaticon.com/authors/picol" title="Picol">Picol</a>
+      from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
+      is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+      title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
+</div>
+{% endblock %}

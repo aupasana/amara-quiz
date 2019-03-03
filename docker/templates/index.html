@@ -72,12 +72,6 @@ $(document).ready(function(){
 
 <div class="content">
 
-    <div class="searchHintRectangle">
-      <span class="searchHint">
-        The functionality below is built on top of the <a href="http://sanskrit.uohyd.ac.in/scl/amarakosha/frame.html">UoHyd amara kosha dataset</a>.
-      </span>
-    </div></br>
-
     <select class="varga-select" id="all_vargas_quiz" name="all_vargas_quiz" method="GET" action="/">
       <optgroup class="varga-select">
         {% for varga in all_vargas %}
@@ -106,6 +100,11 @@ $(document).ready(function(){
         Enter search text in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a> format.
         Examples: "indra*", "वि*वत्", "*dra", "शिव शक्ति"
       </span>
+    </div>
+
+    <p/>
+    <div>
+      Click <a href="/about">here for more information</a> about this site.
     </div>
 
   </div>
