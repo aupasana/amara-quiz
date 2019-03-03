@@ -28,6 +28,7 @@
           $("#button-previous").click(function() {
             window.page = window.page-1;
             $('#content-inner').load('/search?term={{user_term}}&page=' + window.page + ' #content-inner');
+            window.scrollTo(0,document.body.scrollHeight);
 
             if (window.page === 1) {
               $("#button-previous").prop('disabled',true);
@@ -38,6 +39,7 @@
             window.page = window.page+1;
             $('#content-inner').load('/search?term={{user_term}}&page=' + window.page + ' #content-inner');
             $("#button-previous").prop('disabled',false);
+            $(window).scrollTop(0);
           });
 
       });
@@ -50,7 +52,6 @@
 <div class="container">
 
   <button id="button-previous" class="btn btn-secondary" style="width:10rem">previous</button>
-  <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
 
   <div id="content-inner">
 
@@ -81,6 +82,9 @@
       {% endfor %}
 
   </div>
+
+  <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
+  <br/><br/>
 
 </div>
 {% endblock %}
