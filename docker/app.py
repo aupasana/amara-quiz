@@ -222,6 +222,10 @@ def varga():
 def about():
     return render_template('about.html')
 
+@app.errorhandler(404)
+@app.errorhandler(500)
+def error(error):
+    return render_template('error.html')
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0")
