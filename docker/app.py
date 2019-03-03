@@ -158,7 +158,7 @@ def pada():
 
             artha = rows[0]["artha"];
             varga = rows[0]["varga"];
-            cur.execute("select pada from pada where varga = ? and artha = ? order by id", [varga, artha]);
+            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by pada.id", [varga, artha]);
             paryaya = cur.fetchall();
 
             return render_template('pada.html', rows=rows, paryaya=paryaya, varga=varga)
