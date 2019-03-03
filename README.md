@@ -3,14 +3,13 @@
 This amara kosha application has the following capabilities
 
 - search the amarakosha (with wildcards) and show results with amara kosha context
-- show any sloka of the amarakosha with full details of all the words that occur (pratipadika, linga, artha)
-- generates quiz words for practice and provides the meaning and relevant quotes from the amara
+- view amara kosha data by sarga, sloka or pada
+- generate quiz questions for practice
 
 ## notes
 
-- code is based on docker-curriculum
 - the underlying data is sourced from https://github.com/sanskrit-coders/uohyd/tree/master/scl-master/amarakosha
-  - database/amara_mulam.csv is forked from amara.utf8
+  - database/amara_mula.utf8 is forked from amara.utf8
   - database/amara_pada.csv is forked from all_kANdas
 - the data has been modified to fix errors / typos
 - translations have been added to the data
