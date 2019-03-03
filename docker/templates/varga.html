@@ -13,8 +13,6 @@
     font-size: 1.5rem;
   }
   .content {
-    padding-left: 50px;
-    padding-right: 50px;
     font-size: 1rem;
   }
   .sloka {
@@ -35,19 +33,23 @@
 {% block content %}
 {{super()}}
 
-<div class="varga">
-    {{varga}}
+<div class="container">
+  <div class="varga">
+      {{varga}}
+  </div>
+
+  <div class="content">
+    {% for row in mula %}
+        <div class="artha" id="{{row['sloka_number']}}">
+          {{artha_summary[row["sloka_line"]]}}
+        </div>
+        <div class="sloka">
+          {{row["sloka_text"]}} <span class="sloka-number">&nbsp;{{row['sloka_line']}}</span><a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="sloka-image" src="/icons/sloka.svg"/></a>
+        </div>
+    {% endfor %}
+  </div>
 </div>
 
-<div class="content">
-  {% for row in mula %}
-      <div class="artha" id="{{row['sloka_number']}}">
-        {{artha_summary[row["sloka_line"]]}}
-      </div>
-      <div class="sloka">
-        {{row["sloka_text"]}} <span class="sloka-number">&nbsp;{{row['sloka_line']}}</span><a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="sloka-image" src="/icons/sloka.svg"/></a>
-      </div>
-  {% endfor %}
-</div>
+<p/>
 
 {% endblock %}
