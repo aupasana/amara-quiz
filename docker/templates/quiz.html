@@ -1,40 +1,24 @@
-<html>
-  <head>
-    <style type="text/css">
-      body {
-        background: beige;
-        color: black;
-      }
-      div.container {
-        max-width: 500px;
-        margin: 100px auto;
-        border: 20px solid brown;
-        padding: 10px;
-        text-align: center;
-      }
-      .varga {
-        padding-top: 10px;
-      }
-      .question {
-        font-size: x-large;
-        padding-bottom: 30px;
-      }
-      .answer {
-        padding-top: 10px;
-        display: none;
-      }
-      .amara-context {
-        padding-top: 10px;
-      }
-      .sloka-number {
-        display: none;
-      }
-      .highlight {
-        background-color: yellow;
-      }
-    </style>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script>
+{% extends "base_amara.html" %}
+
+{% block styles %}
+{{super()}}
+<style type="text/css">
+    .highlight {
+      background-color: yellow;
+    }
+    .synonyms {
+      padding-top: 0.5rem;
+    }
+    .search-image {
+      height: 1rem;
+      width: 1rem;
+    }
+</style>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+  <script>
     $(document).on('click','#show-answer',function(){
       $("#answer").show();
       $("#show-answer").hide();
@@ -45,49 +29,60 @@
         $('#content-inner').load('/quiz?varga={{varga}} #content-inner');
       });
     });
-    </script>
-  </head>
-  <body>
-    <div id="content-outer" class="container">
+  </script>
+{% endblock %}
 
-      <h3><a href="/">अमरकोषसम्पद्</a></h3>
+{% block content %}
+{{super()}}
 
-      <button onclick=location="/">home</button>
-      <button id="refresh">new question</button>
+<div id="content-outer" class="container">
 
-      <div id="content-inner">
-        {% for row in rows %}
-
-            <div class="varga">
-              ({{row["varga"]}})
-            </div>
-
-            <div class="question">
-              प्रश्नः -- {{row["pada"]}}
-            </div>
-
-            <button id="show-answer" class="toggle">show answer</button>
-
-            <div id="answer" class="answer">
-              {{row["pada"]}}, {{row["linga"]}} == {{row["artha"]}}
-
-              <div class="synonyms">
-                [ {% for p in paryaya %}{{p["pada"]}} {% endfor %} ]
-              </div>
-
-              <div class="amara-context">
-                <a href="/sloka?sloka_number={{row['sloka_number']}}" target="amara-answer">{{row["sloka_word"]}}</a>
-                <!-- <a href="amara_mulam.html#{{row['sloka_number']}}" target="amara-answer">{{row["sloka_reference"]}}</a> -->
-                <br/>
-                  <span class="highlight">{{row["sloka_text"]}}</span>
-              </div>
-
-              <p/><a href="https://dsalsrv04.uchicago.edu/cgi-bin/app/apte_query.py?qs={{row['pada']}}" target="amara-apte">search apte dictionary for {{row["pada"]}}</a>
-
-            </div>
-        {% endfor %}
+  <div class="container">
+      <div class="card bg-light mb-3" style="max-width: 35rem;">
+        <div class="card-body">
+            <h5 class="card-title">{{varga}}</h5>
+            <button class="btn btn-secondary" style="width:10rem" onclick=location="/">home</button>
+            <button id="refresh" class="btn btn-secondary" style="width:10rem">new question</button>
+        </div>
       </div>
+  </div>
 
-    </div>
-  </body>
-</html>
+  <div id="content-inner">
+    {% for row in rows %}
+
+        <div class="container">
+            <div class="card bg-light mb-3" style="max-width: 35rem;">
+              <div class="card-body">
+                  <h5 class="card-title">प्रश्नः -- {{row["pada"]}}</h5>
+                  <button id="show-answer" class="btn btn-secondary toggle" style="width:10rem">show answer</button>
+              </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="card bg-light mb-3" style="max-width: 35rem;">
+              <div class="card-body" id="answer">
+                  <h5 class="card-title">{{row["pada"]}}, {{row["linga"]}} == {{row["artha"]}}</h5>
+
+                  <div><span class="highlight">{{row["sloka_text"]}}</span></div>
+
+                  <div class="synonyms">
+                    [ {% for p in paryaya %}{{p["pada"]}} {% endfor %} ]
+                  </div>
+
+                  <div class="amara-context">
+                    {{row["sloka_word"]}}&nbsp;
+                    <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
+                    <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
+                  </div>
+
+              </div>
+            </div>
+        </div>
+
+    {% endfor %}
+  </div>
+
+</div>
+
+{% endblock %}
