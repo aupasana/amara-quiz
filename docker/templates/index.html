@@ -3,10 +3,6 @@
 {% block styles %}
 {{super()}}
 <style type="text/css">
-.content {
-  padding-left: 50px;
-  padding-right: 50px;
-}
 .varga-select, .quiz-button, .search-button, .searchjnu-button, .sloka-button, .varga-button {
   -webkit-appearance: none;
   font-size: large;
@@ -70,49 +66,49 @@ $(document).ready(function(){
 {% block content %}
 {{super()}}
 
-<div class="content">
+<div class="container">
 
-    <select class="varga-select" id="all_vargas_quiz" name="all_vargas_quiz" method="GET" action="/">
-      <optgroup class="varga-select">
-        {% for varga in all_vargas %}
-        <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
-        {% endfor %}
-      </optgroup>
-    </select>
-    <button class="quiz-button" id="quizButton"><img class="search-image" src="icons/quiz.svg"/>quiz</button>
+  <select class="varga-select" id="all_vargas_quiz" name="all_vargas_quiz" method="GET" action="/">
+    <optgroup class="varga-select">
+      {% for varga in all_vargas %}
+      <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
+      {% endfor %}
+    </optgroup>
+  </select>
+  <button class="quiz-button" id="quizButton"><img class="search-image" src="icons/quiz.svg"/>quiz</button>
 
-    <p/>
-    <select class="varga-select" id="all_vargas_varga" name="all_vargas_varga" method="GET" action="/">
-      <optgroup class="varga-select">
-        {% for varga in all_vargas %}
-        <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
-        {% endfor %}
-      </optgroup>
-    </select>
-    <button class="varga-button" id="vargaButton"><img class="search-image" src="icons/varga.svg"/>view</button>
+  <p/>
+  <select class="varga-select" id="all_vargas_varga" name="all_vargas_varga" method="GET" action="/">
+    <optgroup class="varga-select">
+      {% for varga in all_vargas %}
+      <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
+      {% endfor %}
+    </optgroup>
+  </select>
+  <button class="varga-button" id="vargaButton"><img class="search-image" src="icons/varga.svg"/>view</button>
 
-    <p/>
-    <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
-    <button class="search-button" id="searchButton"><img class="search-image" src="icons/search.svg"/>search</button>
+  <p/>
+  <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
+  <button class="search-button" id="searchButton"><img class="search-image" src="icons/search.svg"/>search</button>
 
-    <div class="searchHintRectangle">
-      <span class="searchHint">
-        Enter search text in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a> format.
-        Examples: "indra*", "वि*वत्", "*dra", "शिव शक्ति"
-      </span>
-    </div>
-
-    <p/>
-    <div>
-      Click <a href="/about">here for more information</a> about this site.
-    </div>
-
+  <div class="searchHintRectangle">
+    <span class="searchHint">
+      Enter search text in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a> format.
+      Examples: "indra*", "वि*वत्", "*dra", "शिव शक्ति"
+    </span>
   </div>
 
-  {% endblock %}
+  <p/>
+  <div>
+    Click <a href="/about">here for more information</a> about this site.
+  </div>
 
-  {% block footer %}
-  {% endblock %}
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
 
   <!-- No scenario for directly entering sloka numbers -->
   <!-- <p/>
