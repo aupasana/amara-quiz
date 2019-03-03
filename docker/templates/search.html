@@ -64,7 +64,9 @@
           <div class="card-body">
             <h5 class="card-title">
               <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>
-              {{row["pada"]}} ({{row["linga"]}}) <a href="/search?term={{row['pada']}}"><img class="search-image" src="/icons/search.svg"/></a>
+              {{row["pada"]}} ({{row["linga"]}})
+              <a href="/search?term={{row['pada']}}"><img class="search-image" src="/icons/search.svg"/></a>
+              <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>
             </h5>
             <p class="card-text">
                 <span class="amara-quote">{{row["sloka_text"]}}</span> <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a><br/>
