@@ -13,6 +13,9 @@
       height: 1rem;
       width: 1rem;
     }
+    .answer {
+      display: none;
+    }
 </style>
 {% endblock %}
 
@@ -61,7 +64,7 @@
 
         <div class="container">
             <div class="card bg-light mb-3" style="max-width: 35rem;">
-              <div class="card-body" id="answer">
+              <div class="card-body answer" id="answer">
                   <h5 class="card-title">{{row["pada"]}}, {{row["linga"]}} == {{row["artha"]}}</h5>
 
                   <div><span class="highlight">{{row["sloka_text"]}}</span></div>
