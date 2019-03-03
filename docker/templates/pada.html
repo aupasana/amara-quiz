@@ -38,6 +38,14 @@
               <div class="card-body">
                 <h5 class="card-title">पर्यायपदानि</h5>
 
+                {% for p in paryaya_slokas %}
+                  <a href="/sloka?sloka_number={{p['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
+                  <a href="/varga?varga={{p['varga']}}#{{p['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
+                  &nbsp;{{p["sloka_text"]}}<br/>
+                {% endfor %}
+
+                <br/>
+
                 {% for p in paryaya %}
                   <a href="/pada?pada_number={{p['sloka_word']}}&pada={{p['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>
                   <a href="/sloka?sloka_number={{p['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
