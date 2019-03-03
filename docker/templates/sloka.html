@@ -63,8 +63,14 @@
               <tr>
                 <td>{{row["sloka_word"]}}</td>
                 <td>{{row["linga"]}}</td>
-                <td><a href="/search?term={{row['pada']}}"><img class="search-image lighten" src="/icons/search.svg"/>&nbsp;</a>{{row["pada"]}}</td>
-                <td><a href="/search?term={{row['artha']}}"><img class="search-image lighten" src="/icons/search.svg"/>&nbsp;</a>{{row["artha"]}}</td>
+                <td>
+                  <a href="/search?term={{row['pada']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
+                  <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image lighten" src="/icons/pada.svg"/></a>
+                  &nbsp;{{row["pada"]}}
+                </td>
+                <td>
+                  <a href="/search?term={{row['artha']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
+                  &nbsp;{{row["artha"]}}</td>
                 <td>{{row["artha_english"]}}</td>
               </tr>
             {% endfor %}
