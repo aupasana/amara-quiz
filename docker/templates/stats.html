@@ -2,18 +2,6 @@
 
 {% block styles %}
 {{super()}}
-<style type="text/css">
-  table {
-      /* border: 1px dotted grey; */
-      width: 100%;
-      text-align: center;
-    }
-  th, td {
-    /* border: 1px dotted grey; */
-    padding-right: 10px;
-    text-align: left;
-  }
-</style>
 {% endblock %}
 
 
@@ -24,22 +12,30 @@
   <div class="card bg-light mb-3" style="max-width: 35rem;">
     <div class="card-body answer" id="answer">
 
-      <h5 class="card-title">Statistics</h5>
+      <h5 class="card-title">Sloka and word counts by varga</h5>
 
-      <table>
-        <tr>
-          <td>वर्गः</td>
-          <td>half slokas</td>
-          <td>words</td>
-        </tr>
-        {% for row in stats %}
-        <tr>
-          <td>{{row["varga"]}}</td>
-          <td>{{row["mula_count"]}}</td>
-          <td>{{row["pada_count"]}}</td>
-        </tr>
-        {% endfor %}
-
+      <table class="table table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <td>वर्गः</td>
+            <td>श्लोकाः</td>
+            <td>पदानि</td>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in stats %}
+          <tr>
+            <td>{{row["varga"]}}</td>
+            <td>{{row["mula_count"] / 2}}</td>
+            <td>{{row["pada_count"]}}</td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td>Total</td>
+            <td>{{stats | sum(attribute='mula_count') / 2}}</td>
+            <td>{{stats | sum(attribute='pada_count')}}</td>
+          </tr>
+        </tbody>
       </table>
 
     </div>
