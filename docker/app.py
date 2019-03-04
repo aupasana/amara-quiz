@@ -241,12 +241,12 @@ def all_pada():
                 cur.execute("select distinct pada, sloka_word from pada where pada like ? order by pada, id;", ["%s%%" % prefix])
                 padas = cur.fetchall()
 
-                return render_template('all_pada.html', prefixes=prefixes, padas=padas)
+                return render_template('all_pada.html', prefixes=prefixes, padas=padas, prefix=prefix)
 
         finally:
             con.close()
     else:
-        return render_template('all_pada.html', prefixes=prefixes, padas=[])
+        return render_template('all_pada.html', prefixes=prefixes, padas=[], prefix=prefix)
 
 @app.route('/dupe_pada')
 def dupe_pada():
