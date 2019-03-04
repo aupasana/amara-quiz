@@ -271,6 +271,29 @@ def dupe_pada():
         con.close()
 
 
+@app.route('/stats')
+def stats():
+    try:
+        with sql.connect('amara.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+
+            # cur.execute("select pada, count(*) c from pada group by pada having count(*) > 1 order by pada;")
+            cur.execute("""
+                            select m.varga, m.c mula_count, p.c pada_count from
+                                (select varga, id, count(varga) c from mula group by varga) m
+                            inner join
+                                (select varga, id, count(varga) c from pada group by varga order by id) p
+                            on m.varga = p.varga
+                            order by m.id; """)
+
+            stats = cur.fetchall()
+
+            return render_template('stats.html', stats=stats)
+
+    finally:
+        con.close()
+
 @app.route('/about')
 def about():
     return render_template('about.html')

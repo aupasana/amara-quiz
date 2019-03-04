@@ -1,0 +1,53 @@
+{% extends "base_amara.html" %}
+
+{% block styles %}
+{{super()}}
+<style type="text/css">
+  table {
+      /* border: 1px dotted grey; */
+      width: 100%;
+      text-align: center;
+    }
+  th, td {
+    /* border: 1px dotted grey; */
+    padding-right: 10px;
+    text-align: left;
+  }
+</style>
+{% endblock %}
+
+
+{% block content %}
+{{super()}}
+<div class="container">
+
+  <div class="card bg-light mb-3" style="max-width: 35rem;">
+    <div class="card-body answer" id="answer">
+
+      <h5 class="card-title">Statistics</h5>
+
+      <table>
+        <tr>
+          <td>वर्गः</td>
+          <td>half slokas</td>
+          <td>words</td>
+        </tr>
+        {% for row in stats %}
+        <tr>
+          <td>{{row["varga"]}}</td>
+          <td>{{row["mula_count"]}}</td>
+          <td>{{row["pada_count"]}}</td>
+        </tr>
+        {% endfor %}
+
+      </table>
+
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
