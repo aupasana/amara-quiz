@@ -258,6 +258,21 @@ def all_pada():
     else:
         return render_template('all_pada.html', prefixes=prefixes, padas=[])
 
+@app.route('/dupe_pada')
+def dupe_pada():
+    try:
+        with sql.connect('amara.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+
+            cur.execute("select pada, count(*) c from pada group by pada having count(*) > 1 order by pada;")
+            padas = cur.fetchall()
+
+            return render_template('dupe_pada.html', padas=padas)
+
+    finally:
+        con.close()
+
 
 @app.route('/about')
 def about():

@@ -1,0 +1,25 @@
+{% extends "base_amara.html" %}
+
+{% block styles %}
+{{super()}}
+{% endblock %}
+
+{% block content %}
+{{super()}}
+<div class="container">
+
+  <div class="card bg-light mb-3" style="max-width: 35rem;">
+    <div class="card-body answer" id="answer">
+      <h5 class="card-title">अनेकार्थपदानि</h5>
+      {% for p in padas %}
+        <a href="search?term={{p['pada']}}">{{p["pada"]}}</a>: {{p["c"]}}. 
+      {% endfor%}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
