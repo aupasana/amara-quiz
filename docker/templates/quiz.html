@@ -40,8 +40,8 @@
 
 <div class="container">
   <h5>
-    <button id="refresh" class="btn btn-secondary" style="width:10rem">new question</button>
-    &nbsp;{{varga}}
+    <button id="refresh" class="btn btn-secondary" style="width:10rem">new question</button><br/><br/>
+    {{varga}}
   </h5>
 
   <br/>
@@ -50,8 +50,8 @@
     {% for row in rows %}
 
       <h5>
+        प्रश्नः -- {{row["pada"]}}<br/><br/>
         <button id="show-answer" class="btn btn-secondary toggle" style="width:10rem">show answer</button>
-        &nbsp;प्रश्नः -- {{row["pada"]}}
       </h5>
 
       <div class="card bg-light mb-3" style="max-width: 35rem;">
