@@ -11,8 +11,11 @@
   <div class="card bg-light mb-3" style="max-width: 35rem;">
     <div class="card-body answer" id="answer">
       <h5 class="card-title">आद्यक्षरम्</h5>
-      {% for p in prefixes %}
-        <a href="/all_pada?prefix={{p}}">{{p}}</a> &nbsp;
+      {% for pgroup in prefixes %}
+        {% for p in pgroup %}
+          <a href="/all_pada?prefix={{p}}">{{p}}</a> &nbsp;
+        {% endfor%}
+          <br/>
       {% endfor%}
     </div>
   </div>
