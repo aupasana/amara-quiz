@@ -235,6 +235,30 @@ def varga():
     finally:
         con.close()
 
+@app.route('/all_pada')
+def all_pada():
+    prefixes = [ 'अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ऋ', 'ॠ', 'ए', 'ऐ', 'ओ', 'औ', 'क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ', 'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न', 'प', 'फ', 'ब', 'भ', 'म', 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह' ]
+    padas = []
+
+    prefix = request.args.get('prefix')
+
+    if prefix:
+        try:
+            with sql.connect('amara.db') as con:
+                con.row_factory = sql.Row
+                cur = con.cursor()
+
+                cur.execute("select distinct pada, sloka_word from pada where pada like ? order by pada, id;", ["%s%%" % prefix])
+                padas = cur.fetchall()
+
+                return render_template('all_pada.html', prefixes=prefixes, padas=padas)
+
+        finally:
+            con.close()
+    else:
+        return render_template('all_pada.html', prefixes=prefixes, padas=[])
+
+
 @app.route('/about')
 def about():
     return render_template('about.html')

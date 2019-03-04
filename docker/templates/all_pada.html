@@ -1,0 +1,34 @@
+{% extends "base_amara.html" %}
+
+{% block styles %}
+{{super()}}
+{% endblock %}
+
+{% block content %}
+{{super()}}
+<div class="container">
+
+  <div class="card bg-light mb-3" style="max-width: 35rem;">
+    <div class="card-body answer" id="answer">
+      <h5 class="card-title">आद्यक्षरम्</h5>
+      {% for p in prefixes %}
+        <a href="/all_pada?prefix={{p}}">{{p}}</a> &nbsp;
+      {% endfor%}
+    </div>
+  </div>
+
+  <div class="card bg-light mb-3" style="max-width: 35rem;">
+    <div class="card-body answer" id="answer">
+      <h5 class="card-title">पदानि</h5>
+      {% for p in padas %}
+        <a href="pada?pada_number={{p['sloka_word']}}&pada={{p['pada']}}">{{p["pada"]}}</a>
+      {% endfor%}
+    </div>
+  </div>
+
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
