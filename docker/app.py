@@ -255,7 +255,14 @@ def dupe_pada():
             con.row_factory = sql.Row
             cur = con.cursor()
 
-            cur.execute("select pada, count(*) c from pada group by pada having count(*) > 1 order by pada;")
+            # cur.execute("select pada, count(*) c from pada group by pada having count(*) > 1 order by pada;")
+            cur.execute("""
+                            select c.cnt occurences, p.pada, p.artha, p.sloka_word from
+                            (select pada, count(*) cnt from pada group by pada) c
+                            inner join pada p on c.pada = p.pada
+                            where c.cnt > 1
+                            order by p.pada; """)
+
             padas = cur.fetchall()
 
             return render_template('dupe_pada.html', padas=padas)

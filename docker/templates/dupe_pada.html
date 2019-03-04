@@ -2,7 +2,20 @@
 
 {% block styles %}
 {{super()}}
+<style type="text/css">
+  table {
+      /* border: 1px dotted grey; */
+      width: 100%;
+      text-align: center;
+    }
+  th, td {
+    /* border: 1px dotted grey; */
+    padding-right: 10px;
+    text-align: left;
+  }
+</style>
 {% endblock %}
+
 
 {% block content %}
 {{super()}}
@@ -10,10 +23,25 @@
 
   <div class="card bg-light mb-3" style="max-width: 35rem;">
     <div class="card-body answer" id="answer">
-      <h5 class="card-title">अनेकार्थपदानि: {{padas | length}}</h5>
-      {% for p in padas %}
-        <a href="search?term={{p['pada']}}">{{p["pada"]}} - {{p["c"]}}.</a> 
-      {% endfor%}
+
+      {% set padas_grouped = padas | groupby('pada') %}
+      <h5 class="card-title">अनेकार्थपदानि: {{padas_grouped | length}}</h5>
+
+      <table>
+        <tr><td>पदम्</td><td>#</td><td>अर्थाः</td></tr>
+        {% for entry in padas_grouped %}
+          <tr>
+            <td>{{ entry.grouper }}</td>
+            <td>{{entry.list | length}}</td>
+            <td>
+              {% for p in entry.list %}
+                <a href="/pada?pada_number={{p['sloka_word']}}&pada={{p['pada']}}">{{p["artha"]}}.</a>&nbsp;
+              {% endfor%}
+            </td>
+          </tr>
+        {% endfor%}
+      </table>
+
     </div>
   </div>
 
