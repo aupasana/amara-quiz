@@ -2,25 +2,38 @@
 
 {% block styles %}
 {{super()}}
+<style type="text/css">
+.icon {
+  height: 2rem;
+  width: 2em;
+  padding-right: 10pt;
+}
+}
+</style>
 {% endblock %}
-
 {% block content %}
 {{super()}}
 
 <div class="container">
-    This site was made possible by the
-    <a href="http://sanskrit.uohyd.ac.in/scl/amarakosha/frame.html">University of Hyderabad amara kosha dataset</a>.
 
-    <br/><br/>
-    The sources are on <a href="https://github.com/aupasana/amara-quiz">github</a>.
+  <h5>About this site</h5>
 
-    <br/><br/>
+  <div><img class="icon" src="icons/code.svg"/>This site is developed by Ajit Krishnan</div>
+  <div><img class="icon" src="icons/code.svg"/>The primary technologies used are docker, flask-bootstrap and sqlite3</div>
+  <div><img class="icon" src="icons/code.svg"/>The sources are on <a href="https://github.com/aupasana/amara-quiz">github</a></div>
+  <br/>
 
-    <div>Icons made by <a href="https://www.flaticon.com/authors/picol" title="Picol">Picol</a>
+  <h5>Credits</h5>
+
+  <div><img class="icon" src="icons/thumbs-up.svg"/>This site was made possible by the <a href="http://sanskrit.uohyd.ac.in/scl/amarakosha/frame.html">University of Hyderabad amara kosha dataset</a></div>
+
+  <div><img class="icon" src="icons/thumbs-up.svg"/>Icons made by <a href="https://www.flaticon.com/authors/picol" title="Picol">Picol etc</a>
       from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a>
-      is licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
+      are licensed by <a href="http://creativecommons.org/licenses/by/3.0/"
       title="Creative Commons BY 3.0" target="_blank">CC 3.0 BY</a></div>
 
-      <br/>
 </div>
+{% endblock %}
+
+{% block footer %}
 {% endblock %}
