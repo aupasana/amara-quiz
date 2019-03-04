@@ -10,9 +10,9 @@
 
   <div class="card bg-light mb-3" style="max-width: 35rem;">
     <div class="card-body answer" id="answer">
-      <h5 class="card-title">अनेकार्थपदानि</h5>
+      <h5 class="card-title">अनेकार्थपदानि: {{padas | length}}</h5>
       {% for p in padas %}
-        <a href="search?term={{p['pada']}}">{{p["pada"]}}</a>: {{p["c"]}}. 
+        <a href="search?term={{p['pada']}}">{{p["pada"]}} - {{p["c"]}}.</a> 
       {% endfor%}
     </div>
   </div>

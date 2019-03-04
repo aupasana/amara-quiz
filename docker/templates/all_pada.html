@@ -19,9 +19,9 @@
 
   <div class="card bg-light mb-3" style="max-width: 35rem;">
     <div class="card-body answer" id="answer">
-      <h5 class="card-title">पदानि</h5>
+      <h5 class="card-title">पदानि {{padas | length}}</h5>
       {% for p in padas %}
-        <a href="pada?pada_number={{p['sloka_word']}}&pada={{p['pada']}}">{{p["pada"]}}</a> 
+        <a href="pada?pada_number={{p['sloka_word']}}&pada={{p['pada']}}">{{p["pada"]}}</a>
       {% endfor%}
     </div>
   </div>
