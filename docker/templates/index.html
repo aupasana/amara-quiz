@@ -34,6 +34,10 @@
   width: 2em;
   padding-right: 10pt;
 }
+.index-section {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
 </style>
 {% endblock %}
 
@@ -61,40 +65,45 @@ $(document).ready(function(){
 
 <div class="container">
 
-  <select class="varga-select" id="all_vargas" name="all_vargas" method="GET" action="/">
-    <optgroup class="varga-select">
-      {% for varga in all_vargas %}
-      <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
-      {% endfor %}
-    </optgroup>
-  </select>
+  <!-- varga - view & quiz -->
+  <div class="index-section">
+    <select class="varga-select" id="all_vargas" name="all_vargas" method="GET" action="/">
+      <optgroup class="varga-select">
+        {% for varga in all_vargas %}
+        <option class="varga-select" value= "{{varga}}" >{{varga}}</option>
+        {% endfor %}
+      </optgroup>
+    </select>
 
-  <br/>
-  <button class="varga-button button" id="vargaButton"><img class="search-image" src="icons/varga.svg"/>view</button>
-  <button class="quiz-button button" id="quizButton"><img class="search-image" src="icons/quiz.svg"/>quiz</button><br/>
-
-  <br/>
-  <hr/>
-  <br/>
-
-  <p/>
-  <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
-  <br/>
-  <button class="search-button button" id="searchButton"><img class="search-image" src="icons/search.svg"/>search</button>
-
-  <div>
-    Search in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a>.
-    <br/>"indra*", "वि*वत्", "*dra", "शिव शक्ति"
+    <br/>
+    <button class="varga-button button" id="vargaButton"><img class="search-image" src="icons/varga.svg"/>view</button>
+    <button class="quiz-button button" id="quizButton"><img class="search-image" src="icons/quiz.svg"/>quiz</button><br/>
   </div>
 
-  <br/>
   <hr/>
-  <br/>
 
-<div><a href="/stats"><img class="search-image" src="icons/count.svg"/>Statistics and counts</a></div>
-<div><a href="/all_pada"><img class="search-image" src="icons/list.svg"/>Complete word list</a></div>
-<div><a href="/dupe_pada"><img class="search-image" src="icons/duplicate.svg"/>Words with multiple occurences</a></div>
-<div><a href="/about"><img class="search-image" src="icons/about.svg"/>About this site</a></div>
+  <!-- search -->
+  <div class="index-section">
+    <p/>
+    <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
+    <br/>
+    <button class="search-button button" id="searchButton"><img class="search-image" src="icons/search.svg"/>search</button>
+
+    <div>
+      Search in <a href="https://en.wikipedia.org/wiki/Devanagari_(Unicode_block)">देवनागरी</a> or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a>.
+      <br/>"indra*", "वि*वत्", "*dra", "शिव शक्ति"
+    </div>
+  </div>
+
+  <hr/>
+
+  <!-- other links -->
+  <div class="index-section">
+    <div><a href="/stats"><img class="search-image" src="icons/count.svg"/>Statistics and counts</a></div>
+    <div><a href="/all_pada"><img class="search-image" src="icons/list.svg"/>Complete word list</a></div>
+    <div><a href="/dupe_pada"><img class="search-image" src="icons/duplicate.svg"/>Words with multiple occurences</a></div>
+    <div><a href="/about"><img class="search-image" src="icons/about.svg"/>About this site</a></div>
+  </div>
 
 
 </div>
