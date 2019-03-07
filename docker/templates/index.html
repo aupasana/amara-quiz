@@ -81,8 +81,8 @@ $(document).ready(function(){
     <!-- search -->
     <div class="index-section col-md">
       <div>
+        <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>&nbsp;&nbsp;&nbsp;
         <a href="#" id="searchButton"><img class="search-image" src="icons/search.svg"/></a>
-        <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>
       </div><br/>
 
       <div>
@@ -105,9 +105,9 @@ $(document).ready(function(){
         </optgroup>
       </select>
 
-      <br/>
-      <button class="varga-button button" id="vargaButton"><img class="search-image" src="icons/varga.svg"/>view</button>
-      <button class="quiz-button button" id="quizButton"><img class="search-image" src="icons/quiz.svg"/>quiz</button><br/>
+      <br/><br/>
+      <div><img class="search-image" src="icons/varga.svg"/><a href="#" id="vargaButton">View varga selected above</a></div>
+      <div><img class="search-image" src="icons/quiz.svg"/><a href="#" id="quizButton">Generate quizzes for varga selected above</a></div>
     </div>
 
   </div>
