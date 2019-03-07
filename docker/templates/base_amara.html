@@ -19,6 +19,12 @@
     width: 2em;
     padding-right: 10pt;
   }
+  .headerSearch {
+    text-align: center;
+  }
+  .header-search-div {
+    padding-top: 5pt;
+  }
   .footer-image {
     height: 1rem;
     width: 1rem;
@@ -26,12 +32,24 @@
 </style>
 {% endblock %}
 
+{% block scripts %}
+{{super()}}
+<script>
+$(document).ready(function(){
+  $('#header-search-button').click(function() {
+    window.location = "/search?term=" + $('#headerSearchTerm').val();
+  });
+});
+</script>
+{% endblock %}
+
 {% block content %}
 {{super()}}
 <div class="container top-matter">
-  <div class="card bg-light mb-3" style="max-width: 100%;">
-    <div class="card-body">
-      <h3><a href="/"><img class="connection-image" src="icons/connection.svg"/>अमरकोषसम्पद्</a></h3>
+  <div class="card bg-light" style="max-width: 30rem;">
+    <div class="card-body"  style="max-width: 30rem;">
+      <h3><a href="/">अमरकोषसम्पद्</a></h3>
+      <div class="header-search-div"><img class="footer-image" id="header-search-button" src="/icons/search.svg"/>&nbsp;&nbsp;&nbsp;<input type="text" class="headerSearch" id="headerSearchTerm" placeholder="search in itrans / देवनागरी" style="width:15rem;"></input></div>
     </div>
   </div>
 </div>
