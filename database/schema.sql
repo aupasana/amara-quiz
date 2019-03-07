@@ -32,20 +32,20 @@ CREATE TABLE pada (
 );
 GO
 
-CREATE TABLE jnu (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  sloka_number TEXT NOT NULL,
-  pada TEXT NOT NULL,
-  artha_english TEXT NOT NULL,
-  artha_hindi TEXT NOT NULL,
-  artha_kannada TEXT NOT NULL,
-  artha_bangla TEXT NOT NULL,
-  artha_oriya TEXT NOT NULL,
-  artha_punjabi TEXT NOT NULL,
-  artha_assamese TEXT NOT NULL,
-  artha_maithili TEXT NOT NULL
-);
-GO
+-- CREATE TABLE jnu (
+--   id INTEGER PRIMARY KEY AUTOINCREMENT,
+--   sloka_number TEXT NOT NULL,
+--   pada TEXT NOT NULL,
+--   artha_english TEXT NOT NULL,
+--   artha_hindi TEXT NOT NULL,
+--   artha_kannada TEXT NOT NULL,
+--   artha_bangla TEXT NOT NULL,
+--   artha_oriya TEXT NOT NULL,
+--   artha_punjabi TEXT NOT NULL,
+--   artha_assamese TEXT NOT NULL,
+--   artha_maithili TEXT NOT NULL
+-- );
+-- GO
 
 CREATE TABLE staging_translation (
   pada_uid INTEGER PRIMARY KEY,
