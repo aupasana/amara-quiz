@@ -59,6 +59,14 @@ $(document).ready(function(){
   $('#searchButton').click(function() {
     window.location = "/search?term=" + $('#searchTerm').val();
   });
+
+  $("#searchTerm").keypress(function() {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+      if (event.which == 13 || event.keyCode == 13) {
+        window.location = "/search?term=" + $('#searchTerm').val();
+          event.preventDefault()
+      }
+   });
 });
 </script>
 {% endblock %}

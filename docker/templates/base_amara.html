@@ -36,6 +36,13 @@
 {{super()}}
 <script>
 $(document).ready(function(){
+  $("#headerSearchTerm").keypress(function() {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+      if (event.which == 13 || event.keyCode == 13) {
+        window.location = "/search?term=" + $('#headerSearchTerm').val();
+          event.preventDefault()
+      }
+   });
   $('#header-search-button').click(function() {
     window.location = "/search?term=" + $('#headerSearchTerm').val();
   });
