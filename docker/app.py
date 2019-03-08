@@ -76,12 +76,21 @@ def babylon():
     term = term.replace("*", "%")
     user_term = user_term.replace("*", "%")
 
+    sub_words = term.split("--")
+    if len(sub_words) > 0:
+        term = sub_words[0];
+        sub_words.pop(0)
+
     try:
         with sql.connect('amara.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
 
-            cur.execute("select * from babylon inner join babylon_word on babylon.id = babylon_word.id where word like ? order by id limit ? offset ?;", [term, limit, offset])
+            if len(sub_words) > 0:
+                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id where word like ? and sub_word like ? order by b.id limit ? offset ?;", [term, sub_words[0], limit, offset])
+            else:
+                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id where word like ? order by b.id limit ? offset ?;", [term, limit, offset])
+
             rows = cur.fetchall();
 
             return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page)

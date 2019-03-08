@@ -57,7 +57,7 @@
           <div class="card-body">
             <h5 class="card-title">
               <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>
-              {{row["word"]}}
+              {{row["head"] | replace ("|", ", ")}}
             </h5>
             <p class="card-text">
               Source: {{row["name"]}} {{row["id"]}}<p/>
