@@ -5,20 +5,18 @@ import sys
 import re
 import sqlite3 as sql
 
-
-def print_entry(cur, babylon_name, entry_number, head, body):
-    # print "%s%s%s" % (entry_number, head, body)
+def print_entry(cur, babylon_name, entry_number, head, subheads, body):
     cur.execute("insert into babylon (id, name, head, body) values (?, ?, ?, ?);", [entry_number, babylon_name, head, body])
 
     head_words = head.split("|")
     for head_word in head_words:
-        cur.execute("insert into babylon_word (id, name, word) values (?, ?, ?);", [entry_number, babylon_name, head_word.strip('\n')])
+        stripped_head_word = head_word.strip('\n');
+        cur.execute("insert into babylon_word (id, name, word) values (?, ?, ?);", [entry_number, babylon_name, stripped_head_word])
 
-        # sys.stdout.write ("head_word is %s\n" % head_word.strip('\n'))
-
-
-    # sys.stdout.write ("parsed entry for %s" % head.encode('utf-8'))
-    # sys.stdout.write ("body is %s" % body)
+        for sub_word in subheads:
+            stripped_sub_word = sub_word.strip('\n');
+            if stripped_sub_word != "Comp.":                # compounds
+                cur.execute("insert into babylon_word (id, name, word, sub_word) values (?, ?, ?, ?);", [entry_number, babylon_name, stripped_head_word, stripped_sub_word])
 
 
 f = io.open("database/babylon/ap90.babylon", mode="r", encoding="utf-8")
@@ -27,6 +25,7 @@ babylon_name = "apte";
 
 head = None;
 body = "";
+subheads = [];
 
 with sql.connect('docker/amara.db') as con:
     con.row_factory = sql.Row
@@ -34,10 +33,12 @@ with sql.connect('docker/amara.db') as con:
 
     for line in f:
         if re.match(r'^$', line):
-            print_entry(cur, babylon_name, entry_number, head, body);
+            print_entry(cur, babylon_name, entry_number, head, subheads, body);
 
             head = None;
             body="";
+            subheads = [];
+
             entry_number = entry_number + 1;
             continue;
 
@@ -45,3 +46,7 @@ with sql.connect('docker/amara.db') as con:
             head = line;
         else:
             body = "%s\n\n%s" % (body, line)
+
+            match = re.compile(ur"^--([^0-9][^ \)]*)", re.UNICODE)
+            matches = match.findall(line);
+            subheads = subheads + matches;

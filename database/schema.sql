@@ -70,6 +70,7 @@ GO
 CREATE TABLE babylon_word (
   id INTEGER,
   name TEXT NOT NULL,
-  word TEXT NOT NULL
+  word TEXT NOT NULL,
+  sub_word TEXT
 );
 GO
