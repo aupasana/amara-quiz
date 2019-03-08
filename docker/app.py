@@ -80,7 +80,15 @@ def babylon():
     term = term.replace("*", "%")
     user_term = user_term.replace("*", "%")
 
-    sub_words = term.split("--")
+    sub_words = [];
+    sub_words_delimiters = ["--", '-', '\\', '/'];
+    for d in sub_words_delimiters:
+        s = term.split(d)
+        if len(s) > 1:
+            sub_words = s;
+            # print(sub_words);
+            break;
+
     if len(sub_words) > 0:
         term = sub_words[0];
         sub_words.pop(0)
@@ -94,10 +102,13 @@ def babylon():
             highlight_sub_word = "";
 
             if len(sub_words) > 0:
-                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word like ? and sub_word like ? order by b.id limit ? offset ?;", [term, sub_words[0], limit, offset])
+                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word like ? and sub_word like ? order by b.id limit ? offset ?;",
+                                [term, sub_words[0], limit, offset])
                 highlight_sub_word = sub_words[0].strip('%')
+                # print("%s and %s" % (term, sub_words[0]));
             else:
-                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word like ? order by b.id limit ? offset ?;", [term, limit, offset])
+                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word like ? order by b.id limit ? offset ?;",
+                [term, limit, offset])
 
             rows = cur.fetchall();
 
