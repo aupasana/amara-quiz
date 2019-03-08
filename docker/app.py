@@ -9,11 +9,15 @@ import re
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 Bootstrap(app)
-@app.route('/')
 
+@app.route('/')
 def index():
     all_vargas = ['स्वर्गवर्गः','व्योमवर्गः','दिग्वर्गः','कालवर्गः','धीवर्गः','शब्दादिवर्गः','नाट्यवर्गः','पातालभोगिवर्गः','नरकवर्गः','वारिवर्गः','भूमिवर्गः','पुरवर्गः','शैलवर्गः','वनौषधिवर्गः','सिंहादिवर्गः','मनुष्यवर्गः','ब्रह्मवर्गः','क्षत्रियवर्गः','वैश्यवर्गः','शूद्रवर्गः','विशेष्यनिघ्नवर्गः','सङ्कीर्णवर्गः','नानार्थवर्गः','अव्ययवर्गः']
     return render_template('index.html', all_vargas=all_vargas)
+
+@app.route('/index_babylon')
+def index_babylon():
+    return render_template('index_babylon.html')
 
 @app.route('/search')
 def search():
@@ -86,14 +90,19 @@ def babylon():
             con.row_factory = sql.Row
             cur = con.cursor()
 
+            highlight_word = term.strip('%');
+            highlight_sub_word = "";
+
             if len(sub_words) > 0:
                 cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id where word like ? and sub_word like ? order by b.id limit ? offset ?;", [term, sub_words[0], limit, offset])
+                highlight_sub_word = sub_words[0].strip('%')
             else:
                 cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id where word like ? order by b.id limit ? offset ?;", [term, limit, offset])
 
             rows = cur.fetchall();
 
-            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page)
+
+            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page, highlight_word=highlight_word, highlight_sub_word=highlight_sub_word)
     finally:
         con.close()
 
