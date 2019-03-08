@@ -1,0 +1,84 @@
+{% extends "base_amara.html" %}
+
+{% block styles %}
+{{super()}}
+<style type="text/css">
+.search-term {
+  -webkit-appearance: none;
+  font-size: large;
+  padding: 5pt;
+  width: 200px;
+}
+.button {
+  margin-top: 5px;
+}
+.searchHint {
+  font-size: medium;
+}
+.search-image {
+  height: 2rem;
+  width: 2em;
+  padding-right: 10pt;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script>
+$(document).ready(function(){
+  $('#searchButton').click(function() {
+    window.location = "/babylon?term=" + $('#searchTerm').val();
+  });
+
+  $("#searchTerm").keypress(function() {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+      if (event.which == 13 || event.keyCode == 13) {
+        window.location = "/babylon?term=" + $('#searchTerm').val();
+          event.preventDefault()
+      }
+   });
+});
+</script>
+{% endblock %}
+
+{% block content %}
+{{super()}}
+
+<div class="container">
+
+  <div class="row">
+
+    <!-- search -->
+    <div class="index-section col-md">
+      <br/>
+
+      Search the following dictionaries:
+
+      <ul>
+        <li>apte sanskrit english dictionary
+      </ul>
+
+      <br/>
+
+      <div>
+        <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>&nbsp;&nbsp;&nbsp;
+        <a href="#" id="searchButton"><img class="search-image" src="icons/search.svg"/></a>
+      </div><br/>
+
+      <div>
+        <br/>Examples: "सहस्र*", "सहस्र--अक्ष", "sahasra--akSha"
+      </div>
+    </div>
+
+  </div>
+
+  <div class="row">
+
+
+</div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
