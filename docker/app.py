@@ -94,10 +94,10 @@ def babylon():
             highlight_sub_word = "";
 
             if len(sub_words) > 0:
-                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id where word like ? and sub_word like ? order by b.id limit ? offset ?;", [term, sub_words[0], limit, offset])
+                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word like ? and sub_word like ? order by b.id limit ? offset ?;", [term, sub_words[0], limit, offset])
                 highlight_sub_word = sub_words[0].strip('%')
             else:
-                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id where word like ? order by b.id limit ? offset ?;", [term, limit, offset])
+                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word like ? order by b.id limit ? offset ?;", [term, limit, offset])
 
             rows = cur.fetchall();
 

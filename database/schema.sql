@@ -60,7 +60,7 @@ CREATE INDEX ix_pada_varga ON pada (varga);
 GO
 
 CREATE TABLE babylon (
-  id INTEGER PRIMARY KEY,
+  id INTEGER,
   name TEXT NOT NULL,
   head TEXT NOT NULL,
   body TEXT NOT NULL
