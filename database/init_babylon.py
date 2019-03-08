@@ -53,6 +53,6 @@ for dict in dicts:
             else:
                 body = "%s\n\n%s" % (body, line)
 
-                match = re.compile(ur"^--([^0-9][^ \)]*)", re.UNICODE)
+                match = re.compile(ur"--([^0-9][^ \),]*)", re.UNICODE)
                 matches = match.findall(line);
                 subheads = subheads + matches;
