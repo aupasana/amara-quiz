@@ -54,6 +54,40 @@ def search():
     finally:
         con.close()
 
+@app.route('/babylon')
+def babylon():
+
+    limit = 10
+    offset = 0
+
+    user_term = request.args.get('term')
+    page = request.args.get('page')
+    term = user_term
+
+    if not page:
+        page = 1
+
+    offset = limit*(int(page) - 1)
+
+    transliterate_regex = re.compile('.*[a-zA-Z].*')
+    if (transliterate_regex.match(term)):
+        term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
+
+    term = term.replace("*", "%")
+    user_term = user_term.replace("*", "%")
+
+    try:
+        with sql.connect('amara.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+
+            cur.execute("select * from babylon inner join babylon_word on babylon.id = babylon_word.id where word like ? order by id limit ? offset ?;", [term, limit, offset])
+            rows = cur.fetchall();
+
+            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page)
+    finally:
+        con.close()
+
 
 @app.route('/searchjnu')
 def searchjnu():

@@ -1,0 +1,81 @@
+{% extends "base_amara.html" %}
+
+{% block styles %}
+{{super()}}
+<style type="text/css">
+  .result-number {
+    display: inline-block;
+    width: 4rem;
+  }
+</style>
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+    <script>
+      $(document).ready(function(){
+          window.page = 1;
+          $("#button-previous").prop('disabled',true);
+
+          $("#button-previous").click(function() {
+            window.page = window.page-1;
+            $('#content-inner').load('/babylon?term={{user_term}}&page=' + window.page + ' #content-inner');
+            window.scrollTo(0,document.body.scrollHeight);
+
+            if (window.page === 1) {
+              $("#button-previous").prop('disabled',true);
+            }
+          });
+
+          $("#button-next").click(function() {
+            window.page = window.page+1;
+            $('#content-inner').load('/babylon?term={{user_term}}&page=' + window.page + ' #content-inner');
+            $("#button-previous").prop('disabled',false);
+            $(window).scrollTop(0);
+          });
+
+      });
+    </script>
+{% endblock %}
+
+{% block content %}
+{{super()}}
+
+<div class="container">
+
+  <button id="button-previous" class="btn btn-secondary" style="width:10rem">previous</button>
+
+  <div id="content-inner">
+
+    <br/>
+    <h5> Search: {{term}} ({{user_term}}). Page {{page}}</h5>
+    <br/>
+
+      {% for row in rows %}
+
+        <div class="card bg-light mb-3" style="max-width: 25rem;">
+          <div class="card-body">
+            <h5 class="card-title">
+              <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>
+              {{row["word"]}}
+            </h5>
+            <p class="card-text">
+              Source: {{row["name"]}} {{row["id"]}}<p/>
+              {{row["body"] | replace("\n", "<p/>") | safe}}
+            </p>
+          </div>
+        </div>
+        <br/>
+
+      {% endfor %}
+
+  </div>
+
+  <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
+  <br/><br/>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}

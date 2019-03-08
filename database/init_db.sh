@@ -20,6 +20,8 @@ sqlite3 docker/amara.db "update pada
 set artha_english = ( select translation from staging_translation where pada.pada_uid = staging_translation.pada_uid )
 where pada_uid in ( select pada_uid from staging_translation );"
 
+database/init_babylon.py
+
 sqlite3 docker/amara.db "delete from staging_translation;"
 sqlite3 docker/amara.db "vacuum;"
 
