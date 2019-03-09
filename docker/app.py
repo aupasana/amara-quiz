@@ -1,3 +1,10 @@
+# -*- coding: utf-8 -*-
+
+# uncomment the lines below to run directly
+# import sys
+# reload(sys)
+# sys.setdefaultencoding("utf-8")
+
 from flask import Flask, redirect, render_template, request, current_app, g
 from flask_bootstrap import Bootstrap
 from indic_transliteration import sanscript
