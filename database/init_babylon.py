@@ -22,7 +22,8 @@ def print_entry(cur, babylon_name, entry_number, head, subheads, body):
             if stripped_sub_word != "Comp.":                # compounds
                 cur.execute("insert into babylon_word (id, name, word, sub_word) values (?, ?, ?, ?);", [entry_number, babylon_name, stripped_head_word, stripped_sub_word])
 
-dicts = ["ap90.babylon"] # , "mw72.babylon"];
+dicts = ["ap90.babylon" ];
+# dicts = ["ap90.babylon", "vcp.babylon", "skd.babylon", "mw72.babylon"];
 
 for dict in dicts:
     f = io.open("database/babylon/%s" % dict, mode="r", encoding="utf-8")
