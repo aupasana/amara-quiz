@@ -16,18 +16,16 @@ mula_columns_all = [ 'id', 'varga_number', 'sloka_number', 'sloka_line', 'varga'
 pada_columns_all = [ 'id', 'varga_number', 'sloka_number', 'sloka_line', 'sloka_word', 'pada', 'linga', 'varga', 'artha_english', 'artha']
 
 columns_transliterate = {
-    'id': False,
-    'varga_number': False,
-    'sloka_number': False,
-    'sloka_line': False,
-    'sloka_word': False,
-    'pada': True,
-    'linga': True,
-    'varga': True,
-    'sloka_text': True,
-    'artha_english': False,
-    'artha': True
+    'pada': 'pada_transliterated',
+    'linga': 'linga_transliterated',
+    'varga': 'varga_transliterated',
+    'sloka_text': 'sloka_text_transliterated',
+    'artha': 'artha_transliterated'
 }
+
+def get_cursor_column_names(cursor):
+    names = [item[0] for item in cursor.description]
+    return names
 
 def transliterate_term(output_script, term):
     if not output_script in output_scripts:
@@ -49,10 +47,9 @@ def transliterate_sql_rows(output_script, column_names, sql_rows):
         transliterated_row = {}
 
         for column_name in column_names:
+            transliterated_row[column_name] = sql_row[column_name]
             if column_name in columns_transliterate and columns_transliterate[column_name]:
-                transliterated_row[column_name] = transliterate(sql_row[column_name], xsanscript.DEVANAGARI, xsanscript_script)
-            else:
-                transliterated_row[column_name] = sql_row[column_name]
+                transliterated_row[columns_transliterate[column_name]] = transliterate(sql_row[column_name], xsanscript.DEVANAGARI, xsanscript_script)
 
         output_rows.append(transliterated_row)
 
@@ -185,23 +182,23 @@ def sloka():
             con.row_factory = sql.Row
             cur = con.cursor()
             mula_columns = []
-            cur.execute("select %s from mula where sloka_number = ? order by sloka_line;" % ", ".join(mula_columns_all), [sloka_number])
+            cur.execute("select * from mula where sloka_number = ? order by sloka_line;", [sloka_number])
             mula = cur.fetchall();
+            mula_columns = get_cursor_column_names(cur)
 
-            cur.execute("select %s from pada where sloka_number = ? order by id;" % ", ".join(pada_columns_all), [sloka_number])
+            cur.execute("select * from pada where sloka_number = ? order by id;", [sloka_number])
             pada = cur.fetchall();
+            pada_columns = get_cursor_column_names(cur)
 
             varga = ""
             if len(mula) > 0:
                 varga = mula[0]["varga"]
 
-            mula_transliterated = transliterate_sql_rows(language, mula_columns_all, mula)
-            pada_transliterated = transliterate_sql_rows(language, pada_columns_all, pada)
-
             return render_template('sloka.html',
-                mula=mula_transliterated,
-                pada=pada_transliterated,
-                varga=transliterate_term(language, varga),
+                mula=transliterate_sql_rows(language, mula_columns, mula),
+                pada=transliterate_sql_rows(language, pada_columns, pada),
+                varga=varga,
+                varga_transliterated = transliterate_term(language, varga),
                 sloka_number=sloka_number,
                 sloka_number_previous=sloka_number_previous,
                 sloka_number_next=sloka_number_next)
@@ -252,6 +249,7 @@ def pada():
 
     pada = request.args.get('pada')
     number = request.args.get('pada_number')
+    language = request.args.get('language')
 
     try:
         rows =[]
@@ -271,7 +269,11 @@ def pada():
             cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by pada.id", [varga, artha]);
             paryaya = cur.fetchall();
 
-            return render_template('pada.html', rows=rows, paryaya=paryaya, varga=varga, paryaya_slokas=paryaya_slokas)
+            return render_template('pada.html',
+                rows = transliterate_sql_rows(language, ['id', 'sloka_number', 'sloka_word', 'varga', 'linga', 'artha', 'pada', 'sloka_text'], rows),
+                paryaya=transliterate_sql_rows(language, ['sloka_number', 'sloka_word', 'varga', 'pada'], paryaya),
+                varga=varga,
+                paryaya_slokas=paryaya_slokas)
     finally:
         con.close()
 

@@ -43,11 +43,11 @@
           <button id="button-next" class="btn btn-secondary" style="width:10rem" onclick="window.location.href='/sloka?sloka_number={{sloka_number_next}}'">next</button>
           <p/><p/>
 
-          {{varga}} {{sloka_number}}
+          {{varga_transliterated}} {{sloka_number}}
         <a href="/varga?varga={{varga}}#{{sloka_number}}"><img class="sloka-image" src="/icons/varga.svg"/></a></h5>
         <p class="card-text sloka">
           {% for row in mula %}
-            {{row["sloka_text"]}}<br/>
+            {{row["sloka_text_transliterated"]}}<br/>
           {% endfor %}
         </p>
       </div>
@@ -62,15 +62,15 @@
             {% for row in pada %}
               <tr>
                 <td>{{row["sloka_word"]}}</td>
-                <td>{{row["linga"]}}</td>
+                <td>{{row["linga_transliterated"]}}</td>
                 <td>
                   <a href="/search?term={{row['pada']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
                   <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image lighten" src="/icons/pada.svg"/></a>
-                  &nbsp;{{row["pada"]}}
+                  &nbsp;{{row["pada_transliterated"]}}
                 </td>
                 <td>
                   <a href="/search?term={{row['artha']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
-                  &nbsp;{{row["artha"]}}</td>
+                  &nbsp;{{row["artha_transliterated"]}}</td>
                 <td>{{row["artha_english"]}}</td>
               </tr>
             {% endfor %}
