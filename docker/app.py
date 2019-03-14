@@ -23,10 +23,6 @@ columns_transliterate = {
     'artha': 'artha_transliterated'
 }
 
-def get_cursor_column_names(cursor):
-    names = [item[0] for item in cursor.description]
-    return names
-
 def transliterate_term(output_script, term):
     if not output_script in output_scripts:
         return term
@@ -34,27 +30,27 @@ def transliterate_term(output_script, term):
         xsanscript_script = output_scripts[output_script]
         return transliterate(term, xsanscript.DEVANAGARI, xsanscript_script)
 
-def transliterate_sql_rows(output_script, column_names, sql_rows):
+def transliterate_factory(xsanscript_script, cursor, row):
+    d = {}
+    for idx, col in enumerate(cursor.description):
+        column_name = col[0]
+        d[column_name] = row[idx]
 
-    if not output_script in output_scripts:
-        return sql_rows
-    else:
-        xsanscript_script = output_scripts[output_script]
+        if column_name in columns_transliterate:
+            if xsanscript_script:
+                d[columns_transliterate[column_name]] = transliterate(row[idx], xsanscript.DEVANAGARI, xsanscript_script)
+            else:
+                d[columns_transliterate[column_name]] = row[idx]
+    return d
 
-    output_rows = []
+def transliterate_factory_script(language):
+    xsanscript_script = None
+    if language in output_scripts:
+        xsanscript_script = output_scripts[language]
 
-    for sql_row in sql_rows:
-        transliterated_row = {}
-
-        for column_name in column_names:
-            transliterated_row[column_name] = sql_row[column_name]
-            if column_name in columns_transliterate and columns_transliterate[column_name]:
-                transliterated_row[columns_transliterate[column_name]] = transliterate(sql_row[column_name], xsanscript.DEVANAGARI, xsanscript_script)
-
-        output_rows.append(transliterated_row)
-
-    return output_rows
-
+    def t(cursor, row):
+        return transliterate_factory(xsanscript_script, cursor, row)
+    return t
 
 Bootstrap(app)
 
@@ -75,6 +71,7 @@ def search():
 
     user_term = request.args.get('term')
     page = request.args.get('page')
+    language = request.args.get('language')
     term = user_term
 
     if not page:
@@ -92,7 +89,7 @@ def search():
 
     try:
         with sql.connect('amara.db') as con:
-            con.row_factory = sql.Row
+            con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
 
             if len(term_words) == 1:
@@ -102,7 +99,8 @@ def search():
                 query = "select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada in (%s) order by pada limit 100;" % ','.join('?' for i in term_words)
                 rows = cur.execute(query, term_words)
 
-            return render_template('search.html', rows=rows, user_term=user_term, term=term, page=page)
+            resx = { 'artha': transliterate_term(language, 'अर्थः')}
+            return render_template('search.html', rows=rows, user_term=user_term, term=term, page=page, resx=resx)
     finally:
         con.close()
 
@@ -179,24 +177,21 @@ def sloka():
 
     try:
         with sql.connect('amara.db') as con:
-            con.row_factory = sql.Row
+            con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
-            mula_columns = []
             cur.execute("select * from mula where sloka_number = ? order by sloka_line;", [sloka_number])
             mula = cur.fetchall();
-            mula_columns = get_cursor_column_names(cur)
 
             cur.execute("select * from pada where sloka_number = ? order by id;", [sloka_number])
             pada = cur.fetchall();
-            pada_columns = get_cursor_column_names(cur)
 
             varga = ""
             if len(mula) > 0:
                 varga = mula[0]["varga"]
 
             return render_template('sloka.html',
-                mula=transliterate_sql_rows(language, mula_columns, mula),
-                pada=transliterate_sql_rows(language, pada_columns, pada),
+                mula=mula,
+                pada=pada,
                 varga=varga,
                 varga_transliterated = transliterate_term(language, varga),
                 sloka_number=sloka_number,
@@ -255,13 +250,13 @@ def pada():
         rows =[]
 
         with sql.connect('amara.db') as con:
-            con.row_factory = sql.Row
+            con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
             cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.sloka_word = ? and pada.pada = ?;", [number, pada])
-            rows = cur.fetchall();
+            pada = cur.fetchall();
 
-            artha = rows[0]["artha"];
-            varga = rows[0]["varga"];
+            artha = pada[0]["artha"];
+            varga = pada[0]["varga"];
 
             cur.execute("select distinct mula.sloka_line, mula.sloka_number, mula.sloka_text, mula.varga from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by mula.sloka_line", [varga, artha]);
             paryaya_slokas=cur.fetchall();
@@ -269,11 +264,13 @@ def pada():
             cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by pada.id", [varga, artha]);
             paryaya = cur.fetchall();
 
+            resx = {"paryaya": transliterate_term(language, "पर्यायपदानि")}
             return render_template('pada.html',
-                rows = transliterate_sql_rows(language, ['id', 'sloka_number', 'sloka_word', 'varga', 'linga', 'artha', 'pada', 'sloka_text'], rows),
-                paryaya=transliterate_sql_rows(language, ['sloka_number', 'sloka_word', 'varga', 'pada'], paryaya),
+                pada=pada,
+                paryaya=paryaya,
+                paryaya_slokas=paryaya_slokas,
                 varga=varga,
-                paryaya_slokas=paryaya_slokas)
+                resx=resx)
     finally:
         con.close()
 
