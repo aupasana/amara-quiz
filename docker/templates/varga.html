@@ -44,7 +44,7 @@
           {{artha_summary[row["sloka_line"]]}}
         </div>
         <div class="sloka">
-          {{row["sloka_text"]}} <span class="sloka-number">&nbsp;{{row['sloka_line']}}</span><a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="sloka-image" src="/icons/sloka.svg"/></a>
+          {{row["sloka_text_transliterated"]}} <span class="sloka-number">&nbsp;{{row['sloka_line']}}</span><a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="sloka-image" src="/icons/sloka.svg"/></a>
         </div>
     {% endfor %}
   </div>

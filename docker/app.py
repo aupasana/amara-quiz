@@ -85,8 +85,6 @@ def search():
     language = request.cookies.get('amara_language')
     term = user_term
 
-    print ("language is %s" % language)
-
     if not page:
         page = 1
 
@@ -292,6 +290,7 @@ def varga():
 
     varga = request.args.get('varga')
     sloka_number = request.args.get('sloka_number')
+    language = request.cookies.get('amara_language')
 
     if (not varga) and sloka:
         try:
@@ -311,7 +310,7 @@ def varga():
         rows =[]
 
         with sql.connect('amara.db') as con:
-            con.row_factory = sql.Row
+            con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
 
             cur.execute("select * from mula where varga = ?;", [varga])
