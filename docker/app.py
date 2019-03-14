@@ -65,7 +65,11 @@ def index():
     if not language:
         language = "devanagari"
 
-    response = make_response(render_template('index.html', all_vargas=all_vargas, language=language, all_languages=all_languages))
+    all_vargas_map = []
+    for v in all_vargas:
+        all_vargas_map.append({'varga': v, 'varga_transliterated': transliterate_term(language, v)})
+
+    response = make_response(render_template('index.html', all_vargas_map=all_vargas_map, language=language, all_languages=all_languages))
     if language:
         response.set_cookie('amara_language', language)
     return response
