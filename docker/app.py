@@ -2,7 +2,7 @@
 
 from flask import Flask, redirect, render_template, request, current_app, g, make_response
 from flask_bootstrap import Bootstrap
-from indic_transliteration import sanscript, xsanscript
+from indic_transliteration import detect, sanscript, xsanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 
 import random
@@ -94,9 +94,12 @@ def search():
 
     offset = limit*(int(page) - 1)
 
-    transliterate_regex = re.compile('.*[a-zA-Z].*')
-    if (transliterate_regex.match(term)):
-        term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
+    term_script = detect.detect(term).lower()
+    term = transliterate(term, term_script, xsanscript.DEVANAGARI)
+
+    # transliterate_regex = re.compile('.*[a-zA-Z].*')
+    # if (transliterate_regex.match(term)):
+    #     term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
 
     term = term.replace("*", "%")
     user_term = user_term.replace("*", "%")
