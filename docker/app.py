@@ -227,12 +227,13 @@ def quiz():
     varga = request.args.get('varga')
     start = request.args.get('start')
     end = request.args.get('end')
+    language = request.cookies.get('amara_language')
 
     try:
         rows =[]
 
         with sql.connect('amara.db') as con:
-            con.row_factory = sql.Row
+            con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
 
             if start and end:

@@ -41,7 +41,7 @@
 <div class="container">
   <h5>
     <button id="refresh" class="btn btn-secondary" style="width:10rem">new question</button><br/><br/>
-    {{varga}}
+    {{varga_transliterated}}
   </h5>
 
   <br/>
@@ -50,18 +50,18 @@
     {% for row in rows %}
 
       <h5>
-        प्रश्नः -- {{row["pada"]}}<br/><br/>
+        प्रश्नः -- {{row["pada_transliterated"]}}<br/><br/>
         <button id="show-answer" class="btn btn-secondary toggle" style="width:10rem">show answer</button>
       </h5>
 
       <div class="card bg-light mb-3" style="max-width: 35rem;">
         <div class="card-body answer" id="answer">
-          <h5 class="card-title">{{row["pada"]}}, {{row["linga"]}} == {{row["artha"]}}</h5>
+          <h5 class="card-title">{{row["pada_transliterated"]}}, {{row["linga_transliterated"]}} == {{row["artha_transliterated"]}}</h5>
 
-          <div><span class="highlight">{{row["sloka_text"]}}</span></div>
+          <div><span class="highlight">{{row["sloka_text_transliterated"]}}</span></div>
 
           <div class="synonyms">
-            [ {% for p in paryaya %}{{p["pada"]}} {% endfor %} ]
+            [ {% for p in paryaya %}{{p["pada_transliterated"]}} {% endfor %} ]
           </div>
 
           <div class="amara-context">
