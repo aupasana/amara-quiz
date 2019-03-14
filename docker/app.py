@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from flask import Flask, redirect, render_template, request, current_app, g
+from flask import Flask, redirect, render_template, request, current_app, g, make_response
 from flask_bootstrap import Bootstrap
 from indic_transliteration import sanscript, xsanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
@@ -57,7 +57,12 @@ Bootstrap(app)
 @app.route('/')
 def index():
     all_vargas = ['स्वर्गवर्गः','व्योमवर्गः','दिग्वर्गः','कालवर्गः','धीवर्गः','शब्दादिवर्गः','नाट्यवर्गः','पातालभोगिवर्गः','नरकवर्गः','वारिवर्गः','भूमिवर्गः','पुरवर्गः','शैलवर्गः','वनौषधिवर्गः','सिंहादिवर्गः','मनुष्यवर्गः','ब्रह्मवर्गः','क्षत्रियवर्गः','वैश्यवर्गः','शूद्रवर्गः','विशेष्यनिघ्नवर्गः','सङ्कीर्णवर्गः','नानार्थवर्गः','अव्ययवर्गः']
-    return render_template('index.html', all_vargas=all_vargas)
+    language = request.args.get('language')
+
+    response = make_response(render_template('index.html', all_vargas=all_vargas))
+    if language:
+        response.set_cookie('amara_language', language)
+    return response
 
 @app.route('/index_babylon')
 def index_babylon():
@@ -71,8 +76,10 @@ def search():
 
     user_term = request.args.get('term')
     page = request.args.get('page')
-    language = request.args.get('language')
+    language = request.cookies.get('amara_language')
     term = user_term
+
+    print ("language is %s" % language)
 
     if not page:
         page = 1
@@ -168,7 +175,7 @@ def babylon():
 def sloka():
 
     sloka_number = request.args.get('sloka_number')
-    language = request.args.get('language')
+    language = request.cookies.get('amara_language')
 
     sloka_number_parts = sloka_number.split('.')
 
@@ -244,7 +251,7 @@ def pada():
 
     pada = request.args.get('pada')
     number = request.args.get('pada_number')
-    language = request.args.get('language')
+    language = request.cookies.get('amara_language')
 
     try:
         rows =[]
