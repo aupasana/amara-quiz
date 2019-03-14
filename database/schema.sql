@@ -5,6 +5,13 @@ DROP TABLE IF EXISTS mulam;
 DROP TABLE IF EXISTS pada;
 GO
 
+CREATE TABLE varga (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  varga TEXT,
+  varga_english TEXT
+);
+GO
+
 CREATE TABLE mula (
   id INTEGER UNIQUE,
   varga_number TEXT NOT NULL,

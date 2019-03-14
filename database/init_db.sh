@@ -4,6 +4,7 @@ rm docker/amara.db
 sqlite3 docker/amara.db < database/schema.sql
 database/create_mula_csv.pl
 database/create_pada_csv.pl
+sqlite3 -separator ',' docker/amara.db ".import database/amara_varga.csv varga"
 sqlite3 -separator ',' docker/amara.db ".import database/tmp_mula.csv mula"
 sqlite3 -separator ',' docker/amara.db ".import database/tmp_pada.csv pada"
 # sqlite3 -separator ',' docker/amara.db ".import database/amara_jnu.csv jnu"
