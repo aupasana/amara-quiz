@@ -48,7 +48,6 @@ def transliterate_sql_rows(output_script, column_names, sql_rows):
     for sql_row in sql_rows:
         transliterated_row = {}
 
-        print(sql_row)
         for column_name in column_names:
             if column_name in columns_transliterate and columns_transliterate[column_name]:
                 transliterated_row[column_name] = transliterate(sql_row[column_name], xsanscript.DEVANAGARI, xsanscript_script)
@@ -166,32 +165,6 @@ def babylon():
 
 
             return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page, highlight_word=highlight_word, highlight_sub_word=highlight_sub_word)
-    finally:
-        con.close()
-
-
-@app.route('/searchjnu')
-def searchjnu():
-
-    limit = 100
-    user_term = request.args.get('term')
-    term = user_term
-    transliterate_regex = re.compile('.*[a-zA-Z].*')
-    if (transliterate_regex.match(term)):
-        term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
-
-    term = term.replace("*", "%")
-    user_term = user_term.replace("*", "%")
-
-    try:
-        with sql.connect('amara.db') as con:
-            con.row_factory = sql.Row
-            cur = con.cursor()
-
-            cur.execute("select * from jnu where pada like ? or artha_english like ? order by id limit ? ;", [term, user_term, limit])
-            rows = cur.fetchall();
-
-            return render_template('searchjnu.html', rows=rows, user_term=user_term, term=term)
     finally:
         con.close()
 
