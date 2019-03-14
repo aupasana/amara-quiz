@@ -12,10 +12,8 @@ import re
 app = Flask(__name__, static_url_path='', static_folder='static')
 output_scripts = { 'telugu': xsanscript.TELUGU, 'kannada': xsanscript.KANNADA, 'malayalam': xsanscript.MALAYALAM, 'tamil': xsanscript.TAMIL }
 
-mula_columns_all = [ 'id', 'varga_number', 'sloka_number', 'sloka_line', 'varga', 'sloka_text']
-pada_columns_all = [ 'id', 'varga_number', 'sloka_number', 'sloka_line', 'sloka_word', 'pada', 'linga', 'varga', 'artha_english', 'artha']
-
 columns_transliterate = {
+    'varga': 'varga_transliterated',
     'pada': 'pada_transliterated',
     'linga': 'linga_transliterated',
     'varga': 'varga_transliterated',
@@ -56,7 +54,6 @@ Bootstrap(app)
 
 @app.route('/')
 def index():
-    all_vargas = ['स्वर्गवर्गः','व्योमवर्गः','दिग्वर्गः','कालवर्गः','धीवर्गः','शब्दादिवर्गः','नाट्यवर्गः','पातालभोगिवर्गः','नरकवर्गः','वारिवर्गः','भूमिवर्गः','पुरवर्गः','शैलवर्गः','वनौषधिवर्गः','सिंहादिवर्गः','मनुष्यवर्गः','ब्रह्मवर्गः','क्षत्रियवर्गः','वैश्यवर्गः','शूद्रवर्गः','विशेष्यनिघ्नवर्गः','सङ्कीर्णवर्गः','नानार्थवर्गः','अव्ययवर्गः']
     all_languages = ['devanagari', 'telugu', 'kannada', 'malayalam', 'tamil']
 
     language = request.args.get('language')
@@ -65,11 +62,17 @@ def index():
     if not language:
         language = "devanagari"
 
-    all_vargas_map = []
-    for v in all_vargas:
-        all_vargas_map.append({'varga': v, 'varga_transliterated': transliterate_term(language, v)})
+    try:
+        with sql.connect('amara.db') as con:
+            con.row_factory = transliterate_factory_script(language)
+            cur = con.cursor()
 
-    response = make_response(render_template('index.html', all_vargas_map=all_vargas_map, language=language, all_languages=all_languages))
+            cur.execute("select * from varga order by id;")
+            vargas = cur.fetchall();
+    finally:
+        con.close()
+
+    response = make_response(render_template('index.html', all_vargas_map=vargas, language=language, all_languages=all_languages))
     if language:
         response.set_cookie('amara_language', language)
     return response
