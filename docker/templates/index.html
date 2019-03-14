@@ -67,6 +67,10 @@ $(document).ready(function(){
           event.preventDefault()
       }
    });
+
+   $( "#language" ).change(function() {
+     window.location = "/?language=" + $("#language").val()
+   });
 });
 </script>
 {% endblock %}
@@ -111,6 +115,19 @@ $(document).ready(function(){
     </div>
 
   </div>
+
+  <div class="row">
+    <div class="index-section col-md">
+      change output script:
+      <select id="language" method="GET" action="/">
+          {% for lang in all_languages %}
+          <option class="varga-select" value= "{{lang}}" {% if lang == language %} selected {% endif %}>{{lang}}</option>
+          {% endfor %}
+      </select>
+      <br/>Note: this is experimental functionality
+    </div>
+  </div>
+
 
   <div class="row">
 

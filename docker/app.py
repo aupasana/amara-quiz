@@ -57,9 +57,15 @@ Bootstrap(app)
 @app.route('/')
 def index():
     all_vargas = ['स्वर्गवर्गः','व्योमवर्गः','दिग्वर्गः','कालवर्गः','धीवर्गः','शब्दादिवर्गः','नाट्यवर्गः','पातालभोगिवर्गः','नरकवर्गः','वारिवर्गः','भूमिवर्गः','पुरवर्गः','शैलवर्गः','वनौषधिवर्गः','सिंहादिवर्गः','मनुष्यवर्गः','ब्रह्मवर्गः','क्षत्रियवर्गः','वैश्यवर्गः','शूद्रवर्गः','विशेष्यनिघ्नवर्गः','सङ्कीर्णवर्गः','नानार्थवर्गः','अव्ययवर्गः']
-    language = request.args.get('language')
+    all_languages = ['devanagari', 'telugu', 'kannada']
 
-    response = make_response(render_template('index.html', all_vargas=all_vargas))
+    language = request.args.get('language')
+    if not language:
+        language = request.cookies.get('amara_language')
+    if not language:
+        language = "devanagari"
+
+    response = make_response(render_template('index.html', all_vargas=all_vargas, language=language, all_languages=all_languages))
     if language:
         response.set_cookie('amara_language', language)
     return response
