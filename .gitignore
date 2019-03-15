@@ -1,4 +1,4 @@
-amara.db
+**/*.db
 **/.DS_Store
 jnu/*
 **/*.babylon

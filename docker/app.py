@@ -162,7 +162,7 @@ def babylon():
         sub_words.pop(0)
 
     try:
-        with sql.connect('amara.db') as con:
+        with sql.connect('babylon.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
 

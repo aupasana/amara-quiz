@@ -34,7 +34,7 @@ for dict in dicts:
     body = "";
     subheads = [];
 
-    with sql.connect('docker/amara.db') as con:
+    with sql.connect('database/babylon.db') as con:
         con.row_factory = sql.Row
         cur = con.cursor()
 
