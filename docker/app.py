@@ -340,7 +340,7 @@ def varga():
 
                 if row["artha_english"]:
                     artha_summary[sloka_line] += " %s" % ( row["artha_english"] )
-                artha_summary[sloka_line] += " %s (%d)." % ( row["artha"], row["artha_count"] )
+                artha_summary[sloka_line] += " %s (%d)." % ( row["artha_transliterated"], row["artha_count"] )
 
             return render_template('varga.html', mula=mula, varga=varga, artha_summary=artha_summary)
     finally:
