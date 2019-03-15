@@ -30,7 +30,9 @@ while (my $line = <$data>) {
   my $sloka_number = $fields[2] =~ s/^(.*\..*\..*)\..*\..*$/$1/r;
   my $sloka_line = $fields[2] =~ s/^(.*\..*\..*\..*)\..*$/$1/r;
   my $sloka_word = $fields[2];
-  my $linga = $fields[3];
+
+  chop($fields[3]);
+  my $linga = $fields[3]; # =~ s/\.//g;
   my $varga = $fields[4];
   my $artha = $fields[5];
 
