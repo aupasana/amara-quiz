@@ -18,7 +18,8 @@ columns_transliterate = {
     'linga': 'linga_transliterated',
     'varga': 'varga_transliterated',
     'sloka_text': 'sloka_text_transliterated',
-    'artha': 'artha_transliterated'
+    'artha': 'artha_transliterated',
+    'pada_group': 'pada_group_transliterated'
 }
 
 def transliterate_term(output_script, term):
@@ -327,20 +328,23 @@ def varga():
             cur.execute("select * from mula where varga = ?;", [varga])
             mula = cur.fetchall();
 
-            cur.execute("select sloka_line, artha, count(artha) artha_count, artha_english from pada where varga = ? group by sloka_line, artha, artha_english order by id;", [varga])
+            cur.execute("""
+                select sloka_line, artha, count(artha) artha_count, artha_english, group_concat(pada, ", ") pada_group
+                from pada
+                where varga = ?
+                group by sloka_line, artha order by id;""", [varga])
             artha_rows = cur.fetchall();
 
             artha_summary = {}
 
             for row in artha_rows:
                 sloka_line = row["sloka_line"]
-
                 if sloka_line not in artha_summary:
-                    artha_summary[sloka_line] = ""
+                    artha_summary[sloka_line] = []
+                    summaries = []
 
-                if row["artha_english"]:
-                    artha_summary[sloka_line] += " %s" % ( row["artha_english"] )
-                artha_summary[sloka_line] += " %s (%d)." % ( row["artha_transliterated"], row["artha_count"] )
+                summary = "%s %s (%d) - %s " % ( row["artha_transliterated"], row["artha_english"], row["artha_count"], row["pada_group_transliterated"] )
+                artha_summary[sloka_line].append(summary)
 
             return render_template('varga.html', mula=mula, varga=varga, artha_summary=artha_summary)
     finally:

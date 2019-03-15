@@ -42,7 +42,9 @@
   <div class="content">
     {% for row in mula %}
         <div class="artha" id="{{row['sloka_number']}}">
-          {{artha_summary[row["sloka_line"]]}}
+          {% for s in artha_summary[row["sloka_line"]] %}
+            {{s}}<br/>
+          {% endfor %}
         </div>
         <div class="sloka">
           {{row["sloka_text_transliterated"]}} <span class="sloka-number">&nbsp;{{row['sloka_line']}}</span><a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="sloka-image" src="/icons/sloka.svg"/></a>
