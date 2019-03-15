@@ -329,7 +329,7 @@ def varga():
             mula = cur.fetchall();
 
             cur.execute("""
-                select sloka_line, artha, count(artha) artha_count, artha_english, group_concat(pada_linga, " ") pada_group
+                select sloka_line, artha, count(artha) artha_count, artha_english, group_concat(pada_linga, ", ") pada_group
                 from (
                   select id, sloka_line, artha, artha_english, pada || " (" || linga || ")" pada_linga
                   from pada
