@@ -1,6 +1,6 @@
 #!/bin/sh
 
-rm docker/amara.db
+rm app/amara.db
 rm database/amara.db
 
 sqlite3 database/amara.db < database/schema.amara.sql
@@ -28,4 +28,4 @@ rm database/tmp_mula.csv
 rm database/tmp_pada.csv
 rm database/tmp_english.csv
 
-cp database/amara.db docker/amara.db
+cp database/amara.db app/amara.db
