@@ -18,6 +18,8 @@ CREATE TABLE mula (
   sloka_number TEXT NOT NULL,
   sloka_line TEXT UNIQUE PRIMARY KEY NOT NULL,
   varga TEXT,
+  audio_filename TEXT,
+  audio_seconds TEXT,
   sloka_text TEXT NOT NULL
 );
 GO

@@ -28,7 +28,7 @@ foreach my $kanda (@kanda_names) {
 
             my $line = 1;
             for (grep { /\S/ } split /^/, $text) {
-              printf $output ("%d,%s,%s,%s.%d,,%s", $uid++, $varga_number, $sloka_number, $sloka_number, $line++, $_);
+              printf $output ("%d,%s,%s,%s.%d,,,,%s", $uid++, $varga_number, $sloka_number, $sloka_number, $line++, $_);
             }
           }
         }

@@ -22,6 +22,8 @@ sqlite3 database/amara.db "update pada
 set artha_english = ( select translation from staging_translation where pada.pada_uid = staging_translation.pada_uid )
 where pada_uid in ( select pada_uid from staging_translation );"
 
+sqlite3 database/amara.db "update mula set audio_filename = ( select filename from audio where mula.sloka_line = audio.sloka_line );"
+sqlite3 database/amara.db "update mula set audio_seconds = ( select seconds from audio where mula.sloka_line = audio.sloka_line );"
 
 sqlite3 database/amara.db "delete from staging_translation;"
 sqlite3 database/amara.db "vacuum;"
