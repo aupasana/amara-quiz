@@ -207,11 +207,15 @@ def sloka():
             cur.execute("select * from pada where sloka_number = ? order by id;", [sloka_number])
             pada = cur.fetchall();
 
+            cur.execute("select * from audio where sloka_number = ? order by sloka_line;", [sloka_number])
+            audio = cur.fetchall();
+
             varga = ""
             if len(mula) > 0:
                 varga = mula[0]["varga"]
 
             return render_template('sloka.html',
+                audio=audio,
                 mula=mula,
                 pada=pada,
                 varga=varga,

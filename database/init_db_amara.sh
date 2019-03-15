@@ -9,6 +9,7 @@ database/create_pada_csv.pl
 sqlite3 -separator ',' database/amara.db ".import database/amara_varga.csv varga"
 sqlite3 -separator ',' database/amara.db ".import database/tmp_mula.csv mula"
 sqlite3 -separator ',' database/amara.db ".import database/tmp_pada.csv pada"
+sqlite3 -separator ',' database/amara.db ".import database/tags/final_audio.csv audio"
 
 sqlite3 database/amara.db "update mula
 set varga = ( select varga from pada where mula.varga_number = pada.varga_number )
@@ -20,6 +21,7 @@ sqlite3 -separator ',' database/amara.db ".import database/tmp_english.csv stagi
 sqlite3 database/amara.db "update pada
 set artha_english = ( select translation from staging_translation where pada.pada_uid = staging_translation.pada_uid )
 where pada_uid in ( select pada_uid from staging_translation );"
+
 
 sqlite3 database/amara.db "delete from staging_translation;"
 sqlite3 database/amara.db "vacuum;"

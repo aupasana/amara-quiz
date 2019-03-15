@@ -27,6 +27,9 @@
   .sloka {
     font-size: 1.25rem;
   }
+  .audio {
+    margin-top: 1rem;
+  }
 </style>
 {% endblock %}
 
@@ -75,6 +78,14 @@
               </tr>
             {% endfor %}
           </table>
+            {% if audio | length > 0 %}
+              <div class="audio">
+                Audio: <br/>
+                {% for a in audio %}
+                  {{a['sloka_line']}}: <a target="audio" href="https://archive.org/details/aupasana_amara_kosha_audio/{{a['filename']}}?start={{a['seconds']}}">{{a['filename']}} @ {{a['seconds']}} seconds</a>}<br/>
+                {% endfor %}
+              </div>
+            {% endif %}
         </p>
       </div>
     </div>

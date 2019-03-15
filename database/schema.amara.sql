@@ -22,6 +22,9 @@ CREATE TABLE mula (
 );
 GO
 
+CREATE INDEX ix_mulam_number ON mula(sloka_number)
+GO
+
 CREATE TABLE pada (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   pada_uid INTEGER NOT NULL,
@@ -39,14 +42,22 @@ CREATE TABLE pada (
 );
 GO
 
+CREATE INDEX ix_pada_varga ON pada (varga);
+GO
+
 CREATE TABLE staging_translation (
   pada_uid INTEGER PRIMARY KEY,
   translation TEXT
 );
 GO
 
-CREATE INDEX ix_mulam_number ON mula(sloka_number)
+CREATE TABLE audio (
+  filename TEXT,
+  sloka_number TEXT NOT NULL,
+  sloka_line TEXT NOT NULL,
+  seconds TEXT NOT NULL
+);
 GO
 
-CREATE INDEX ix_pada_varga ON pada (varga);
+CREATE INDEX ix_audio_sloka_line ON audio(sloka_number);
 GO
