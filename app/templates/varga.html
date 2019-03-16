@@ -8,8 +8,9 @@
     width: 1rem;
   }
   .varga {
-    padding-left: 10px;
-    font-size: 1.5rem;
+    padding-left: 2px;
+    font-size: 2rem;
+    padding-bottom: 2rem;
   }
   .content {
     font-size: 1rem;
@@ -37,7 +38,7 @@
 
 <div class="container">
   <div class="varga">
-      {{varga}}
+      {{varga_transliterated}}
   </div>
 
   <div class="content">
@@ -53,7 +54,7 @@
             {{row['sloka_line']}}
             <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="sloka-image" src="/icons/sloka.svg"/></a>
             {% if row['audio_filename'] %}
-              <a target="audio" href="https://archive.org/details/aupasana_amara_kosha_audio/{{row['audio_filename']}}?start={{row['audio_seconds']}}"><img class="sloka-image" src="/icons/audio.svg"/></a>              
+              <a target="audio" href="https://archive.org/details/aupasana_amara_kosha_audio/{{row['audio_filename']}}?start={{row['audio_seconds']}}"><img class="sloka-image" src="/icons/audio.svg"/></a>
             {% endif %}
           </div>
         </div>

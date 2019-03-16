@@ -352,7 +352,7 @@ def varga():
                 summary = "%s %s (%d) - %s " % ( row["artha_transliterated"], row["artha_english"], row["artha_count"], row["pada_group_transliterated"] )
                 artha_summary[sloka_line].append(summary)
 
-            return render_template('varga.html', mula=mula, varga=varga, artha_summary=artha_summary)
+            return render_template('varga.html', mula=mula, varga=varga, varga_transliterated=transliterate_term(language,varga), artha_summary=artha_summary)
     finally:
         con.close()
 
