@@ -38,6 +38,7 @@ CREATE TABLE pada (
   linga TEXT NOT NULL,
   varga TEXT NOT NULL,
   artha_english TEXT,
+  artha_telugu TEXT,
   artha TEXT NOT NULL,
   FOREIGN KEY (sloka_number) REFERENCES mulam(sloka_number),
   FOREIGN KEY (sloka_line) REFERENCES mulam(sloka_line)

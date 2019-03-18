@@ -42,7 +42,7 @@ while (my $line = <$data>) {
 
   push $mula_artha{$sloka_number}, $artha;
 
-  printf $output ("%d,%d,%s,%s,%s,%s,%s,%s,%s,,%s\n", $uid++, $pada_uid, $varga_number, $sloka_number, $sloka_line, $sloka_word, $pada, $linga, $varga, $artha);
+  printf $output ("%d,%d,%s,%s,%s,%s,%s,%s,%s,,,%s\n", $uid++, $pada_uid, $varga_number, $sloka_number, $sloka_line, $sloka_word, $pada, $linga, $varga, $artha);
 
   # printf $output ("%d,%s,%s,%s,%s,%s,%s\n", $uid++, $fields[0], $sloka_number, $fields[1], $fields[2], $fields[3], $fields[4]);
 }

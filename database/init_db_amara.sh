@@ -15,11 +15,19 @@ sqlite3 database/amara.db "update mula
 set varga = ( select varga from pada where mula.varga_number = pada.varga_number )
 where varga_number in ( select varga_number from pada );"
 
+cat database/amara_pada_english.csv | cut -f 1,6 -d, > database/tmp_english.csv
+cat database/amara_pada_telugu.csv | cut -f 1,6 -d, > database/tmp_telugu.csv
+
 sqlite3 database/amara.db "delete from staging_translation;"
-cat database/amara_pada_english.csv | cut -f 1,6,7 -d, > database/tmp_english.csv
 sqlite3 -separator ',' database/amara.db ".import database/tmp_english.csv staging_translation"
 sqlite3 database/amara.db "update pada
 set artha_english = ( select translation from staging_translation where pada.pada_uid = staging_translation.pada_uid )
+where pada_uid in ( select pada_uid from staging_translation );"
+
+sqlite3 database/amara.db "delete from staging_translation;"
+sqlite3 -separator ',' database/amara.db ".import database/tmp_telugu.csv staging_translation"
+sqlite3 database/amara.db "update pada
+set artha_telugu = ( select translation from staging_translation where pada.pada_uid = staging_translation.pada_uid )
 where pada_uid in ( select pada_uid from staging_translation );"
 
 sqlite3 database/amara.db "update mula set audio_filename = ( select filename from audio where mula.sloka_line = audio.sloka_line );"
