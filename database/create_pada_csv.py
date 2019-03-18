@@ -22,7 +22,7 @@ with open('database/amara_pada.csv') as datafile:
             pada_uid = parts[0]
             pada = parts[1]
             sloka_word = parts[2]
-            linga = parts[3]
+            linga = parts[3].replace('.', '')
             varga = parts[4]
             artha = parts[5]
 
