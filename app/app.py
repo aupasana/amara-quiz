@@ -333,13 +333,18 @@ def varga():
             cur.execute("select * from mula where varga = ?;", [varga])
             mula = cur.fetchall();
 
+            if language == 'telugu':
+                artha_translation_column = 'artha_telugu'
+            else:
+                artha_translation_column = 'artha_english'
+
             cur.execute("""
-                select sloka_line, artha, count(artha) artha_count, artha_english, group_concat(pada_linga, ", ") pada_group
+                select sloka_line, artha, count(artha) artha_count, %s, group_concat(pada_linga, ", ") pada_group
                 from (
-                  select id, sloka_line, artha, artha_english, pada || " (" || linga || ")" pada_linga
+                  select id, sloka_line, artha, %s, pada || " (" || linga || ")" pada_linga
                   from pada
                   where varga = ?
-                ) group by sloka_line, artha order by id;""", [varga])
+                ) group by sloka_line, artha order by id;""" % (artha_translation_column, artha_translation_column), [varga])
             artha_rows = cur.fetchall();
 
             artha_summary = {}
@@ -350,7 +355,7 @@ def varga():
                     artha_summary[sloka_line] = []
                     summaries = []
 
-                summary = "%s %s (%d) - %s " % ( row["artha_transliterated"], row["artha_english"], row["artha_count"], row["pada_group_transliterated"] )
+                summary = "%s. %s (%d) - %s " % ( row["artha_transliterated"], row[artha_translation_column], row["artha_count"], row["pada_group_transliterated"] )
                 artha_summary[sloka_line].append(summary)
 
             return render_template('varga.html', mula=mula, varga=varga, varga_transliterated=transliterate_term(language,varga), artha_summary=artha_summary)
