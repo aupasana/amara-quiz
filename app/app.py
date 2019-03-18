@@ -220,6 +220,7 @@ def sloka():
                 pada=pada,
                 varga=varga,
                 varga_transliterated = transliterate_term(language, varga),
+                language=language,
                 sloka_number=sloka_number,
                 sloka_number_previous=sloka_number_previous,
                 sloka_number_next=sloka_number_next)

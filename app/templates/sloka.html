@@ -74,7 +74,11 @@
                 <td>
                   <a href="/search?term={{row['artha']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
                   &nbsp;{{row["artha_transliterated"]}}</td>
-                <td>{{row["artha_english"]}}</td>
+                {% if language == 'telugu' %}
+                  <td>{{row["artha_telugu"]}}</td>
+                {% else %}
+                  <td>{{row["artha_english"]}}</td>
+                {% endif %}
               </tr>
             {% endfor %}
           </table>
