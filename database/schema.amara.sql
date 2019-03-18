@@ -34,6 +34,7 @@ CREATE TABLE pada (
   sloka_number TEXT NOT NULL,
   sloka_line TEXT NOT NULL,
   sloka_word TEXT NOT NULL,
+  is_variant INTEGER NOT NULL,
   pada TEXT NOT NULL,
   linga TEXT NOT NULL,
   varga TEXT NOT NULL,

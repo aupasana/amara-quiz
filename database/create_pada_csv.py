@@ -27,12 +27,15 @@ with open('database/amara_pada.csv') as datafile:
             artha = parts[5]
 
             re_parts = re.search (r'^([^.]+)\.([^.]+)\.([^.]+)\.([^.]+)\.([^.]+)', sloka_word);
+            re_parts_variant = re.search (r'^([^.]+)\.([^.]+)\.([^.]+)\.([^.]+)\.([^.]+)\.([^.]+)', sloka_word);
             if re_parts:
                 varga_number = "%s.%s" % (re_parts.group(1), re_parts.group(2))
                 sloka_number = "%s.%s.%s" % (re_parts.group(1), re_parts.group(2), re_parts.group(3))
                 sloka_line = "%s.%s.%s.%s" % (re_parts.group(1), re_parts.group(2), re_parts.group(3), re_parts.group(4))
-            else:
-                print ("Error with %s" % sloka_word)
+                is_variant = 0
 
-            outputfile.write("%d,%s,%s,%s,%s,%s,%s,%s,%s,,,%s\n" % (uid, pada_uid, varga_number, sloka_number, sloka_line, sloka_word, pada, linga, varga, artha))
+            if re_parts_variant:
+                is_variant = 1
+
+            outputfile.write("%d,%s,%s,%s,%s,%s,%d,%s,%s,%s,,,%s\n" % (uid, pada_uid, varga_number, sloka_number, sloka_line, sloka_word, is_variant, pada, linga, varga, artha))
             uid = uid+1
