@@ -39,5 +39,6 @@ sqlite3 database/amara.db "vacuum;"
 rm database/tmp_mula.csv
 rm database/tmp_pada.csv
 rm database/tmp_english.csv
+rm database/tmp_telugu.csv
 
 cp database/amara.db app/amara.db
