@@ -1,4 +1,4 @@
-rm *.db *.gz
+rm app/*.db app/*.gz
 cp database/amara.db app
 gzip app/amara.db
 docker build -t aupasana/amara-quiz app
