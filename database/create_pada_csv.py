@@ -32,10 +32,13 @@ with open('database/amara_pada.csv') as datafile:
                 varga_number = "%s.%s" % (re_parts.group(1), re_parts.group(2))
                 sloka_number = "%s.%s.%s" % (re_parts.group(1), re_parts.group(2), re_parts.group(3))
                 sloka_line = "%s.%s.%s.%s" % (re_parts.group(1), re_parts.group(2), re_parts.group(3), re_parts.group(4))
+                variant_main_sloka_word = "%s.%s.%s.%s.%s" % (re_parts.group(1), re_parts.group(2), re_parts.group(3), re_parts.group(4), re_parts.group(5))
                 is_variant = 0
 
             if re_parts_variant:
                 is_variant = 1
+            else:
+                variant_main_sloka_word = ''
 
-            outputfile.write("%d,%s,%s,%s,%s,%s,%d,%s,%s,%s,,,%s\n" % (uid, pada_uid, varga_number, sloka_number, sloka_line, sloka_word, is_variant, pada, linga, varga, artha))
+            outputfile.write("%d,%s,%s,%s,%s,%s,%d,%s,%s,%s,%s,,,%s\n" % (uid, pada_uid, varga_number, sloka_number, sloka_line, sloka_word, is_variant, variant_main_sloka_word, pada, linga, varga, artha))
             uid = uid+1

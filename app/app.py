@@ -339,7 +339,7 @@ def varga():
                 artha_translation_column = 'artha_english'
 
             cur.execute("""
-                select sloka_line, max(artha) artha, count(artha) artha_count, %s, group_concat(pada_linga, ", ") pada_group
+                select sloka_line, artha, count(artha) artha_count, %s, group_concat(pada_linga, ", ") pada_group
                 from (
                   select id, sloka_line, artha, %s,
                     case when is_variant = 0
@@ -348,7 +348,7 @@ def varga():
                     end pada_linga
                   from pada
                   where varga = ?
-                ) group by sloka_line order by id;""" % (artha_translation_column, artha_translation_column), [varga])
+                ) group by sloka_line, artha order by id;""" % (artha_translation_column, artha_translation_column), [varga])
             artha_rows = cur.fetchall();
 
             artha_summary = {}
