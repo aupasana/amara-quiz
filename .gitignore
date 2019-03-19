@@ -1,4 +1,5 @@
 **/*.db
+**/*.db.gz
 **/.DS_Store
 jnu/*
 **/*.babylon
