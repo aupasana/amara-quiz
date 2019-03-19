@@ -81,16 +81,24 @@ $(document).ready(function(){
 <div class="container">
 
   <div class="row">
+    <div class="index-section col-md">
+      Select output script / language:&nbsp;
+      <select id="language" method="GET" action="/">
+          {% for lang in all_languages %}
+          <option class="varga-select" value= "{{lang}}" {% if lang == language %} selected {% endif %}>{{lang}}</option>
+          {% endfor %}
+      </select>
+    </div>
+  </div>
+
+
+  <div class="row">
 
     <!-- search -->
     <div class="index-section col-md">
       <div>
-        <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>&nbsp;&nbsp;&nbsp;
-        <a href="#" id="searchButton"><img class="search-image" src="icons/search.svg"/></a>
-      </div><br/>
-
-      <div>
-        Search amara kosha using indian unicode scripts or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a>.
+        To search the amara kosha, use the search bar at the top of this page. <br/>
+        Enter search terms in indian unicode scripts or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a>.<br/>
         Examples: "indra*", "वि*वत्", "*dra", "शिव शक्ति"
       </div>
     </div>
@@ -115,18 +123,6 @@ $(document).ready(function(){
     </div>
 
   </div>
-
-  <div class="row">
-    <div class="index-section col-md">
-      change output script:
-      <select id="language" method="GET" action="/">
-          {% for lang in all_languages %}
-          <option class="varga-select" value= "{{lang}}" {% if lang == language %} selected {% endif %}>{{lang}}</option>
-          {% endfor %}
-      </select>
-    </div>
-  </div>
-
 
   <div class="row">
 
