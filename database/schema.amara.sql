@@ -37,6 +37,7 @@ CREATE TABLE pada (
   is_variant INTEGER NOT NULL,
   variant_of_sloka_word TEXT,
   pada TEXT NOT NULL,
+  pada_slp1 TEXT NOT NULL,
   linga TEXT NOT NULL,
   varga TEXT NOT NULL,
   artha_english TEXT,

@@ -5,7 +5,7 @@ rm database/amara.db
 
 sqlite3 database/amara.db < database/schema.amara.sql
 database/create_mula_csv.pl
-database/create_pada_csv.py
+python3 database/create_pada_csv.py
 sqlite3 -separator ',' database/amara.db ".import database/amara_varga.csv varga"
 sqlite3 -separator ',' database/amara.db ".import database/tmp_mula.csv mula"
 sqlite3 -separator ',' database/amara.db ".import database/tmp_pada.csv pada"

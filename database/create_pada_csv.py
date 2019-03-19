@@ -1,6 +1,10 @@
 #!/usr/local/bin/python
+# -*- coding: utf-8 -*-
 
 import io, re
+from indic_transliteration import sanscript, xsanscript
+from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
+
 
 uid=1
 
@@ -21,6 +25,8 @@ with open('database/amara_pada.csv') as datafile:
 
             pada_uid = parts[0]
             pada = parts[1]
+            pada_slp1 = transliterate(pada, xsanscript.DEVANAGARI, xsanscript.SLP1)
+
             sloka_word = parts[2]
             linga = parts[3].replace('.', '')
             varga = parts[4]
@@ -40,5 +46,5 @@ with open('database/amara_pada.csv') as datafile:
             else:
                 variant_main_sloka_word = ''
 
-            outputfile.write("%d,%s,%s,%s,%s,%s,%d,%s,%s,%s,%s,,,%s\n" % (uid, pada_uid, varga_number, sloka_number, sloka_line, sloka_word, is_variant, variant_main_sloka_word, pada, linga, varga, artha))
+            outputfile.write("%d,%s,%s,%s,%s,%s,%d,%s,%s,%s,%s,%s,,,%s\n" % (uid, pada_uid, varga_number, sloka_number, sloka_line, sloka_word, is_variant, variant_main_sloka_word, pada, pada_slp1, linga, varga, artha))
             uid = uid+1

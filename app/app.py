@@ -99,7 +99,7 @@ def search():
     offset = limit*(int(page) - 1)
 
     term_script = detect.detect(term).lower()
-    term = transliterate(term, term_script, xsanscript.DEVANAGARI)
+    term = transliterate(term, term_script, xsanscript.SLP1)
 
     # transliterate_regex = re.compile('.*[a-zA-Z].*')
     # if (transliterate_regex.match(term)):
@@ -113,12 +113,13 @@ def search():
         with sql.connect('amara.db') as con:
             con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
+            cur.execute('PRAGMA case_sensitive_like = ON')
 
             if len(term_words) == 1:
-                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada like ? or artha like ? or artha_english like ? order by id limit ? offset ?;", [term, term, user_term, limit, offset])
+                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada_slp1 like ? or artha like ? or artha_english like ? order by id limit ? offset ?;", [term, term, user_term, limit, offset])
                 rows = cur.fetchall();
             else:
-                query = "select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada in (%s) order by pada limit 100;" % ','.join('?' for i in term_words)
+                query = "select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada_slp1 in (%s) order by pada limit 100;" % ','.join('?' for i in term_words)
                 rows = cur.execute(query, term_words)
 
             resx = { 'artha': transliterate_term(language, 'अर्थः')}
