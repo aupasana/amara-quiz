@@ -1,9 +1,12 @@
 #!/usr/local/bin/python
+# -*- coding: utf-8 -*-
 
 import io
 import sys
 import re
 import sqlite3 as sql
+from indic_transliteration import sanscript, xsanscript
+from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 
 def print_entry(cur, babylon_name, entry_number, head, subheads, body):
 
@@ -15,12 +18,15 @@ def print_entry(cur, babylon_name, entry_number, head, subheads, body):
     head_words = head.split("|")
     for head_word in head_words:
         stripped_head_word = head_word.strip('\n');
-        cur.execute("insert into babylon_word (id, name, word) values (?, ?, ?);", [entry_number, babylon_name, stripped_head_word])
+        word_slp1 = transliterate(stripped_head_word, xsanscript.DEVANAGARI, xsanscript.SLP1)
+
+        cur.execute("insert into babylon_word (id, name, word, word_slp1) values (?, ?, ?, ?);", [entry_number, babylon_name, stripped_head_word, word_slp1])
 
         for sub_word in subheads:
             stripped_sub_word = sub_word.strip('\n');
             if stripped_sub_word != "Comp.":                # compounds
-                cur.execute("insert into babylon_word (id, name, word, sub_word) values (?, ?, ?, ?);", [entry_number, babylon_name, stripped_head_word, stripped_sub_word])
+                sub_word_slp1 = transliterate(stripped_sub_word, xsanscript.DEVANAGARI, xsanscript.SLP1)
+                cur.execute("insert into babylon_word (id, name, word, word_slp1, sub_word, sub_word_slp1) values (?, ?, ?, ?, ?, ?);", [entry_number, babylon_name, stripped_head_word, word_slp1, stripped_sub_word, sub_word_slp1])
 
 dicts = ["ap90.babylon" ];
 # dicts = ["ap90.babylon", "vcp.babylon", "skd.babylon", "mw72.babylon"];
@@ -54,6 +60,6 @@ for dict in dicts:
             else:
                 body = "%s\n\n%s" % (body, line)
 
-                match = re.compile(ur"--([^0-9][^ \),]*)", re.UNICODE)
+                match = re.compile('--([^0-9][^ \),]*)')
                 matches = match.findall(line);
                 subheads = subheads + matches;

@@ -142,9 +142,12 @@ def babylon():
 
     offset = limit*(int(page) - 1)
 
-    transliterate_regex = re.compile('.*[a-zA-Z].*')
-    if (transliterate_regex.match(term)):
-        term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
+    term_script = detect.detect(term).lower()
+    term = transliterate(term, term_script, xsanscript.SLP1)
+
+    # transliterate_regex = re.compile('.*[a-zA-Z].*')
+    # if (transliterate_regex.match(term)):
+    #     term = transliterate(term, sanscript.ITRANS, sanscript.DEVANAGARI)
 
     term = term.replace("*", "%")
     user_term = user_term.replace("*", "%")
@@ -166,17 +169,18 @@ def babylon():
         with sql.connect('babylon.db') as con:
             con.row_factory = sql.Row
             cur = con.cursor()
+            cur.execute('PRAGMA case_sensitive_like = ON')
 
             highlight_word = term.strip('%');
             highlight_sub_word = "";
 
             if len(sub_words) > 0:
-                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word like ? and sub_word like ? order by b.id limit ? offset ?;",
+                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word_slp1 like ? and sub_word_slp1 like ? order by b.id limit ? offset ?;",
                                 [term, sub_words[0], limit, offset])
                 highlight_sub_word = sub_words[0].strip('%')
                 # print("%s and %s" % (term, sub_words[0]));
             else:
-                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word like ? order by b.id limit ? offset ?;",
+                cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word_slp1 like ? order by b.id limit ? offset ?;",
                 [term, limit, offset])
 
             rows = cur.fetchall();

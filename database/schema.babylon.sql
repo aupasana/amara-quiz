@@ -14,7 +14,9 @@ CREATE TABLE babylon_word (
   id INTEGER,
   name TEXT NOT NULL,
   word TEXT NOT NULL,
-  sub_word TEXT
+  word_slp1 TEXT NOT NULL,
+  sub_word TEXT,
+  sub_word_slp1 TEXT
 );
 GO
 
