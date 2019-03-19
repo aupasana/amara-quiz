@@ -55,6 +55,17 @@
 
   <div id="content-inner">
 
+    {% if rows | count > 0 %}
+
+      {% if search_converted and search_converted | length > 0 %}
+      <br/>
+      <div class="card bg-light mb-3" style="max-width: 25rem;">
+        <div class="card-body">
+          <h5 class="card-title">{{search_converted}}</h5>
+        </div>
+      </div>
+      {% endif %}
+
     <br/>
     <h5> Search: {{term}} ({{user_term}}). Page {{page}}</h5>
     <br/>
@@ -82,6 +93,14 @@
       {% endfor %}
 
   </div>
+  {% else %}
+  <br/>
+  <div class="card bg-light mb-3" style="max-width: 25rem;">
+    <div class="card-body">
+      <h5 class="card-title">No results found</h5>
+    </div>
+  </div>
+  {% endif %}
 
   <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
   <br/><br/>
