@@ -89,6 +89,7 @@ def search():
     offset = 0
 
     user_term = request.args.get('term')
+    search_box_value = request.args.get('term')
     page = request.args.get('page')
     language = request.cookies.get('amara_language')
     term = user_term
@@ -134,7 +135,7 @@ def search():
                 rows = cur.execute(query, term_words)
 
             resx = { 'artha': transliterate_term(language, 'अर्थः')}
-            return render_template('search.html', rows=rows, user_term=user_term, term=term, page=page, search_converted=search_converted, resx=resx)
+            return render_template('search.html', rows=rows, user_term=user_term, term=term, page=page, search_converted=search_converted, resx=resx, search_box_value=search_box_value)
     finally:
         con.close()
 
@@ -145,6 +146,7 @@ def babylon():
     offset = 0
 
     user_term = request.args.get('term')
+    search_box_value = request.args.get('term')
     page = request.args.get('page')
     term = user_term
 
@@ -197,7 +199,7 @@ def babylon():
             rows = cur.fetchall();
 
 
-            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page, highlight_word=highlight_word, highlight_sub_word=highlight_sub_word)
+            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page, highlight_word=highlight_word, highlight_sub_word=highlight_sub_word, search_box_value=search_box_value)
     finally:
         con.close()
 

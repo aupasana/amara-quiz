@@ -49,6 +49,10 @@ $(document).ready(function(){
   $('#header-search-apte-button').click(function() {
     window.location = "/babylon?term=" + $('#headerSearchTerm').val();
   });
+
+  {% if search_box_value %}
+  $("#headerSearchTerm").val("{{search_box_value}}");
+  {% endif %}
 });
 </script>
 {% endblock %}
