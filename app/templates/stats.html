@@ -17,23 +17,26 @@
       <table class="table table-striped">
         <thead class="thead-dark">
           <tr>
-            <td>वर्गः</td>
-            <td>श्लोकाः</td>
-            <td>पदानि</td>
+            <td>varga</td>
+            <td>slokas</td>
+            <td>words</td>
+            <td>variant words</td>
           </tr>
         </thead>
         <tbody>
           {% for row in stats %}
           <tr>
-            <td>{{row["varga"]}}</td>
+            <td>{{row["varga_transliterated"]}}</td>
             <td>{{row["mula_count"] / 2}}</td>
             <td>{{row["pada_count"]}}</td>
+            <td>{{row["variant_count"]}}</td>
           </tr>
           {% endfor %}
           <tr>
             <td>Total</td>
             <td>{{stats | sum(attribute='mula_count') / 2}}</td>
             <td>{{stats | sum(attribute='pada_count')}}</td>
+            <td>{{stats | sum(attribute='variant_count')}}</td>
           </tr>
         </tbody>
       </table>

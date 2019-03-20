@@ -437,18 +437,23 @@ def dupe_pada():
 
 @app.route('/stats')
 def stats():
+    language = request.cookies.get('amara_language')
+
     try:
         with sql.connect('amara.db') as con:
-            con.row_factory = sql.Row
+            con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
 
             # cur.execute("select pada, count(*) c from pada group by pada having count(*) > 1 order by pada;")
             cur.execute("""
-                            select m.varga, m.c mula_count, p.c pada_count from
+                            select m.varga, m.c mula_count, p.c pada_count, coalesce(v.c, 0) variant_count from
                                 (select varga, id, count(varga) c from mula group by varga) m
                             inner join
-                                (select varga, id, count(varga) c from pada group by varga order by id) p
-                            on m.varga = p.varga
+                                (select varga, id, count(varga) c from pada where is_variant = 0 group by varga order by id) p
+                                on m.varga = p.varga
+                            left join
+                                (select varga, id, count(varga) c from pada where is_variant = 1 group by varga order by id) v
+                                on m.varga = v.varga
                             order by m.id; """)
 
             stats = cur.fetchall()
