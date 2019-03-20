@@ -54,9 +54,22 @@
     <h5> Search apte: {{search_box_value}}. Page {{page}}</h5>
     <br/>
 
+      {% if context_summary | length > 0 %}
+      <div class="card bg-light mb-3">
+        <div class="card-body">
+          <h5 class="card-title">Summary</h5>
+          <p class="card-text">
+            {% for c in context_summary %}
+              <div>{{c['head']}} {{c['match']}}</div>
+            {% endfor %}
+          </p>
+        </div>
+      </div>
+      {% endif %}
+
       {% for row in rows %}
 
-        <div class="card bg-light mb-3" style="max-width: 25rem;">
+        <div class="card bg-light mb-3">
           <div class="card-body">
             <h5 class="card-title">
               <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>

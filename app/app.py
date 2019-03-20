@@ -178,6 +178,8 @@ def babylon():
         term = sub_words[0];
         sub_words.pop(0)
 
+    context_summary = []
+
     try:
         with sql.connect('babylon.db') as con:
             con.row_factory = lambda C, R: { c[0]: R[i] for i, c in enumerate(C.description) }
@@ -199,6 +201,8 @@ def babylon():
 
                 rows = cur.fetchall();
                 for r in rows:
+                    for m in re.finditer(r'(--%s[^\r\n]*)' % highlight_sub_word, r["body"]):
+                        context_summary.append({"name": r["name"], "head": r["head"], "match": m.group(1)})
                     r["body"] = re.sub(r'(--%s[^\r\n]*)' % highlight_sub_word, r'<span class="highlight">\g<1></span>', r["body"])
 
             else:
@@ -208,7 +212,7 @@ def babylon():
                 rows = cur.fetchall();
 
 
-            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page, highlight_word=highlight_word, highlight_sub_word=highlight_sub_word, search_box_value=search_box_value, route='/babylon')
+            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page, highlight_word=highlight_word, highlight_sub_word=highlight_sub_word, search_box_value=search_box_value, route='/babylon', context_summary=context_summary)
     finally:
         con.close()
 
