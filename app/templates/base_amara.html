@@ -39,8 +39,12 @@ $(document).ready(function(){
   $("#headerSearchTerm").keypress(function() {
     var keycode = (event.keyCode ? event.keyCode : event.which);
       if (event.which == 13 || event.keyCode == 13) {
-        window.location = "/search?term=" + $('#headerSearchTerm').val();
-          event.preventDefault()
+        if (!event.shiftKey) {
+          window.location = "/search?term=" + $('#headerSearchTerm').val();
+        } else {
+          window.location = "/babylon?term=" + $('#headerSearchTerm').val();          
+        }
+        event.preventDefault()
       }
    });
   $('#header-search-button').click(function() {
