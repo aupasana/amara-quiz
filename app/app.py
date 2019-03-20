@@ -180,7 +180,7 @@ def babylon():
 
     try:
         with sql.connect('babylon.db') as con:
-            con.row_factory = sql.Row
+            con.row_factory = lambda C, R: { c[0]: R[i] for i, c in enumerate(C.description) }
             cur = con.cursor()
             cur.execute('PRAGMA case_sensitive_like = ON')
 
@@ -191,18 +191,55 @@ def babylon():
                 cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word_slp1 like ? and sub_word_slp1 like ? order by b.id limit ? offset ?;",
                                 [term, sub_words[0], limit, offset])
                 highlight_sub_word = sub_words[0].strip('%')
-                # print("%s and %s" % (term, sub_words[0]));
+                highlight_sub_word = transliterate(highlight_sub_word, xsanscript.SLP1, xsanscript.DEVANAGARI)
+
+                # trim trailing virama
+                if highlight_sub_word[-1:] == '्':
+                    highlight_sub_word = highlight_sub_word[:-1]
+
+                rows = cur.fetchall();
+                for r in rows:
+                    r["body"] = re.sub(r'(--%s[^\r\n]*)' % highlight_sub_word, r'<span class="highlight">\g<1></span>', r["body"])
+
             else:
                 cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word_slp1 like ? order by b.id limit ? offset ?;",
                 [term, limit, offset])
 
-            rows = cur.fetchall();
+                rows = cur.fetchall();
 
 
-            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page, highlight_word=highlight_word, highlight_sub_word=highlight_sub_word, search_box_value=search_box_value)
+            return render_template('babylon.html', rows=rows, user_term=user_term, term=term, page=page, highlight_word=highlight_word, highlight_sub_word=highlight_sub_word, search_box_value=search_box_value, route='/babylon')
     finally:
         con.close()
 
+@app.route('/babylon-english')
+def babylon_english():
+
+    limit = 10
+    offset = 0
+
+    term = request.args.get('term')
+    page = request.args.get('page')
+
+    if not page:
+        page = 1
+
+    offset = limit*(int(page) - 1)
+
+    try:
+        with sql.connect('babylon.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+            cur.execute('PRAGMA case_sensitive_like = OFF')
+
+            cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b where b.body like ? order by b.id limit ? offset ?;",
+            [term, limit, offset])
+
+            rows = cur.fetchall();
+
+            return render_template('babylon.html', rows=rows, user_term=term, term=term, page=page, search_box_value=term, route='/babylon-english')
+    finally:
+        con.close()
 
 @app.route('/sloka')
 def sloka():
