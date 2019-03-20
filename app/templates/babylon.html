@@ -23,7 +23,7 @@
           $("#button-previous").click(function() {
             window.page = window.page-1;
             $('#content-inner').load('{{route}}?term={{user_term}}&page=' + window.page + ' #content-inner');
-            window.scrollTo(0,document.body.scrollHeight);
+            // window.scrollTo(0,document.body.scrollHeight);
 
             if (window.page === 1) {
               $("#button-previous").prop('disabled',true);
@@ -34,9 +34,8 @@
             window.page = window.page+1;
             $('#content-inner').load('{{route}}?term={{user_term}}&page=' + window.page + ' #content-inner');
             $("#button-previous").prop('disabled',false);
-            $(window).scrollTop(0);
+            // $(window).scrollTop(0);
           });
-
       });
     </script>
 {% endblock %}
@@ -47,6 +46,7 @@
 <div class="container">
 
   <button id="button-previous" class="btn btn-secondary" style="width:10rem">previous</button>
+  <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
 
   <div id="content-inner">
 
@@ -60,7 +60,7 @@
           <h5 class="card-title">Summary</h5>
           <p class="card-text">
             {% for c in context_summary %}
-              <div>{{c['head']}} {{c['match']}}</div>
+              <div><a href="#match-{{c['number']}}">#{{c['number']}}</a>: {{c['head']}} {{c['match']}}</div>
             {% endfor %}
           </p>
         </div>
@@ -87,7 +87,6 @@
 
   </div>
 
-  <button id="button-next" class="btn btn-secondary" style="width:10rem">next</button>
   <br/><br/>
 
 </div>

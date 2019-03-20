@@ -22,6 +22,14 @@ columns_transliterate = {
     'pada_group': 'pada_group_transliterated'
 }
 
+class HighlightIncrementReplace:
+    def __init__(self):
+        self.count = 1
+    def replace(self, matchObject):
+        ret =  '<span class="highlight" id="match-%d">%s</span>' % (self.count, matchObject.group(1))
+        self.count += 1
+        return ret;
+
 def transliterate_term(output_script, term):
     if not output_script in output_scripts:
         return term
@@ -200,10 +208,14 @@ def babylon():
                     highlight_sub_word = highlight_sub_word[:-1]
 
                 rows = cur.fetchall();
+                rep = HighlightIncrementReplace()
+                match_number = 1
                 for r in rows:
                     for m in re.finditer(r'(--%s[^\r\n]*)' % highlight_sub_word, r["body"]):
-                        context_summary.append({"name": r["name"], "head": r["head"], "match": m.group(1)})
-                    r["body"] = re.sub(r'(--%s[^\r\n]*)' % highlight_sub_word, r'<span class="highlight">\g<1></span>', r["body"])
+                        context_summary.append({"number": match_number, "name": r["name"], "head": r["head"], "match": m.group(1)})
+                        match_number += 1
+
+                    r["body"] = re.sub(r'(--%s[^\r\n]*)' % highlight_sub_word, rep.replace, r["body"])
 
             else:
                 cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b inner join babylon_word w on b.id = w.id and b.name = w.name where word_slp1 like ? order by b.id limit ? offset ?;",
