@@ -46,6 +46,9 @@ $(document).ready(function(){
   $('#header-search-button').click(function() {
     window.location = "/search?term=" + $('#headerSearchTerm').val();
   });
+  $('#header-search-apte-button').click(function() {
+    window.location = "/babylon?term=" + $('#headerSearchTerm').val();
+  });
 });
 </script>
 {% endblock %}
@@ -57,9 +60,10 @@ $(document).ready(function(){
     <div class="card-body"  style="max-width: 30rem;">
       <h3><a href="/">अमरकोषसम्पद्</a></h3>
       <div class="header-search-div">
-        <a href="/"><img class="footer-image" src="/icons/home.svg"/></a>
+        <a title="go to main page" href="/"><img class="footer-image" src="/icons/home.svg"/></a>
         &nbsp;&nbsp;&nbsp;<input type="text" class="headerSearch" id="headerSearchTerm" placeholder="search in itrans / देवनागरी" style="width:15rem;" autofocus></input>&nbsp;&nbsp;&nbsp;
-        <a href="#" id="header-search-button"><img class="footer-image" src="/icons/search.svg"/></a>
+        <a title="search amarakosha" href="#" id="header-search-button"><img class="footer-image" src="/icons/search.svg"/></a>&nbsp;&nbsp;
+        <a title="search apte" href="#" id="header-search-apte-button"><img class="footer-image" src="/icons/search-apte.svg"/></a>
       </div>
     </div>
   </div>
@@ -73,7 +77,8 @@ $(document).ready(function(){
   <img class="footer-image" src="/icons/pada.svg"/> - Show pada<br/>
   <img class="footer-image" src="/icons/sloka.svg"/> - Show sloka<br/>
   <img class="footer-image" src="/icons/varga.svg"/> - Show varga<br/>
-  <img class="footer-image" src="/icons/search.svg"/> - Search<br/>
+  <img class="footer-image" src="/icons/search.svg"/> - Search amarakosha<br/>
+  <img class="footer-image" src="/icons/search-apte.svg"/> - Search apte dictionary<br/>
   <img class="footer-image" src="/icons/audio.svg"/> - Play audio<br/>
   <img class="footer-image" src="/icons/link.svg"/> - Copy link to clipboard<br/>
   <a href="https://github.com/aupasana/amara-quiz/issues"><img class="footer-image" src="/icons/bug.svg"/></a> - Report an issue<br/>
