@@ -80,8 +80,22 @@ $(document).ready(function(){
 
 <div class="container">
 
+  <!-- search -->
   <div class="row">
     <div class="index-section col-md">
+      <div>
+        To search the amara kosha, use the search bar at the top of this page. <br/>
+        Enter search terms in indian unicode scripts or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a>.<br/>
+        Examples: "indra*", "वि*वत्", "*dra", "शिव शक्ति"
+      </div>
+    </div>
+  </div>
+
+  <!-- how to and language selection -->
+  <div class="row">
+    <div class="index-section col-xl">
+      <!-- <div><a href="/howto"><img class="search-image" src="icons/help.svg"/>How to use this site</a></div> -->
+
       Select output script / language:&nbsp;
       <select id="language" method="GET" action="/">
           {% for lang in all_languages %}
@@ -91,23 +105,8 @@ $(document).ready(function(){
     </div>
   </div>
 
-
+  <!-- varga - view & quiz -->
   <div class="row">
-
-    <!-- search -->
-    <div class="index-section col-md">
-      <div>
-        To search the amara kosha, use the search bar at the top of this page. <br/>
-        Enter search terms in indian unicode scripts or <a href="https://www.aczoom.com/itrans/html/dvnc/node3.html">itrans</a>.<br/>
-        Examples: "indra*", "वि*वत्", "*dra", "शिव शक्ति"
-      </div>
-    </div>
-
-  </div>
-
-  <div class="row">
-
-    <!-- varga - view & quiz -->
     <div class="index-section col-md">
       <select class="varga-select" id="all_vargas" name="all_vargas" method="GET" action="/">
         <optgroup class="varga-select">
@@ -121,32 +120,27 @@ $(document).ready(function(){
       <div><img class="search-image" src="icons/varga.svg"/><a href="#" id="vargaButton">View varga selected above</a></div>
       <div><img class="search-image" src="icons/quiz.svg"/><a href="#" id="quizButton">Generate quizzes for varga selected above</a></div>
     </div>
-
   </div>
 
+  <!-- other links -->
   <div class="row">
-
-    <!-- other links -->
     <div class="index-section col-xl">
       <div><a href="/stats"><img class="search-image" src="icons/count.svg"/>Statistics and counts</a></div>
       <div><a href="/all_pada"><img class="search-image" src="icons/list.svg"/>Complete word list</a></div>
       <div><a href="/dupe_pada"><img class="search-image" src="icons/duplicate.svg"/>Words with multiple occurences</a></div>
       <div><a href="/about"><img class="search-image" src="icons/about.svg"/>About this site</a></div>
     </div>
-
   </div>
 
+  <!-- non site related links -->
   <div class="row">
-    <!-- non site related links -->
     <div class="index-section col-xl">
       <div><a href="https://sanskritdocuments.org/amarakosha/"><img class="search-image" src="icons/external.svg"/>Other resources [sanskritdocuments.org]</a></div>
       <div><a href="/index_babylon"><img class="search-image" src="icons/search.svg"/>Search apte sanskrit-english dictionary</a></div>
       <div><a href="https://github.com/aupasana/amara-quiz/issues"><img class="search-image" src="icons/bug.svg"/>Report an issue</a></div>
       <div><img class="search-image" src="icons/email.svg"/><img src="images/contact.png"/></div>
     </div>
-
   </div>
-
 
 </div>
 

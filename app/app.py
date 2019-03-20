@@ -467,6 +467,10 @@ def stats():
 def about():
     return render_template('about.html')
 
+@app.route('/howto')
+def howto():
+    return render_template('howto.html')
+
 @app.errorhandler(404)
 @app.errorhandler(500)
 def error(error):
