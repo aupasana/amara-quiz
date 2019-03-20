@@ -320,10 +320,10 @@ def quiz():
                 cur.execute("select id from pada where sloka_number = ? order by id desc limit 1;", [end])
                 id_end = cur.fetchone()[0]
 
-                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.id >= ? and pada.id <= ? order by random() limit 1;", [id_start, id_end])
+                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.id >= ? and pada.id <= ? and is_variant = 0 order by random() limit 1;", [id_start, id_end])
                 rows = cur.fetchall();
             else:
-                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? order by random() limit 1;", [varga])
+                cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and is_variant = 0 order by random() limit 1;", [varga])
                 rows = cur.fetchall();
 
             artha = rows[0]["artha"];
