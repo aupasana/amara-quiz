@@ -17,6 +17,7 @@
       <table class="table table-striped">
         <thead class="thead-dark">
           <tr>
+            <td>kanda</td>
             <td>varga</td>
             <td>slokas</td>
             <td>words</td>
@@ -26,6 +27,7 @@
         <tbody>
           {% for row in stats %}
           <tr>
+            <td>{{row["kanda"]}}</td>
             <td>{{row["varga_transliterated"]}}</td>
             <td>{{row["mula_count"] / 2}}</td>
             <td>{{row["pada_count"]}}</td>
@@ -33,6 +35,7 @@
           </tr>
           {% endfor %}
           <tr>
+            <td/>
             <td>Total</td>
             <td>{{stats | sum(attribute='mula_count') / 2}}</td>
             <td>{{stats | sum(attribute='pada_count')}}</td>

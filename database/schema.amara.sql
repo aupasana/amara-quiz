@@ -7,6 +7,7 @@ GO
 
 CREATE TABLE varga (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
+  kanda INTEGER,
   varga TEXT,
   varga_english TEXT
 );

@@ -1,24 +1,24 @@
-1,स्वर्गवर्गः,heaven
-2,व्योमवर्गः,sky
-3,दिग्वर्गः,direction
-4,कालवर्गः,time
-5,धीवर्गः,cognition
-6,शब्दादिवर्गः,sound
-7,नाट्यवर्गः,drama
-8,पातालभोगिवर्गः,nether world
-9,नरकवर्गः,hell
-10,वारिवर्गः,water
-11,भूमिवर्गः,earth
-12,पुरवर्गः,towns or cities
-13,शैलवर्गः,mountains
-14,वनौषधिवर्गः,forests and medicines
-15,सिंहादिवर्गः,lions and other animals
-16,मनुष्यवर्गः,mankind
-17,ब्रह्मवर्गः,priest tribe
-18,क्षत्रियवर्गः,military tribe
-19,वैश्यवर्गः,business tribe
-20,शूद्रवर्गः,mixed classes
-21,विशेष्यनिघ्नवर्गः,adjective
-22,सङ्कीर्णवर्गः,miscellaneous
-23,नानार्थवर्गः,polysemous
-24,अव्ययवर्गः,indeclinables
+1,1,स्वर्गवर्गः,heaven
+2,1,व्योमवर्गः,sky
+3,1,दिग्वर्गः,direction
+4,1,कालवर्गः,time
+5,1,धीवर्गः,cognition
+6,1,शब्दादिवर्गः,sound
+7,1,नाट्यवर्गः,drama
+8,1,पातालभोगिवर्गः,nether world
+9,1,नरकवर्गः,hell
+10,1,वारिवर्गः,water
+11,2,भूमिवर्गः,earth
+12,2,पुरवर्गः,towns or cities
+13,2,शैलवर्गः,mountains
+14,2,वनौषधिवर्गः,forests and medicines
+15,2,सिंहादिवर्गः,lions and other animals
+16,2,मनुष्यवर्गः,mankind
+17,2,ब्रह्मवर्गः,priest tribe
+18,2,क्षत्रियवर्गः,military tribe
+19,2,वैश्यवर्गः,business tribe
+20,2,शूद्रवर्गः,mixed classes
+21,3,विशेष्यनिघ्नवर्गः,adjective
+22,3,सङ्कीर्णवर्गः,miscellaneous
+23,3,नानार्थवर्गः,polysemous
+24,3,अव्ययवर्गः,indeclinables

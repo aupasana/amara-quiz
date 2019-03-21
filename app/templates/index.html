@@ -111,7 +111,7 @@ $(document).ready(function(){
       <select class="varga-select" id="all_vargas" name="all_vargas" method="GET" action="/">
         <optgroup class="varga-select">
           {% for v in all_vargas_map %}
-          <option class="varga-select" value= "{{v['varga']}}" >{{v['varga_transliterated']}} ({{v['varga_english']}})</option>
+          <option class="varga-select" value= "{{v['varga']}}" >{{v['kanda']}} - {{v['varga_transliterated']}} - {{v['varga_english']}}</option>
           {% endfor %}
         </optgroup>
       </select>

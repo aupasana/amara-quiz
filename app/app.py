@@ -507,11 +507,12 @@ def stats():
 
             # cur.execute("select pada, count(*) c from pada group by pada having count(*) > 1 order by pada;")
             cur.execute("""
-                            select m.varga, m.c mula_count, p.c pada_count, coalesce(v.c, 0) variant_count from
+                            select k.kanda, m.varga, m.c mula_count, p.c pada_count, coalesce(v.c, 0) variant_count from
                                 (select varga, id, count(varga) c from mula group by varga) m
                             inner join
                                 (select varga, id, count(varga) c from pada where is_variant = 0 group by varga order by id) p
                                 on m.varga = p.varga
+                            inner join varga k on m.varga = k.varga
                             left join
                                 (select varga, id, count(varga) c from pada where is_variant = 1 group by varga order by id) v
                                 on m.varga = v.varga
