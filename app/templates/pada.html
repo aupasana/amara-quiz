@@ -7,6 +7,9 @@
       height: 1rem;
       width: 1rem;
     }
+    .answer {
+      display: none;
+    }
 </style>
 {% endblock %}
 
@@ -26,6 +29,17 @@ $(document).ready(function(){
   $("#copy-link").click(function() {
     copyToClipboard();
   });
+
+  {% if quiz %}
+  $("#refresh").click(function() {
+    $('#content-inner').load(window.location.href + ' #content-inner');
+  });
+  $("#toggle-answer").click(function() {
+    $('#question').hide();
+    $('#answer').show();
+  });
+  {% endif %}
+
 });
 </script>
 {% endblock %}
@@ -34,10 +48,26 @@ $(document).ready(function(){
 {% block content %}
 {{super()}}
 
+<div class="container">
+
+  {% if quiz %}
+  <button id="refresh" class="btn btn-secondary" style="width:10rem">new question</button>&nbsp;&nbsp;
+  <button id="toggle-answer" class="btn btn-secondary" style="width:10rem">toggle answer</button><br/><br/>
+  {% endif %}
+
   <div id="content-inner">
+
+  {% if quiz %}
+  <div id="question" class="card bg-light mb-3" style="max-width: 35rem;">
+    <div class="card-body">
+      <h5 class="card-title">Question: {{pada[0]["pada_transliterated"]}}</h5>
+    </div>
+  </div>
+  {% endif %}
+
+  <div id="answer" {% if quiz %}class="answer"{% endif %}>
     {% for row in pada %}
 
-        <div class="container">
             <div class="card bg-light mb-3" style="max-width: 35rem;">
               <div class="card-body">
                 <h5 class="card-title">{{row["pada_transliterated"]}} ({{row["linga_transliterated"]}}) == {{row["artha_transliterated"]}}</h5>
@@ -81,6 +111,7 @@ $(document).ready(function(){
         </div>
 
     {% endfor %}
+    </div>
   </div>
 
 {% endblock %}

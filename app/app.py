@@ -304,6 +304,8 @@ def quiz():
     varga = request.args.get('varga')
     start = request.args.get('start')
     end = request.args.get('end')
+    pada = request.args.get('pada')
+    number = request.args.get('pada_number')
     language = request.cookies.get('amara_language')
 
     try:
@@ -321,22 +323,30 @@ def quiz():
                 id_end = cur.fetchone()[0]
 
                 cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.id >= ? and pada.id <= ? and is_variant = 0 order by random() limit 1;", [id_start, id_end])
-                rows = cur.fetchall();
             else:
                 cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and is_variant = 0 order by random() limit 1;", [varga])
-                rows = cur.fetchall();
 
-            artha = rows[0]["artha"];
-            varga = rows[0]["varga"];
-            cur.execute("select pada from pada where varga = ? and artha = ? order by id", [varga, artha]);
+            question_rows = cur.fetchall();
+            artha = question_rows[0]["artha"];
+            varga = question_rows[0]["varga"];
+
+            cur.execute("select distinct mula.sloka_line, mula.sloka_number, mula.sloka_text, mula.varga from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by mula.sloka_line", [varga, artha]);
+            paryaya_slokas=cur.fetchall();
+
+            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by pada.id", [varga, artha]);
             paryaya = cur.fetchall();
 
-            if start and end:
-                varga = "%s - %s" % (start, end)
-
-            return render_template('quiz.html', rows=rows, paryaya=paryaya, varga=varga)
+            resx = {"paryaya": transliterate_term(language, "पर्यायपदानि")}
+            return render_template('pada.html',
+                pada=question_rows,
+                paryaya=paryaya,
+                paryaya_slokas=paryaya_slokas,
+                varga=varga,
+                resx=resx,
+                quiz=True)
     finally:
         con.close()
+
 
 @app.route('/pada')
 def pada():
