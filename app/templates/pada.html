@@ -52,7 +52,7 @@ $(document).ready(function(){
 
   {% if quiz %}
   <button id="refresh" class="btn btn-secondary" style="width:10rem">new question</button>&nbsp;&nbsp;
-  <button id="toggle-answer" class="btn btn-secondary" style="width:10rem">toggle answer</button><br/><br/>
+  <button id="toggle-answer" class="btn btn-secondary" style="width:10rem">show answer</button><br/><br/>
   {% endif %}
 
   <div id="content-inner">
@@ -73,6 +73,7 @@ $(document).ready(function(){
                 <h5 class="card-title">{{row["pada_transliterated"]}} ({{row["linga_transliterated"]}}) == {{row["artha_transliterated"]}}</h5>
                 <br/>
                 {{row["sloka_text_transliterated"]}}&nbsp;
+                {% if quiz %}<a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>{% endif %}
                 <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
                 <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
                 <img class="search-image" id="copy-link" src="/icons/link.svg"/ clipboard="{{row['sloka_text']}}">
