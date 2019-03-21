@@ -456,11 +456,12 @@ def all_pada():
     padas = []
 
     prefix = request.args.get('prefix')
+    language = request.cookies.get('amara_language')
 
     if prefix:
         try:
             with sql.connect('amara.db') as con:
-                con.row_factory = sql.Row
+                con.row_factory = transliterate_factory_script(language)
                 cur = con.cursor()
 
                 cur.execute("select distinct pada, is_variant, sloka_word from pada where pada like ? order by pada, id;", ["%s%%" % prefix])
