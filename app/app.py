@@ -10,7 +10,7 @@ import sqlite3 as sql
 import re
 
 app = Flask(__name__, static_url_path='', static_folder='static')
-output_scripts = { 'telugu': xsanscript.TELUGU, 'kannada': xsanscript.KANNADA, 'malayalam': xsanscript.MALAYALAM, 'tamil': xsanscript.TAMIL }
+output_scripts = { 'telugu': xsanscript.TELUGU, 'kannada': xsanscript.KANNADA, 'malayalam': xsanscript.MALAYALAM, 'tamil': xsanscript.TAMIL, 'iast': xsanscript.IAST }
 
 columns_transliterate = {
     'varga': 'varga_transliterated',
@@ -63,7 +63,7 @@ Bootstrap(app)
 
 @app.route('/')
 def index():
-    all_languages = ['devanagari', 'telugu', 'kannada', 'malayalam', 'tamil']
+    all_languages = ['devanagari', 'iast', 'telugu', 'kannada', 'malayalam', 'tamil']
 
     language = request.args.get('language')
     if not language:
