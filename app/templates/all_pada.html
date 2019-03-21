@@ -13,7 +13,7 @@
       <h5 class="card-title">आद्यक्षरम्</h5>
       {% for pgroup in prefixes %}
         {% for p in pgroup %}
-          <a href="/all_pada?prefix={{p}}">{{p}}</a> &nbsp;
+          <a href="/all_pada?prefix={{p['prefix']}}">{{p["prefix_transliterated"]}}</a> &nbsp;
         {% endfor%}
           <br/>
       {% endfor%}

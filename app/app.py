@@ -447,16 +447,23 @@ def varga():
 
 @app.route('/all_pada')
 def all_pada():
-    prefixes = [
-        [ 'अ', 'आ', 'इ', 'ई', 'उ', 'ऊ', 'ऋ', 'ॠ', 'ए', 'ऐ', 'ओ', 'औ' ],
-        [ 'क', 'ख', 'ग', 'घ', 'ङ', 'च', 'छ', 'ज', 'झ', 'ञ' ],
-        [ 'ट', 'ठ', 'ड', 'ढ', 'ण', 'त', 'थ', 'द', 'ध', 'न' ],
-        [ 'प', 'फ', 'ब', 'भ', 'म' ],
-        [ 'य', 'र', 'ल', 'व', 'श', 'ष', 'स', 'ह' ] ]
-    padas = []
-
     prefix = request.args.get('prefix')
     language = request.cookies.get('amara_language')
+
+    prefixes = [
+        'अ आ इ ई उ ऊ ऋ ॠ ए ऐ ओ औ',
+        'क ख ग घ ङ च छ ज झ ञ',
+        'ट ठ ड ढ ण त थ द ध न',
+        'प फ ब भ म',
+        'य र ल व श ष स ह' ]
+    padas = []
+
+    prefixes_transliterated = []
+    for row in prefixes:
+        row_transliterated = []
+        for l in row.split(' '):
+            row_transliterated.append({"prefix": l, "prefix_transliterated" : transliterate_term(language, l)})
+        prefixes_transliterated.append(row_transliterated)
 
     if prefix:
         try:
@@ -467,12 +474,12 @@ def all_pada():
                 cur.execute("select distinct pada, is_variant, sloka_word from pada where pada like ? order by pada, id;", ["%s%%" % prefix])
                 padas = cur.fetchall()
 
-                return render_template('all_pada.html', prefixes=prefixes, padas=padas, prefix=prefix)
+                return render_template('all_pada.html', prefixes=prefixes_transliterated, padas=padas, prefix=prefix)
 
         finally:
             con.close()
     else:
-        return render_template('all_pada.html', prefixes=prefixes, padas=[], prefix=prefix)
+        return render_template('all_pada.html', prefixes=prefixes_transliterated, padas=[], prefix=prefix)
 
 @app.route('/dupe_pada')
 def dupe_pada():
