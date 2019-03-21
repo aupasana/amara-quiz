@@ -298,6 +298,33 @@ def sloka():
     finally:
         con.close()
 
+def pada_quiz_common(quiz, cur, pada, padas, language):
+    artha = padas[0]["artha"];
+    varga = padas[0]["varga"];
+
+    cur.execute("select distinct mula.sloka_line, mula.sloka_number, mula.sloka_text, mula.varga from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by mula.sloka_line", [varga, artha]);
+    paryaya_slokas=cur.fetchall();
+
+    cur.execute("select distinct mula.sloka_line, mula.sloka_number, mula.sloka_text, mula.varga from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.pada = ? and pada.artha != ? order by mula.sloka_line", [pada, artha]);
+    not_paryaya_slokas=cur.fetchall();
+
+    cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by pada.id", [varga, artha]);
+    paryaya = cur.fetchall();
+
+    cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.pada = ? and pada.artha != ? order by pada.id", [pada, artha]);
+    not_paryaya = cur.fetchall();
+
+    resx = {"paryaya": transliterate_term(language, "पर्यायपदानि"), "arthantaram": transliterate_term(language, "अर्थान्तरम्")}
+    return render_template('pada.html',
+        pada=padas,
+        paryaya=paryaya,
+        not_paryaya=not_paryaya,
+        paryaya_slokas=paryaya_slokas,
+        not_paryaya_slokas=not_paryaya_slokas,
+        varga=varga,
+        resx=resx,
+        quiz=quiz)
+
 @app.route('/quiz')
 def quiz():
 
@@ -327,23 +354,8 @@ def quiz():
                 cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and is_variant = 0 order by random() limit 1;", [varga])
 
             question_rows = cur.fetchall();
-            artha = question_rows[0]["artha"];
-            varga = question_rows[0]["varga"];
 
-            cur.execute("select distinct mula.sloka_line, mula.sloka_number, mula.sloka_text, mula.varga from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by mula.sloka_line", [varga, artha]);
-            paryaya_slokas=cur.fetchall();
-
-            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by pada.id", [varga, artha]);
-            paryaya = cur.fetchall();
-
-            resx = {"paryaya": transliterate_term(language, "पर्यायपदानि")}
-            return render_template('pada.html',
-                pada=question_rows,
-                paryaya=paryaya,
-                paryaya_slokas=paryaya_slokas,
-                varga=varga,
-                resx=resx,
-                quiz=True)
+            return pada_quiz_common(True, cur, pada, question_rows, language)
     finally:
         con.close()
 
@@ -362,24 +374,10 @@ def pada():
             con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
             cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.sloka_word = ? and pada.pada = ?;", [number, pada])
-            pada = cur.fetchall();
+            pada_rows = cur.fetchall();
 
-            artha = pada[0]["artha"];
-            varga = pada[0]["varga"];
+            return pada_quiz_common(False, cur, pada, pada_rows, language)
 
-            cur.execute("select distinct mula.sloka_line, mula.sloka_number, mula.sloka_text, mula.varga from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by mula.sloka_line", [varga, artha]);
-            paryaya_slokas=cur.fetchall();
-
-            cur.execute("select * from pada inner join mula on pada.sloka_line = mula.sloka_line where pada.varga = ? and pada.artha = ? order by pada.id", [varga, artha]);
-            paryaya = cur.fetchall();
-
-            resx = {"paryaya": transliterate_term(language, "पर्यायपदानि")}
-            return render_template('pada.html',
-                pada=pada,
-                paryaya=paryaya,
-                paryaya_slokas=paryaya_slokas,
-                varga=varga,
-                resx=resx)
     finally:
         con.close()
 
