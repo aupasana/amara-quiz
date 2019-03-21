@@ -483,9 +483,10 @@ def all_pada():
 
 @app.route('/dupe_pada')
 def dupe_pada():
+    language = request.cookies.get('amara_language')
     try:
         with sql.connect('amara.db') as con:
-            con.row_factory = sql.Row
+            con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
 
             # cur.execute("select pada, count(*) c from pada group by pada having count(*) > 1 order by pada;")
