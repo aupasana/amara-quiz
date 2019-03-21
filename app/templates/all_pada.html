@@ -25,7 +25,7 @@
       <div class="card-body answer" id="answer">
         <h5 class="card-title">पदानि that begin with {{prefix}}: {{padas | length}}</h5>
         {% for p in padas %}
-          <a href="pada?pada_number={{p['sloka_word']}}&pada={{p['pada']}}">{{p["pada"]}}</a>
+          <a href="pada?pada_number={{p['sloka_word']}}&pada={{p['pada']}}">{% if p["is_variant"] %}+{% endif %}{{p["pada"]}}</a>
         {% endfor%}
       </div>
     </div>

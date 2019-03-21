@@ -463,7 +463,7 @@ def all_pada():
                 con.row_factory = sql.Row
                 cur = con.cursor()
 
-                cur.execute("select distinct pada, sloka_word from pada where pada like ? order by pada, id;", ["%s%%" % prefix])
+                cur.execute("select distinct pada, is_variant, sloka_word from pada where pada like ? order by pada, id;", ["%s%%" % prefix])
                 padas = cur.fetchall()
 
                 return render_template('all_pada.html', prefixes=prefixes, padas=padas, prefix=prefix)
