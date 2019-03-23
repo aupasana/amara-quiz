@@ -22,6 +22,12 @@
 <div class="container">
   {% set padas_grouped = padas | groupby('pada_transliterated') %}
 
+  <div class="card bg-light mb-3">
+    <div class="card-body">
+      <h5 class="card-title">Words in {{varga}} that have repeated thus far</h5>
+    </div>
+  </div>
+
   {% for entry in padas_grouped %}
     <div class="card bg-light mb-3">
       <div class="card-body">

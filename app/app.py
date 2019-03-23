@@ -538,7 +538,7 @@ def dupe_varga():
 
             padas = cur.fetchall()
 
-            return render_template('dupe_varga.html', padas=padas)
+            return render_template('dupe_varga.html', padas=padas, varga=varga)
 
     finally:
         con.close()
