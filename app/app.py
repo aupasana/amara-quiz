@@ -508,16 +508,22 @@ def dupe_pada():
 def dupe_varga():
     language = request.cookies.get('amara_language')
     varga = request.args.get('varga')
+    all = request.args.get('all')
     try:
         with sql.connect('amara.db') as con:
             con.row_factory = transliterate_factory_script(language)
             cur = con.cursor()
 
+            if all:
+                max_id_varga = 'अव्ययवर्गः'
+            else:
+                max_id_varga = varga
+
             cur.execute("""
                 select varga, min(id) min_id, max(id) max_id from pada
                 where varga= ?
                 group by varga;
-            """, [varga])
+            """, [max_id_varga])
             max_id = cur.fetchone()["max_id"]
 
             cur.execute("""

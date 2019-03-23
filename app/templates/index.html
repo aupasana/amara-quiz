@@ -60,6 +60,10 @@ $(document).ready(function(){
     window.location = "/dupe_varga?varga=" + $('#all_vargas').val();
   });
 
+  $('#vargaDupeAllButton').click(function() {
+    window.location = "/dupe_varga?all=true&varga=" + $('#all_vargas').val();
+  });
+
   $('#searchButton').click(function() {
     window.location = "/search?term=" + $('#searchTerm').val();
   });
@@ -124,7 +128,8 @@ $(document).ready(function(){
       For the varga selected above:<br/>
       <div><img class="search-image" src="icons/varga.svg"/><a href="#" id="vargaButton">View the varga</a></div>
       <div><img class="search-image" src="icons/quiz.svg"/><a href="#" id="quizButton">Generate quizzes</a></div>
-      <div><img class="search-image" src="icons/duplicate.svg"/><a href="#" id="vargaDupeButton">Show all words that have repeated in previous vargas</a></div>
+      <div><img class="search-image" src="icons/duplicate.svg"/><a href="#" id="vargaDupeButton">Show all repeated words (in previous vargas)</a></div>
+      <div><img class="search-image" src="icons/duplicate.svg"/><a href="#" id="vargaDupeAllButton">Show all repeated words (in all vargas)</a></div>
 
     </div>
   </div>
