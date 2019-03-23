@@ -504,6 +504,45 @@ def dupe_pada():
     finally:
         con.close()
 
+@app.route('/dupe_varga')
+def dupe_varga():
+    language = request.cookies.get('amara_language')
+    varga = request.args.get('varga')
+    try:
+        with sql.connect('amara.db') as con:
+            con.row_factory = transliterate_factory_script(language)
+            cur = con.cursor()
+
+            cur.execute("""
+                select varga, min(id) min_id, max(id) max_id from pada
+                where varga= ?
+                group by varga;
+            """, [varga])
+            max_id = cur.fetchone()["max_id"]
+
+            cur.execute("""
+                select p.pada, p.varga, p.artha, p.sloka_number, p.sloka_number, p.varga, m.sloka_text from
+                (
+                  select word.pada from
+                  (select distinct pada from pada where varga= ? and is_variant = 0) varga_word
+                  inner join pada word on word.pada = varga_word.pada
+                  where word.id <= ? and is_variant = 0
+                  group by word.pada
+                  having count(word.pada) > 1
+                ) dupe_word
+                inner join pada p on dupe_word.pada = p.pada
+                inner join mula m on p.sloka_line = m.sloka_line
+                where p.id <= ? and is_variant = 0
+                order by p.pada;
+            """, [varga, max_id, max_id])
+
+            padas = cur.fetchall()
+
+            return render_template('dupe_varga.html', padas=padas)
+
+    finally:
+        con.close()
+
 
 @app.route('/stats')
 def stats():

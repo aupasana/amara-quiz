@@ -56,6 +56,10 @@ $(document).ready(function(){
     window.location = "/varga?varga=" + $('#all_vargas').val();
   });
 
+  $('#vargaDupeButton').click(function() {
+    window.location = "/dupe_varga?varga=" + $('#all_vargas').val();
+  });
+
   $('#searchButton').click(function() {
     window.location = "/search?term=" + $('#searchTerm').val();
   });
@@ -119,6 +123,8 @@ $(document).ready(function(){
       <br/><br/>
       <div><img class="search-image" src="icons/varga.svg"/><a href="#" id="vargaButton">View varga selected above</a></div>
       <div><img class="search-image" src="icons/quiz.svg"/><a href="#" id="quizButton">Generate quizzes for varga selected above</a></div>
+      <div><img class="search-image" src="icons/duplicate.svg"/><a href="#" id="vargaDupeButton">Words with multiple occurences in previous vargas</a></div>
+
     </div>
   </div>
 
