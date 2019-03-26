@@ -28,7 +28,7 @@
     font-size: 1.25rem;
   }
   .audio {
-    margin-top: 1rem;
+    /* margin-top: 1rem; */
   }
 </style>
 {% endblock %}
@@ -57,44 +57,44 @@
     </div>
 </div>
 
+{% for row in pada %}
+<div class="container">
+    <div class="card bg-light mb-3">  <!-- style="width:70rem; max-width:100rem;"> -->
+      <div class="card-body">
+        <!-- <h5 class="card-title"> -->
+          <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image lighten" src="/icons/pada.svg"/></a>
+          <a href="/search?term={{row['pada']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
+          {% if row["is_variant"] == 1%}+{% endif %}{{row["pada_transliterated"]}} ({{row["linga_transliterated"]}})
+ = {{row["artha_transliterated"]}}. {{row["sloka_word"]}}
+          <a href="/search?term={{row['artha']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
+<!-- </h5> -->
+        <p class="card-text">
+          {% if row["artha_english"] %}English: {{row["artha_english"]}}<br/>{% endif %}
+          {% if row["artha_telugu"] and row["artha_telugu"] != row["artha_english"] %}Telugu: {{row["artha_telugu"]}}<br/>{% endif %}
+        </p>
+    </div>
+  </div>
+</div>
+{% endfor %}
+
+
+{% if audio | length > 0 %}
 <div class="container">
     <div class="card bg-light mb-3">  <!-- style="width:70rem; max-width:100rem;"> -->
       <div class="card-body">
         <p class="card-text">
-          <table>
-            {% for row in pada %}
-              <tr>
-                <td>{{row["sloka_word"]}}</td>
-                <td>{{row["linga_transliterated"]}}</td>
-                <td>
-                  <a href="/search?term={{row['pada']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
-                  <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image lighten" src="/icons/pada.svg"/></a>
-                  &nbsp;{% if row["is_variant"] == 1%}+{% endif %}{{row["pada_transliterated"]}}
-                </td>
-                <td>
-                  <a href="/search?term={{row['artha']}}"><img class="search-image lighten" src="/icons/search.svg"/></a>
-                  &nbsp;{{row["artha_transliterated"]}}</td>
-                {% if language == 'telugu' %}
-                  <td>{{row["artha_telugu"]}}</td>
-                {% else %}
-                  <td>{{row["artha_english"]}}</td>
-                {% endif %}
-              </tr>
-            {% endfor %}
-          </table>
-            {% if audio | length > 0 %}
               <div class="audio">
                 Audio: <br/>
                 {% for a in audio %}
                   {{a['sloka_line']}}: <a target="audio" href="https://archive.org/details/aupasana_amara_kosha_audio/{{a['filename']}}?start={{a['seconds']}}">{{a['filename']}} @ {{a['seconds']}} seconds</a>}<br/>
                 {% endfor %}
               </div>
-            {% endif %}
-        </p>
       </div>
     </div>
     <br/>
 </div>
+{% endif %}
+
 
 
 {% endblock %}
