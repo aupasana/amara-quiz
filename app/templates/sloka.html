@@ -59,7 +59,11 @@
 
 {% for row in pada %}
 <div class="container">
+  {% if row["is_variant"] == 1%}
+    <div class="card bg-secondary text-white mb-3">  <!-- style="width:70rem; max-width:100rem;"> -->
+  {% else %}
     <div class="card bg-light mb-3">  <!-- style="width:70rem; max-width:100rem;"> -->
+  {% endif %}
       <div class="card-body">
         <!-- <h5 class="card-title"> -->
           <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image lighten" src="/icons/pada.svg"/></a>
