@@ -70,7 +70,7 @@ $(document).ready(function(){
 
             <div class="card bg-light mb-3" style="max-width: 35rem;">
               <div class="card-body">
-                <h5 class="card-title">{{row["pada_transliterated"]}} ({{row["linga_transliterated"]}}) == {{row["artha_transliterated"]}}</h5>
+                <h5 class="card-title">{% if row["is_variant"] %}+{% endif %}{{row["pada_transliterated"]}} ({{row["linga_transliterated"]}}) == {{row["artha_transliterated"]}}</h5>
                 <br/>
                 {{row["sloka_text_transliterated"]}}&nbsp;
                 {% if quiz %}<a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>{% endif %}
