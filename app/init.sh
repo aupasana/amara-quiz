@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 gunzip amara.db.gz
 gunzip babylon.db.gz
