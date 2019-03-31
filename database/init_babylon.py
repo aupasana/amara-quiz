@@ -8,6 +8,8 @@ import sqlite3 as sql
 from indic_transliteration import sanscript, xsanscript
 from indic_transliteration.sanscript import SchemeMap, SCHEMES, transliterate
 
+entry_number = 1;
+
 def print_entry(cur, babylon_name, entry_number, head, subheads, body):
 
     if not head:
@@ -28,12 +30,11 @@ def print_entry(cur, babylon_name, entry_number, head, subheads, body):
                 sub_word_slp1 = transliterate(stripped_sub_word, xsanscript.DEVANAGARI, xsanscript.SLP1)
                 cur.execute("insert into babylon_word (id, name, word, word_slp1, sub_word, sub_word_slp1) values (?, ?, ?, ?, ?, ?);", [entry_number, babylon_name, stripped_head_word, word_slp1, stripped_sub_word, sub_word_slp1])
 
-dicts = ["ap90.babylon" ];
-# dicts = ["ap90.babylon", "vcp.babylon", "skd.babylon", "mw72.babylon"];
+# dicts = ["ap90.babylon" ];
+dicts = ["ap90.babylon", "vcp.babylon", "skd.babylon", "mw72.babylon"];
 
 for dict in dicts:
     f = io.open("database/babylon/%s" % dict, mode="r", encoding="utf-8")
-    entry_number = 1;
     babylon_name = dict
 
     head = None;

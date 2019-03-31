@@ -16,9 +16,18 @@ CREATE TABLE babylon_word (
   word TEXT NOT NULL,
   word_slp1 TEXT NOT NULL,
   sub_word TEXT,
-  sub_word_slp1 TEXT
+  sub_word_slp1 TEXT,
+  FOREIGN KEY (id) REFERENCES babylon(id),
+  FOREIGN KEY (name) REFERENCES babylon(name)
 );
 GO
 
-CREATE INDEX ix_babylon_word_id ON babylon_word (id);
+-- CREATE INDEX ix_babylon_word_id ON babylon_word (id);
+-- GO
+
+CREATE INDEX ix_babylon_word_slp1 ON babylon_word (word_slp1);
 GO
+
+CREATE INDEX ix_babylon_sub_word_slp1 ON babylon_word (sub_word_slp1);
+GO
+
