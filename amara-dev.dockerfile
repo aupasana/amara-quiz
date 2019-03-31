@@ -14,4 +14,4 @@ EXPOSE 5000
 WORKDIR /data/src/amara-quiz
 
 # docker build -t amara-dev -f amara-dev.dockerfile ~/src/containers/empty_context
-# docker run -it --rm -v ~:/data amara-dev bash
+# docker run -p 8888:5000 -it --rm -v ~:/data amara-dev bash
