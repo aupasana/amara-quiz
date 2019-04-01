@@ -39,10 +39,12 @@ $(document).ready(function(){
   $("#headerSearchTerm").keypress(function() {
     var keycode = (event.keyCode ? event.keyCode : event.which);
       if (event.which == 13 || event.keyCode == 13) {
-        if (!event.shiftKey) {
-          window.location = "/search?term=" + $('#headerSearchTerm').val();
-        } else {
+        if (event.shiftKey) {
           window.location = "/babylon?term=" + $('#headerSearchTerm').val();          
+        } else if (event.ctrlKey) {
+          window.location = "/corpus?term=" + $('#headerSearchTerm').val();
+        } else {
+          window.location = "/search?term=" + $('#headerSearchTerm').val();
         }
         event.preventDefault()
       }
@@ -52,6 +54,9 @@ $(document).ready(function(){
   });
   $('#header-search-apte-button').click(function() {
     window.location = "/babylon?term=" + $('#headerSearchTerm').val();
+  });
+  $('#header-search-corpus-button').click(function() {
+    window.location = "/corpus?term=" + $('#headerSearchTerm').val();
   });
 
   {% if search_box_value %}
@@ -72,6 +77,7 @@ $(document).ready(function(){
         &nbsp;&nbsp;&nbsp;<input type="text" class="headerSearch" id="headerSearchTerm" placeholder="search in itrans / देवनागरी" style="width:15rem;" autofocus></input>&nbsp;&nbsp;&nbsp;
         <a title="search amarakosha" href="#" id="header-search-button"><img class="footer-image" src="/icons/search.svg"/></a>&nbsp;&nbsp;
         <a title="search apte etc" href="#" id="header-search-apte-button"><img class="footer-image" src="/icons/search-apte.svg"/></a>
+        <a title="search corpus" href="#" id="header-search-corpus-button"><img class="footer-image" src="/icons/search-corpus.svg"/></a>
       </div>
     </div>
   </div>
