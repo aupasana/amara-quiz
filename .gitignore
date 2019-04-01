@@ -3,3 +3,10 @@
 **/.DS_Store
 jnu/*
 **/*.babylon
+.vscode/* 
+
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
