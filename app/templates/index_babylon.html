@@ -31,6 +31,10 @@ $(document).ready(function(){
     window.location = "/babylon?term=" + $('#searchTerm').val();
   });
 
+  $('#searchCorpus').click(function() {
+    window.location = "/corpus?term=" + $('#searchCorpusTerm').val();
+  });
+
   $("#searchTerm").keypress(function() {
     var keycode = (event.keyCode ? event.keyCode : event.which);
       if (event.which == 13 || event.keyCode == 13) {
@@ -38,6 +42,15 @@ $(document).ready(function(){
           event.preventDefault()
       }
    });
+
+   $("#searchCorpusTerm").keypress(function() {
+    var keycode = (event.keyCode ? event.keyCode : event.which);
+      if (event.which == 13 || event.keyCode == 13) {
+        window.location = "/corpus?term=" + $('#searchCorpusTerm').val();
+          event.preventDefault()
+      }
+   });
+
 });
 </script>
 {% endblock %}
@@ -51,37 +64,42 @@ $(document).ready(function(){
 
     <!-- search -->
     <div class="index-section col-md">
-      <br/>
-
-      Search the following dictionaries:
-      
-      <ul>
-        <li>Apte sanskrit-english dictionary</li>
-        <li>शब्दकल्पद्रुम sanskrit-sanskrit dictionary</li>
-        <li>वाचस्पत्यम् sanskrit-sanskrit dictionary</li>
-        <li>Monier-Williams dictionary</li>
-      </ul>
-
-      <br/>Note: To search for compound words in the Apte dictionary -- such as सहस्राक्ष, search as सहस्र-अक्ष.
-      <br/><br/>
-
+      <h5> Search other dictionaries</h5>
       <div>
-        <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>&nbsp;&nbsp;&nbsp;
+          This searches the Apte, शब्दकल्पद्रुम, वाचस्पत्यम् and Monier-Williams dictionaries.<br/><br/>
+          <input type="text" class="search-term" id="searchTerm" placeholder="सम्पद् sampad"></input>&nbsp;&nbsp;&nbsp;
         <a href="#" id="searchButton"><img class="search-image" src="icons/search.svg"/></a>
       </div><br/>
 
-      <div>
-        <br/>Examples: "सहस्र*", "सहस्र--अक्ष", "sahasra--akSha"
-      </div>
     </div>
 
   </div>
+  <br/>
 
   <div class="row">
+    <!-- search -->
+    <div class="index-section col-md">
+        <h5>Search the digital corpus of sanskrit</h5>
+        <div>
+        <input type="text" class="search-term" id="searchCorpusTerm" placeholder="Search sanskrit corpus"></input>&nbsp;&nbsp;&nbsp;
+        <a href="#" id="searchCorpus"><img class="search-image" src="icons/search.svg"/></a>
+      </div><br/>
+    </div>
+  </div>
 
+  <div class="row">
+      <!-- search -->
+      <div class="index-section col-md">
+          <h5>Links</h5>
+
+          <ul>
+            <li><a href="https://www.sanskrit-lexicon.uni-koeln.de/">Cologne Digital Sanskrit Dictionaries</a></li>
+          </ul>
+      </div>
+    </div>
+  
 
 </div>
-
 {% endblock %}
 
 {% block footer %}

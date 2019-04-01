@@ -257,6 +257,15 @@ def babylon_english():
     finally:
         con.close()
 
+@app.route('/corpus')
+def corpus():
+
+    term = request.args.get('term')
+    term_script = detect.detect(term).lower()
+    term_iast = transliterate(term, term_script, xsanscript.IAST)
+    corpus_url = 'http://kjc-sv013.kjc.uni-heidelberg.de/dcs/index.php?contents=abfrage&word=%s&query_type=1&sort_by=alpha' % term_iast 
+    return redirect(corpus_url, 302)
+
 @app.route('/sloka')
 def sloka():
 
