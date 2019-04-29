@@ -32,6 +32,7 @@ This amara kosha application has the following capabilities
   - Verify that the databases built correctly (`ls -la database/*.db`)
   - Run locally (`./scripts/dev_local.sh`)
 - In the host, open a browser and navigate to `http://localhost:8888`
+- Make changes on the host, and re-run the app from the container `cd app && python3 app.py`
 
 ## Build images
 
