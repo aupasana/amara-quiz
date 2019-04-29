@@ -23,6 +23,7 @@ This amara kosha application has the following capabilities
 ## Local development (via docker)
 
 - Clone this repo with sub-modules (`git clone --recurse-submodules https://github.com/aupasana/amara-quiz.git`)
+  - If you cloned the main repo earlier, run `git submodule update --init --recursive`
 - Build a dev container (`docker build -t amara-dev -f amara-dev.dockerfile scripts`)
 - Run the dev container (`docker run -p 8888:5000 -it --rm -v $(PWD):/host amara-dev bash`)
 - In the dev container, go to the local sources (`cd /host`)
