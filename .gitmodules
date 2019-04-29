@@ -1,0 +1,4 @@
+[submodule "database/cologne-stardict"]
+	path = database/cologne-stardict
+	url = https://github.com/sanskrit-lexicon/cologne-stardict.git
+	branch = master
