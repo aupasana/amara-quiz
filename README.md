@@ -20,10 +20,21 @@ This amara kosha application has the following capabilities
 - docker run -p 8888:5000 [aupasana/amara-quiz]           // Replace [] as appropriate
 - browse to http://localhost:8888
 
-## Building locally
+## Local development (via docker)
 
-- Clone this repo
-- database/init_db.sh                                     // Requires sqlite3 and perl
-- docker build -t [aupasana/amara-quiz] .                 // Replace [] as appropriate
-- docker run -p 8888:5000 [aupasana/amara-quiz]           // Replace [] as appropriate
-- browse to http://localhost:8888
+- Clone this repo with sub-modules (`git clone --recurse-submodules https://github.com/aupasana/amara-quiz.git`)
+  - If you cloned the main repo earlier, run `git submodule update --init --recursive`
+- Build a dev container (`docker build -t amara-dev -f amara-dev.dockerfile scripts`)
+- Run the dev container (`docker run -p 8888:5000 -it --rm -v $(PWD):/host amara-dev bash`)
+- In the dev container:
+  - Go to the local sources (`cd /host`)
+  - Build the databases (`./database/init_db_all.sh`)
+  - Verify that the databases built correctly (`ls -la database/*.db`)
+  - Run locally (`./scripts/dev_local.sh`)
+- In the host, open a browser and navigate to `http://localhost:8888`
+- Make changes on the host, and re-run the app from the container `cd app && python3 app.py`
+
+## Build images
+
+- Build the database image (`cd data_babylon && docker build -t aupasana/amara-babylon . && cd ..`)
+- Build / test the app image (`scripts/docker_build_run.sh`)

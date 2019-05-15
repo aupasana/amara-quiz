@@ -34,7 +34,7 @@ def print_entry(cur, babylon_name, entry_number, head, subheads, body):
 dicts = ["ap90.babylon", "vcp.babylon", "skd.babylon", "mw72.babylon"];
 
 for dict in dicts:
-    f = io.open("database/babylon/%s" % dict, mode="r", encoding="utf-8")
+    f = io.open("database/cologne-stardict/output/%s" % dict, mode="r", encoding="utf-8")
     babylon_name = dict
 
     head = None;
