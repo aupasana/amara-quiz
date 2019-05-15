@@ -266,6 +266,24 @@ def corpus():
     corpus_url = 'http://kjc-sv013.kjc.uni-heidelberg.de/dcs/index.php?contents=abfrage&word=%s&query_type=1&sort_by=alpha' % term_iast 
     return redirect(corpus_url, 302)
 
+@app.route('/sandesha')
+def sandesha():
+
+    term = request.args.get('term')
+    term_script = detect.detect(term).lower()
+    term_dev = transliterate(term, term_script, xsanscript.DEVANAGARI)
+    corpus_url = 'https://sambhashanasandesha.in/articles/search?fullText.text=%s&submit=अन्विष्यताम्' % term_dev 
+    return redirect(corpus_url, 302)
+
+@app.route('/sarit')
+def sarit():
+
+    term = request.args.get('term')
+    term_script = detect.detect(term).lower()
+    term_dev = transliterate(term, term_script, xsanscript.DEVANAGARI)
+    corpus_url = 'http://sarit.indology.info/search.html?query=%s&field=text&tei-target=tei-text&work-authors=all&display=kwic' % term_dev 
+    return redirect(corpus_url, 302)
+
 @app.route('/sloka')
 def sloka():
 
