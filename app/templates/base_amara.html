@@ -57,6 +57,8 @@ $(document).ready(function(){
     var term = $('#headerSearchTerm').val();
     if (type == 'amara') {
       window.location = "/search?term=" + term;
+    } else if (type == 'pandanus') {
+      window.location = "http://iu.ff.cuni.cz/pandanus/electronictexts/";
     } else {
       window.location = "/" + type + "?term=" + term;
     }
@@ -87,6 +89,7 @@ $(document).ready(function(){
             <option class="search-select" value= "sandesha" >sambhashana sandesha</option>
             <option class="search-select" value= "corpus" >digital corpus</option>
             <option class="search-select" value= "sarit" >SARIT</option>
+            <option class="search-select" value= "pandanus" >Pandanus</option>
           </optgroup>
         </select>
   
