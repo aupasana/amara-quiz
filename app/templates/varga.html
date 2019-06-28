@@ -53,9 +53,9 @@
           <div>
             {{row['sloka_line']}}
             <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="sloka-image" src="/icons/sloka.svg"/></a>
-            {% if row['audio_filename'] %}
+            <!-- {% if row['audio_filename'] %}
               <a target="audio" href="https://archive.org/details/aupasana_amara_kosha_audio/{{row['audio_filename']}}?start={{row['audio_seconds']}}"><img class="sloka-image" src="/icons/audio.svg"/></a>
-            {% endif %}
+            {% endif %} -->
           </div>
         </div>
     {% endfor %}
