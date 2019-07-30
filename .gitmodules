@@ -2,3 +2,6 @@
 	path = database/cologne-stardict
 	url = https://github.com/sanskrit-lexicon/cologne-stardict.git
 	branch = master
+[submodule "database/kosha"]
+	path = database/kosha
+	url = https://github.com/sanskrit-kosha/kosha
