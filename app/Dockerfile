@@ -10,8 +10,9 @@ RUN apk add --no-cache --virtual .build-deps gcc musl-dev && \
 # copy files -- static files first
 COPY --from=builder-babylon /data/babylon.db.gz .
 COPY static/ /static/
-COPY amara.db.gz /
+COPY rupavali_shabda.db.gz /
 COPY koshas_mulam.db.gz /
+COPY amara.db.gz /
 COPY templates/ /templates/
 COPY app.py /
 
