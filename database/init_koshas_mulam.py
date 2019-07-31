@@ -30,16 +30,21 @@ for fname in Path('database/kosha').glob('**/*.txt'):
         for line in f:
             line_stripped = line.strip('\n')
 
+            metadata = 0
+
             if re.match(r'^\uFEFF*;', line_stripped):
-                continue
-            else:
-                line_slp1 = transliterate(line_stripped, xsanscript.DEVANAGARI, xsanscript.SLP1)
+                metadata = 1
 
-                cur.execute("insert into koshas_mulam_line (kosha_name, line_id, text_slp1, text_line) values (?, ?, ?, ?);", [fname_string, line_number, line_slp1, line_stripped])
+            if len(line_stripped) == 0 or line_stripped[0] == '$' or line_stripped[0] == '$':
+                metadata = 1
+            
+            line_slp1 = transliterate(line_stripped, xsanscript.DEVANAGARI, xsanscript.SLP1)
 
-                # print ("%s,%d,%s,%s" % (fname, line_number, line_slp1, line_stripped) )
-                # print (fname, line_number, line_slp1)
-                print('.', end='')
+            cur.execute("insert into koshas_mulam_line (kosha_name, is_metadata, line_id, text_slp1, text_line) values (?, ?, ?, ?, ?);", [fname_string, metadata, line_number, line_slp1, line_stripped])
 
-                line_number = line_number + 1
+            # print ("%s,%d,%s,%s" % (fname, line_number, line_slp1, line_stripped) )
+            # print (fname, line_number, line_slp1)
+            print('.', end='')
+
+            line_number = line_number + 1
 

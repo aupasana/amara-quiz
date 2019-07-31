@@ -54,7 +54,7 @@
     <h5> Search koshas: {{search_box_value}}. Page {{page}}</h5>
     <br/>
 
-      {% for row in rows %}
+      {% for r in rows_context %}
 
         <div class="card bg-light mb-3">
           <div class="card-body">
@@ -62,8 +62,15 @@
               <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>
             </h5>
             <p class="card-text">
-              Source: {{row["kosha_name"]}} {{row["line_id"]}}<p/>
-              {{row["text_line"] | safe}}
+              {{r["main"]["kosha_name"]}}. Line {{r["main"]["line_id"]}}<p/>
+
+              {% for c in r["context"] %}
+                {% if c["line_id"] == r["main"]["line_id"] %}
+                  <span class="highlight">{{c["text_line"]}}</span><br/>
+                {% else %}
+                  <span>{{c["text_line"]}}</span><br/>
+                {% endif %}
+              {% endfor %}
             </p>
           </div>
         </div>

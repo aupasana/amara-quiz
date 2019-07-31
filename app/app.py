@@ -282,12 +282,24 @@ def kosha_mulam():
             cur = con.cursor()
             cur.execute('PRAGMA case_sensitive_like = ON')
 
-            cur.execute("select distinct k.kosha_name, k.line_id, k.text_slp1, k.text_line from koshas_mulam_line k where k.text_slp1 like ? order by k.kosha_name, k.line_id limit ? offset ?;",
-            [term_wild, limit, offset])
-
+            cur.execute("select distinct k.kosha_name, k.line_id, k.text_slp1, k.text_line from koshas_mulam_line k where k.text_slp1 like ? and k.is_metadata = 0 order by k.kosha_name, k.line_id limit ? offset ?;",
+                [term_wild, limit, offset])
             rows = cur.fetchall()
 
-            return render_template('kosha_mulam.html', rows=rows, user_term=term, term=term, page=page, search_box_value=term, route='/kosha_mulam')
+            rows_context = []
+
+            for r in rows:
+                cur.execute("select distinct k.kosha_name, k.line_id, k.text_slp1, k.text_line from koshas_mulam_line k where k.kosha_name = ? and k.line_id >= ? and k.line_id <= ? order by k.line_id;",
+                [r['kosha_name'], r['line_id'] - 5, r['line_id'] + 5])
+                context = cur.fetchall()
+
+            
+                rows_context.append({
+                    'main': r,
+                    'context': context
+                })
+
+            return render_template('kosha_mulam.html', rows=rows, rows_context=rows_context, user_term=term, term=term, page=page, search_box_value=term, route='/kosha_mulam')
     finally:
         con.close()
 
