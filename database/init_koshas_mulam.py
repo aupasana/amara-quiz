@@ -14,6 +14,7 @@ for fname in Path('database/kosha').glob('**/*.txt'):
     f = io.open(fname, mode="r", encoding="utf-8")
 
     fname_string = "%s" % fname
+    fname_string = fname_string[len("database/kosha/"):]
 
     if re.match(".*scripts.*", fname_string):
         continue

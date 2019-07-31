@@ -45,7 +45,7 @@ $(document).ready(function(){
         if (event.shiftKey) {
           window.location = "/babylon?term=" + $('#headerSearchTerm').val();          
         } else if (event.ctrlKey) {
-          window.location = "/corpus?term=" + $('#headerSearchTerm').val();
+          window.location = "/kosha_mulam?term=" + $('#headerSearchTerm').val();
         } else {
           window.location = "/search?term=" + $('#headerSearchTerm').val();
         }
@@ -85,6 +85,7 @@ $(document).ready(function(){
         <select class="search-select" id="all-search-select" name="all-search-select" method="GET" action="/">
           <optgroup class="search-select">
             <option class="search-select" value= "amara" >amara</option>
+            <option class="search-select" value= "kosha_mulam" >other koshas</option>
             <option class="search-select" value= "babylon" >apte etc</option>
             <option class="search-select" value= "sandesha" >sambhashana sandesha</option>
             <option class="search-select" value= "corpus" >digital corpus</option>
