@@ -299,7 +299,35 @@ def kosha_mulam():
                     'context': context
                 })
 
-            return render_template('kosha_mulam.html', rows=rows, rows_context=rows_context, user_term=term, term=term, page=page, search_box_value=term, route='/kosha_mulam')
+            return render_template('kosha_mulam.html', rows=rows, rows_context=rows_context, user_term=user_term, term=term, page=page, search_box_value=user_term, route='/kosha_mulam')
+    finally:
+        con.close()
+
+@app.route('/shabda_rupavali')
+def shabda_rupavali():
+
+    user_term = request.args.get('term')
+    term = user_term
+
+    term_script = detect.detect(term).lower()
+    term = transliterate(term, term_script, xsanscript.SLP1)
+    term_ending = term[len(term)-1]
+
+    try:
+        with sql.connect('rupavali_shabda.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+            cur.execute('PRAGMA case_sensitive_like = ON')
+
+            if (not user_term == None) and len(user_term) > 0:
+                cur.execute("select distinct r.anta, r.linga, r.pratipadika, r.category, r.rupavali from rupavali_shabda r where r.anta_last_slp1 = ? order by id;",
+                    [term_ending])
+            else:
+                cur.execute("select distinct r.anta, r.linga, r.pratipadika, r.category, r.rupavali from rupavali_shabda r order by id;")
+
+            rows = cur.fetchall()
+
+            return render_template('rupavali_shabda.html', rows=rows, user_term=user_term, term=term, search_box_value=user_term, route='/shabda_rupavali')
     finally:
         con.close()
 

@@ -1,0 +1,54 @@
+{% extends "base_amara.html" %}
+
+{% block styles %}
+{{super()}}
+<style type="text/css">
+  .result-number {
+    display: inline-block;
+    width: 4rem;
+  }
+  .highlight {
+    background-color: yellow;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+{{super()}}
+
+<div class="container">
+
+  <div id="content-inner">
+
+    <br/>
+    <h5> Rupavali: {{search_box_value}}</h5>
+    <br/>
+
+      {% for r in rows %}
+
+        <div class="card bg-light mb-3">
+          <div class="card-body">
+            <h5 class="card-title">
+                <span class="result-number">{{loop.index}}</span>
+                {{r.pratipadika}} {{r.linga}} {{r.anta}}
+            </h5>
+            <p class="card-text">
+                <pre>
+                    {{r.rupavali}}
+                  </pre>
+                </p>
+          </div>
+        </div>
+        <br/>
+
+      {% endfor %}
+
+  </div>
+
+  <br/><br/>
+
+</div>
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
