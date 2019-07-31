@@ -251,9 +251,43 @@ def babylon_english():
             cur.execute("select distinct b.id, b.name, b.head, b.body from babylon b where b.body like ? order by b.id limit ? offset ?;",
             [term, limit, offset])
 
-            rows = cur.fetchall();
+            rows = cur.fetchall()
 
             return render_template('babylon.html', rows=rows, user_term=term, term=term, page=page, search_box_value=term, route='/babylon-english')
+    finally:
+        con.close()
+
+@app.route('/kosha_mulam')
+def kosha_mulam():
+
+    limit = 10
+    offset = 0
+
+    user_term = request.args.get('term')
+    page = request.args.get('page')
+    term = user_term
+
+    term_script = detect.detect(term).lower()
+    term = transliterate(term, term_script, xsanscript.SLP1)
+    term_wild = "%" + term + "%"
+
+    if not page:
+        page = 1
+
+    offset = limit*(int(page) - 1)
+
+    try:
+        with sql.connect('koshas_mulam.db') as con:
+            con.row_factory = sql.Row
+            cur = con.cursor()
+            cur.execute('PRAGMA case_sensitive_like = ON')
+
+            cur.execute("select distinct k.kosha_name, k.line_id, k.text_slp1, k.text_line from koshas_mulam_line k where k.text_slp1 like ? order by k.line_id limit ? offset ?;",
+            [term_wild, limit, offset])
+
+            rows = cur.fetchall()
+
+            return render_template('koshas_mulam.html', rows=rows, user_term=term, term=term, page=page, search_box_value=term, route='/koshas_mulam')
     finally:
         con.close()
 
