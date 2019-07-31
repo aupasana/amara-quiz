@@ -1,0 +1,1 @@
+docker run -p 8888:5000 -it --rm -v $(PWD):/host amara-dev bash
