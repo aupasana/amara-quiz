@@ -51,7 +51,7 @@
   <div id="content-inner">
 
     <br/>
-    <h5> Search koshas: {{search_box_value}}. Page {{page}}</h5>
+    <h5> Search <a href="https://github.com/sanskrit-kosha/kosha">other koshas</a>: {{search_box_value}}. Page {{page}}</h5>
     <br/>
 
       {% for r in rows_context %}
@@ -62,7 +62,8 @@
               <span class="result-number">{{((page | int) - 1) * 10 + loop.index}}</span>
             </h5>
             <p class="card-text">
-              {{r["main"]["kosha_name"]}}. Line {{r["main"]["line_id"]}}<p/>
+              {% set kosha_link = "https://github.com/sanskrit-kosha/kosha/tree/master/" ~ r["main"]["kosha_name"] %}
+              <a href="{{kosha_link}}">{{r["main"]["kosha_name"]}}</a>. Line {{r["main"]["line_id"]}}<p/>
 
               {% for c in r["context"] %}
                 {% if c["line_id"] == r["main"]["line_id"] %}
