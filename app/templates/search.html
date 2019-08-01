@@ -80,7 +80,10 @@
               <a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>
             </h5>
             <p class="card-text">
-                <span class="amara-quote">{{row["sloka_text_transliterated"]}}</span> <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a><br/>
+                {% autoescape false %}
+                <span class="amara-quote">{{row["sloka_text_transliterated"] | mulam_gender_to_html }}</span>
+                {% endautoescape %}    
+                <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a><br/>
                 {{row["varga_transliterated"]}} {{row["sloka_word"]}} <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a><br/>
                 {{resx["artha"]}} - {{row["artha_transliterated"]}} <a href="/search?term={{row['artha']}}"><img class="search-image" src="/icons/search.svg"/></a>
                 {% if row["artha_english"] | length %}<br/>{{row["artha_english"]}}{% endif %}
