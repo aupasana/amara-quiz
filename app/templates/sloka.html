@@ -30,6 +30,22 @@
   .audio {
     /* margin-top: 1rem; */
   }
+  .term-seperator {
+    color: darkslategray;
+    padding-left: 5px;
+    padding-right: 5px;
+    opacity: 0.2;
+  }
+  .padam-gender-m, .padam-gender-mf {
+    color: darkblue;
+  }
+  .padam-gender-f, .padam-gender-fm {
+    color: darkred;
+  }
+  .padam-gender-n {
+    color: darkgreen;
+  }
+
 </style>
 {% endblock %}
 
@@ -50,7 +66,10 @@
         <a href="/varga?varga={{varga}}#{{sloka_number}}"><img class="sloka-image" src="/icons/varga.svg"/></a></h5>
         <p class="card-text sloka">
           {% for row in mula %}
-            {{row["sloka_text_transliterated"]}}<br/>
+            {% autoescape false %}
+            {{row["sloka_text_transliterated"] | mulam_gender_to_html }}<br/>
+            {% endautoescape %}
+
           {% endfor %}
         </p>
       </div>

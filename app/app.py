@@ -9,6 +9,7 @@ import random
 import sqlite3 as sql
 import re
 
+
 app = Flask(__name__, static_url_path='', static_folder='static')
 output_scripts = { 'telugu': xsanscript.TELUGU, 'kannada': xsanscript.KANNADA, 'malayalam': xsanscript.MALAYALAM, 'tamil': xsanscript.TAMIL, 'iast': xsanscript.IAST }
 
@@ -60,6 +61,18 @@ def transliterate_factory_script(language):
     return t
 
 Bootstrap(app)
+
+
+@app.template_filter()
+def mulam_gender_to_html(text):
+    out = text.replace("/", '<span class="term-seperator">/</span>')
+    out = re.sub("\[([^]]*)\]*\{([^}]*)\}",
+       r'<span class="padam-gender-\2">\1</span><sup class="sup-gender">\2</sup>',
+       out)
+    out = out.replace ("।", "")
+    out = out.replace ("॥", "")
+
+    return out
 
 @app.route('/')
 def index():

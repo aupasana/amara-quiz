@@ -10,6 +10,12 @@
     .answer {
       display: none;
     }
+    .term-seperator {
+      color: darkslategray;
+      padding-left: 5px;
+      padding-right: 5px;
+      opacity: 0.2;
+    }  
 </style>
 {% endblock %}
 
@@ -72,7 +78,10 @@ $(document).ready(function(){
               <div class="card-body">
                 <h5 class="card-title">{% if row["is_variant"] %}+{% endif %}{{row["pada_transliterated"]}} ({{row["linga_transliterated"]}}) == {{row["artha_transliterated"]}}</h5>
                 <br/>
-                {{row["sloka_text_transliterated"]}}&nbsp;
+                {% autoescape false %}
+                {{row["sloka_text_transliterated"] | mulam_gender_to_html }}&nbsp;
+                {% endautoescape %}
+
                 {% if quiz %}<a href="/pada?pada_number={{row['sloka_word']}}&pada={{row['pada']}}"><img class="search-image" src="/icons/pada.svg"/></a>{% endif %}
                 <a href="/sloka?sloka_number={{row['sloka_number']}}"><img class="search-image" src="/icons/sloka.svg"/></a>
                 <a href="/varga?varga={{row['varga']}}#{{row['sloka_number']}}"><img class="search-image" src="/icons/varga.svg"/></a>
